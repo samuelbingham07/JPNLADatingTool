@@ -1,0 +1,186 @@
+{
+  "_schema_notes": {
+    "type_hard_bound": "Eliminates impossible date ranges entirely. Model output is clipped to these bounds regardless of confidence.",
+    "type_soft_anchor": "Boosts probability toward a likely range but does not eliminate others. Used when exceptions exist.",
+    "confidence": "high = very few exceptions, medium = common rule with notable exceptions, low = weak signal or many exceptions",
+    "earliest": "No earlier than this year (inclusive)",
+    "latest": "No later than this year (inclusive)",
+    "likely_start": "Start of the boosted probability range",
+    "likely_end": "End of the boosted probability range"
+  },
+
+  "country_of_origin": {
+
+    "China": {
+      "type": "hard_bound",
+      "earliest": 1995,
+      "confidence": "high",
+      "notes": "US-China trade normalization and manufacturing shift. Pre-1995 Chinese production for US market is essentially nonexistent in vintage clothing."
+    },
+
+    "Hong Kong": {
+      "type": "soft_anchor",
+      "likely_start": 1980,
+      "likely_end": 2000,
+      "confidence": "high",
+      "notes": "Peak Hong Kong garment export era. HK handover to China in 1997 began a manufacturing shift. Hard outer bound: HK as a distinct manufacturing origin largely disappears post-2000."
+    },
+
+    "Korea": {
+      "type": "soft_anchor",
+      "likely_start": 1980,
+      "likely_end": 2000,
+      "confidence": "high",
+      "notes": "South Korea was a major US garment supplier during this window. Rising labor costs pushed production out by the late 1990s."
+    },
+
+    "Taiwan": {
+      "type": "soft_anchor",
+      "likely_start": 1980,
+      "likely_end": 2000,
+      "confidence": "high",
+      "notes": "Same manufacturing era as Korea and HK. Taiwan's garment export to the US peaked in the 1980s-90s."
+    },
+
+    "USA": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 2005,
+      "confidence": "medium",
+      "notes": "Domestic US production declined sharply through the 1990s-2000s due to NAFTA and trade liberalization. Post-2005 Made in USA is almost exclusively small indie or heritage brands whose identity is domestic production — these are exceptions, not the norm. A Made in USA label on a mass-market garment strongly suggests pre-2000."
+    },
+
+    "Mexico": {
+      "type": "soft_anchor",
+      "likely_start": 2000,
+      "likely_end": 2010,
+      "confidence": "medium",
+      "notes": "NAFTA (1994) drove a significant wave of US production shifting to Mexico. Most Mexican-made American-market garments cluster in the late 1990s-2000s window."
+    },
+
+    "El Salvador": {
+      "type": "soft_anchor",
+      "likely_start": 1995,
+      "likely_end": 2015,
+      "confidence": "low",
+      "notes": "Central American garment production for US market grew post-NAFTA era. Weaker signal than Mexico — use in combination with other tells."
+    },
+
+    "Honduras": {
+      "type": "soft_anchor",
+      "likely_start": 1995,
+      "likely_end": 2015,
+      "confidence": "low",
+      "notes": "Same window as El Salvador. Central American production bloc."
+    },
+
+    "Guatemala": {
+      "type": "soft_anchor",
+      "likely_start": 1995,
+      "likely_end": 2015,
+      "confidence": "low",
+      "notes": "Same window as El Salvador and Honduras."
+    },
+
+    "Bangladesh": {
+      "type": "soft_anchor",
+      "likely_start": 1990,
+      "likely_end": 2030,
+      "confidence": "medium",
+      "notes": "Bangladesh became a dominant low-cost garment exporter in the 1990s onward. Presence suggests post-1990 but is not a tight anchor."
+    },
+
+    "West Germany": {
+      "type": "hard_bound",
+      "latest": 1990,
+      "confidence": "high",
+      "notes": "West Germany ceased to exist as a political entity upon reunification in October 1990. Any garment labeled West Germany predates this."
+    },
+
+    "East Germany": {
+      "type": "hard_bound",
+      "latest": 1990,
+      "confidence": "high",
+      "notes": "Same reunification hard bound as West Germany."
+    },
+
+    "USSR": {
+      "type": "hard_bound",
+      "latest": 1991,
+      "confidence": "high",
+      "notes": "Soviet Union dissolved December 1991."
+    },
+
+    "Yugoslavia": {
+      "type": "hard_bound",
+      "latest": 1992,
+      "confidence": "high",
+      "notes": "Yugoslavia dissolved in 1991-1992."
+    }
+
+  },
+
+  "care_label": {
+
+    "absent": {
+      "type": "hard_bound",
+      "latest": 1971,
+      "confidence": "high",
+      "notes": "FTC Care Labeling Rule took effect July 3, 1971. All garments sold in the US after this date were required to include permanent care instructions. Absence of a care label is a hard ceiling of 1971."
+    },
+
+    "present": {
+      "type": "hard_bound",
+      "earliest": 1971,
+      "confidence": "high",
+      "notes": "Presence of a care label does not itself date the garment beyond post-1971, but eliminates pre-1971."
+    }
+
+  },
+
+  "fiber_content_label": {
+
+    "absent": {
+      "type": "hard_bound",
+      "latest": 1960,
+      "confidence": "high",
+      "notes": "Textile Fiber Products Identification Act passed 1960, effective 1960. Required fiber content disclosure on all textile products sold in the US."
+    }
+
+  },
+
+  "tag_construction": {
+
+    "screenprinted_collar": {
+      "type": "soft_anchor",
+      "likely_start": 2005,
+      "likely_end": 2030,
+      "confidence": "high",
+      "notes": "A brand identifier screenprinted or heat-transferred directly onto the inside back collar (no physical tag) is almost exclusively a post-2005 practice. Driven by cost reduction and comfort trends in the mid-2000s fast fashion era. Seeing this on a garment is a strong signal it is not vintage in the traditional sense."
+    },
+
+    "woven_tag": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 2010,
+      "confidence": "low",
+      "notes": "Woven tags were standard across most of the 20th century. Presence alone is not a strong dating signal but is consistent with pre-2005 production."
+    },
+
+    "paper_tag": {
+      "type": "soft_anchor",
+      "likely_start": 1940,
+      "likely_end": 1970,
+      "confidence": "medium",
+      "notes": "Paper hang tags and paper inner labels were more common in mid-century production. Placeholder — tag material dating is nuanced and should be refined with more specific examples."
+    },
+
+    "_todo": "Tag shape, font style, and fabric/material of the physical tag are meaningful signals but require visual classification rather than rule-based treatment. These will be handled by the model's visual features, not this rules engine. Document specific examples here as they are identified during labeling."
+
+  },
+
+  "rn_number": {
+    "_note": "RN (Registered Number) and WPL (Wool Products Label) numbers are traceable to specific companies and registration dates via the FTC database. A garment cannot predate the registration year of its RN number. This is a hard bound — implement RN lookup as a separate module against the FTC registry."
+  }
+
+}
