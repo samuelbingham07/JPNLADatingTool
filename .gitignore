@@ -1,0 +1,14 @@
+# Large scraped data - back up separately, not to GitHub
+data/raw/
+
+# Secrets
+scraper/ebay_keys.json
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Local editor/assistant settings
+.claude/settings.local.json

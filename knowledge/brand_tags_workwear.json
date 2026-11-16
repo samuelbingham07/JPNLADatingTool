@@ -1,0 +1,290 @@
+{
+  "_schema_notes": {
+    "purpose": "Workwear and utility brand dating signals. Brands that produced overalls, chore coats, work pants, coveralls, and related garments for the American labor market.",
+    "confidence": "high = well-documented. medium = generally accepted ±2-3 years. low = rough estimate."
+  },
+
+  "Carhartt": {
+    "official_name": "Carhartt Inc.",
+    "founded": 1889,
+    "still_active": true,
+    "notes": "Founded by Hamilton Carhartt in Detroit, 1889, starting with two sewing machines. First product: bib overalls for railroad workers. Merged with Headlight Overalls and W.M. Finck and Company in 1965-1966. Current logo debuted 1966.",
+    "signals": {
+      "pre_1900_no_name_label": {
+        "description": "Label focused on union-made status and product offerings, no brand name",
+        "type": "hard_bound",
+        "earliest": 1889,
+        "latest": 1900,
+        "confidence": "medium",
+        "notes": "Earliest Carhartt labels (1889-1900) did not feature the brand name — they focused on union status and product type."
+      },
+      "heart_logo_script": {
+        "description": "Heart-shaped logo with block capitals or script design",
+        "type": "soft_anchor",
+        "likely_start": 1900,
+        "likely_end": 1965,
+        "confidence": "medium",
+        "notes": "Heart-shaped logo with block capitals or script was used from 1900 to the mid-1960s on labels, buttons, and marketing materials."
+      },
+      "merger_era_logo": {
+        "description": "Combined company branding referencing Headlight Overalls or W.M. Finck",
+        "type": "hard_bound",
+        "earliest": 1965,
+        "latest": 1966,
+        "confidence": "high",
+        "notes": "Combined logo used only 1965-1966 during the merger period. Extremely narrow window."
+      },
+      "current_logo_1966": {
+        "description": "Current Carhartt logo (still in use today)",
+        "type": "hard_bound",
+        "earliest": 1966,
+        "confidence": "high",
+        "notes": "Current Carhartt logo debuted in 1966 and has been used since."
+      },
+      "carhartt_date_code": {
+        "description": "4-digit date code on tag (MMYY format, top left of label)",
+        "type": "hard_bound",
+        "earliest": 1966,
+        "confidence": "high",
+        "notes": "Most Carhartt tags contain a date code on the top left: first two digits = month, last two = year of manufacture. Applies to jackets, pants, and overalls. This is a direct hard date — not an estimate."
+      },
+      "carhartt_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1889,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Carhartt shifted significant production offshore in the late 1990s-early 2000s. Made in USA is strongly pre-2000. Some USA production continued post-2000 on select lines (Detroit line, etc.)."
+      },
+      "union_label_carhartt": {
+        "description": "ACWA, ACTWU, or ILGWU union label on Carhartt garment",
+        "type": "hard_bound",
+        "latest": 1995,
+        "confidence": "high",
+        "notes": "Union label applies union existence hard bounds (see union_labels.json). Carhartt workwear was frequently union-made."
+      }
+    }
+  },
+
+  "Dickies": {
+    "official_name": "Williamson-Dickie Manufacturing Company",
+    "founded": 1922,
+    "still_active": true,
+    "notes": "Founded 1922 in Fort Worth, Texas as the US Overall Company by EE 'Colonel' Dickie, CN Williamson, and C Don Williamson. Became Williamson-Dickie in 1922. WWII military contract production. Acquired by VF Corporation in 2017 for $820M. Iconic workwear brand that crossed into streetwear in the 1990s-2000s.",
+    "signals": {
+      "dickies_best_crimson_logo": {
+        "description": "Early 'Dickie's Best' logo on crimson/red background",
+        "type": "soft_anchor",
+        "likely_start": 1922,
+        "likely_end": 1935,
+        "confidence": "medium",
+        "notes": "The earliest Dickies logo featured 'Dickie's Best' on a striking crimson background in the 1920s."
+      },
+      "rope_bordered_logo_1940s": {
+        "description": "Rope-bordered logo design",
+        "type": "soft_anchor",
+        "likely_start": 1940,
+        "likely_end": 1955,
+        "confidence": "medium",
+        "notes": "By the 1940s, Dickies adopted a rope-bordered logo design on labels."
+      },
+      "dickies_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1922,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Dickies manufactured domestically for most of the 20th century. Significant offshore shift in the 1990s. Made in USA is pre-1995 for most garments."
+      },
+      "we_are_basic_era": {
+        "description": "'We're Basic' slogan on tag or hang tag",
+        "type": "soft_anchor",
+        "likely_start": 1975,
+        "likely_end": 1990,
+        "confidence": "medium",
+        "notes": "Dickies' 'We're Basic' marketing slogan was used in the late 1970s to emphasize affordability."
+      },
+      "vf_corporation_ownership": {
+        "description": "Corporate reference to VF Corporation on Dickies garment",
+        "type": "hard_bound",
+        "earliest": 2017,
+        "confidence": "high",
+        "notes": "VF Corporation acquired Dickies in 2017. Any VF reference dates to post-2017."
+      }
+    }
+  },
+
+  "Big_Mac": {
+    "official_name": "Big Mac (JCPenney private label workwear)",
+    "founded": 1922,
+    "dissolved": 2000,
+    "notes": "Big Mac was JCPenney's private-label workwear brand, produced from 1922 through the 2000s. Made by various contract manufacturers. Particularly known for flannel workshirts, denim, and outerwear. A staple of mid-century American working-class clothing.",
+    "signals": {
+      "existence_bound": {
+        "description": "Any Big Mac label",
+        "type": "hard_bound",
+        "earliest": 1922,
+        "confidence": "high",
+        "notes": "Big Mac was a JCPenney label from 1922. The brand continued into the 2000s but was discontinued."
+      },
+      "big_mac_made_usa": {
+        "description": "Big Mac label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1922,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Big Mac was domestically produced through most of the 20th century."
+      },
+      "jcpenney_reference": {
+        "description": "Label references JCPenney or JC Penney",
+        "type": "soft_anchor",
+        "likely_start": 1922,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "JCPenney is the parent company/retailer. Presence confirms Big Mac provenance."
+      }
+    }
+  },
+
+  "Walls": {
+    "official_name": "Walls Industries Inc.",
+    "founded": 1938,
+    "still_active": true,
+    "notes": "Founded in Cleburne, Texas in 1938. Known as the 'go-to brand for American oil industry workers' through the 20th century. Acquired Big Smith in 2000. Dickies acquired Walls in 2013.",
+    "signals": {
+      "walls_founding_bound": {
+        "description": "Any Walls Industries label",
+        "type": "hard_bound",
+        "earliest": 1938,
+        "confidence": "high",
+        "notes": "Walls Industries was founded in 1938."
+      },
+      "walls_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1938,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Walls produced primarily domestically through most of the 20th century."
+      }
+    }
+  },
+
+  "Big_Smith": {
+    "official_name": "Big Smith (Smith Manufacturing Company)",
+    "founded": 1916,
+    "still_active": true,
+    "notes": "Founded in 1916 in Carthage, Missouri by the Smith family. Over 100 years in workwear — painters, farmers, mechanics. Acquired by Walls Industries in 2000.",
+    "signals": {
+      "big_smith_founding_bound": {
+        "description": "Any Big Smith label",
+        "type": "hard_bound",
+        "earliest": 1916,
+        "confidence": "high",
+        "notes": "Big Smith was founded in 1916."
+      },
+      "pre_walls_acquisition": {
+        "description": "Big Smith label without Walls Industries or Dickies corporate reference",
+        "type": "hard_bound",
+        "latest": 2000,
+        "confidence": "high",
+        "notes": "Big Smith was independent until acquired by Walls in 2000."
+      }
+    }
+  },
+
+  "Key_Industries": {
+    "official_name": "Key Apparel / Key Industries Inc.",
+    "founded": 1908,
+    "still_active": true,
+    "notes": "Founded in Fort Madison, Iowa in 1908. One of the oldest continuously operating American workwear brands. Known for bib overalls, chore coats, and work shirts.",
+    "signals": {
+      "key_founding_bound": {
+        "description": "Any Key Industries label",
+        "type": "hard_bound",
+        "earliest": 1908,
+        "confidence": "high",
+        "notes": "Key Industries has operated since 1908."
+      },
+      "key_made_usa": {
+        "description": "Key label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1908,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Key Industries produced domestically through most of the 20th century."
+      }
+    }
+  },
+
+  "Oshkosh_Bgosh": {
+    "official_name": "OshKosh B'Gosh (originally Grove Manufacturing Company)",
+    "founded": 1895,
+    "still_active": true,
+    "notes": "Founded 1895 in Oshkosh, Wisconsin as the Grove Manufacturing Company. Renamed OshKosh B'Gosh in 1937 (the name 'OshKosh B'Gosh' first appeared 1908 as a phrase). Originally produced hickory-striped denim bib overalls for railroad workers and farmers. Shifted to children's wear in the 1960s-1970s. Acquired by Carter's in 2005.",
+    "signals": {
+      "grove_manufacturing_label": {
+        "description": "Label reads 'Grove Manufacturing Company' or 'Oshkosh Clothing and Manufacturing Co.'",
+        "type": "hard_bound",
+        "latest": 1937,
+        "confidence": "medium",
+        "notes": "The Grove Manufacturing Company renamed to OshKosh B'Gosh in 1937. Very early labels with the original company names predate 1937."
+      },
+      "adult_workwear_focus": {
+        "description": "OshKosh label on adult-size overalls or workwear",
+        "type": "soft_anchor",
+        "likely_start": 1895,
+        "likely_end": 1975,
+        "confidence": "medium",
+        "notes": "OshKosh began shifting from adult workwear to children's wear in the late 1960s-1970s. Adult workwear OshKosh is predominantly pre-1975. The brand switched its primary business focus in this period."
+      },
+      "real_metal_hardware_1954": {
+        "description": "Real metal hardware (buckles, clasps) on OshKosh overalls",
+        "type": "hard_bound",
+        "earliest": 1954,
+        "confidence": "high",
+        "notes": "Real metal hardware has been a part of OshKosh overalls since 1954."
+      },
+      "carters_acquisition": {
+        "description": "Corporate reference to Carter's on OshKosh label",
+        "type": "hard_bound",
+        "earliest": 2005,
+        "confidence": "high",
+        "notes": "Carter's acquired OshKosh B'Gosh in 2005 for $312 million."
+      }
+    }
+  },
+
+  "Pointer_Brand": {
+    "official_name": "Pointer Brand (LC King Manufacturing)",
+    "founded": 1913,
+    "still_active": true,
+    "notes": "Founded in Bristol, Tennessee in 1913 by L.C. King. One of the few American workwear brands that has continuously manufactured in the USA throughout its history. Bib overalls, chore coats, and work pants.",
+    "signals": {
+      "pointer_brand_usa": {
+        "description": "Pointer Brand label, any era",
+        "type": "soft_anchor",
+        "likely_start": 1913,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Pointer Brand has manufactured in the USA continuously since 1913. Made in USA on a Pointer Brand garment is not a strong dating signal since they have always been made domestically."
+      }
+    }
+  },
+
+  "Round_House": {
+    "official_name": "Round House Manufacturing",
+    "founded": 1903,
+    "still_active": true,
+    "notes": "Founded in Shawnee, Oklahoma in 1903. Primarily known for overalls and work pants. Still manufactures in Shawnee.",
+    "signals": {
+      "round_house_founding_bound": {
+        "description": "Any Round House label",
+        "type": "hard_bound",
+        "earliest": 1903,
+        "confidence": "high",
+        "notes": "Round House has operated since 1903."
+      }
+    }
+  }
+}

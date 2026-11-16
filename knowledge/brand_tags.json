@@ -1,0 +1,388 @@
+{
+  "_schema_notes": {
+    "purpose": "Brand-specific tag evolution rules. Each signal is a dating anchor tied to a documented label design change, company event, or production shift. All dates are soft anchors unless marked hard_bound.",
+    "confidence": "high = well-documented, verifiable. medium = generally accepted, ±2-3 years. low = rough estimate, needs verification.",
+    "todo": "Expand with specific label photos and sub-variants as the dataset grows. Many medium/low entries here need refinement from real examples."
+  },
+
+  "Levis": {
+    "official_name": "Levi Strauss & Co.",
+    "founded": 1853,
+    "still_active": true,
+    "signals": {
+      "red_tab_big_E": {
+        "description": "Red pocket tab reads 'LEVI'S' with capital E throughout",
+        "type": "hard_bound",
+        "latest": 1971,
+        "confidence": "high",
+        "notes": "Capital E in 'LEVI'S' on the red tab was changed to lowercase 'e' (appearing as 'LeVI'S') around 1971. Big E is one of the most reliable Levi's dating signals — definitively pre-1971."
+      },
+      "red_tab_small_e": {
+        "description": "Red pocket tab reads 'LeVI'S' with lowercase e",
+        "type": "hard_bound",
+        "earliest": 1971,
+        "confidence": "high",
+        "notes": "Small e tab introduced ~1971. Post-1971 garment."
+      },
+      "no_red_tab": {
+        "description": "No red tab present on back pocket",
+        "type": "hard_bound",
+        "latest": 1936,
+        "confidence": "high",
+        "notes": "Levi's introduced the red tab in 1936 as a trademark identifier. Absence of a red tab predates this."
+      },
+      "two_horse_leather_patch": {
+        "description": "Waistband patch made of genuine tan/brown leather",
+        "type": "soft_anchor",
+        "likely_start": 1880,
+        "likely_end": 1954,
+        "confidence": "medium",
+        "notes": "Original leather patch used through the early 1950s. Genuine leather patch strongly suggests pre-1955. Transition to simulated/cardstock was gradual."
+      },
+      "two_horse_paper_cardstock_patch": {
+        "description": "Two-horse waistband patch made of cardstock or simulated leather",
+        "type": "soft_anchor",
+        "likely_start": 1954,
+        "likely_end": 1992,
+        "confidence": "medium",
+        "notes": "Paper/cardstock patch replaced leather progressively from the mid-1950s. Exact transition year uncertain — flag for user verification."
+      },
+      "hidden_rivets": {
+        "description": "Interior (hidden) crotch rivet — rivet on back pockets concealed inside, not visible externally",
+        "type": "hard_bound",
+        "latest": 1937,
+        "confidence": "high",
+        "notes": "Levi's used exposed copper rivets originally. In 1937 the crotch rivet was eliminated and back pocket rivets were moved inside (concealed) to prevent scratching saddles and furniture. Visible crotch rivet = pre-1937. Concealed back pocket rivets introduced 1937."
+      },
+      "cinch_back": {
+        "description": "Cinch strap / buckle back on rear waistband",
+        "type": "hard_bound",
+        "latest": 1941,
+        "confidence": "high",
+        "notes": "Cinch backs were eliminated during WWII fabric rationing (1941-1942 era). Presence of a cinch back is a hard pre-1942 indicator."
+      },
+      "suspender_buttons": {
+        "description": "Buttons on waistband interior for suspenders",
+        "type": "soft_anchor",
+        "likely_start": 1873,
+        "likely_end": 1960,
+        "confidence": "medium",
+        "notes": "Suspender buttons were standard on jeans into the mid-20th century as belt loops coexisted with suspender culture. Presence suggests pre-1960 but is not definitive."
+      },
+      "single_stitch": {
+        "description": "Single-needle stitching on seat seam and side seams",
+        "type": "soft_anchor",
+        "likely_start": 1873,
+        "likely_end": 1983,
+        "confidence": "medium",
+        "notes": "Levi's transitioned from single to chain/double stitch in the early 1980s as production modernized. Single stitch on the outseam and seat seam is associated with pre-1983 production, though transition was gradual."
+      }
+    }
+  },
+
+  "Wrangler": {
+    "official_name": "Wrangler / Blue Bell Inc.",
+    "founded": 1947,
+    "still_active": true,
+    "signals": {
+      "blue_bell_label": {
+        "description": "Label references 'Blue Bell' or Blue Bell branding",
+        "type": "hard_bound",
+        "latest": 1986,
+        "confidence": "high",
+        "notes": "Blue Bell Inc. was acquired by VF Corporation in 1986. Any label referencing Blue Bell is pre-acquisition."
+      },
+      "wrangler_11mwz_label": {
+        "description": "Label for style 11MWZ (classic cowboy cut)",
+        "type": "soft_anchor",
+        "likely_start": 1947,
+        "likely_end": 2000,
+        "confidence": "low",
+        "notes": "11MWZ is a long-running style. Label design evolution within this style needs further documentation."
+      }
+    }
+  },
+
+  "Lee": {
+    "official_name": "H.D. Lee Company",
+    "founded": 1889,
+    "still_active": true,
+    "signals": {
+      "hd_lee_full_name": {
+        "description": "Label reads 'H.D. Lee Company' or 'H.D. Lee Mercantile Co.'",
+        "type": "soft_anchor",
+        "likely_start": 1889,
+        "likely_end": 1969,
+        "confidence": "medium",
+        "notes": "Full H.D. Lee Company name on labels is associated with earlier production. By the early 1970s, branding had simplified to 'Lee'. Exact cutover year uncertain."
+      },
+      "lee_riders": {
+        "description": "Label reads 'Lee Riders'",
+        "type": "soft_anchor",
+        "likely_start": 1924,
+        "likely_end": 1978,
+        "confidence": "medium",
+        "notes": "Lee Riders was a specific western/cowboy-cut product line designation used through mid-century. Needs exact discontinuation date verification."
+      },
+      "lee_union_alls": {
+        "description": "Label reads 'Lee Union-Alls'",
+        "type": "soft_anchor",
+        "likely_start": 1913,
+        "likely_end": 1960,
+        "confidence": "medium",
+        "notes": "Lee's Union-Alls (coveralls/overalls) product line. Associated with early-to-mid 20th century workwear production."
+      }
+    }
+  },
+
+  "Champion": {
+    "official_name": "Champion Products Inc.",
+    "founded": 1919,
+    "still_active": true,
+    "signals": {
+      "bar_tack_sleeve": {
+        "description": "Bar tack reinforcement stitch visible on upper left sleeve",
+        "type": "soft_anchor",
+        "likely_start": 1952,
+        "likely_end": 1979,
+        "confidence": "medium",
+        "notes": "Bar tack on the sleeve is associated with vintage Champion Reverse Weave production. Rough era — needs refinement from examples."
+      },
+      "blue_bar_c_logo": {
+        "description": "Champion 'C' logo features blue bar/stripe through the letter",
+        "type": "soft_anchor",
+        "likely_start": 1972,
+        "likely_end": 1993,
+        "confidence": "medium",
+        "notes": "Blue stripe through the C logo is associated with 1970s-early 1990s Champion production. Logo styling changed multiple times — this era needs visual confirmation."
+      },
+      "champion_made_usa": {
+        "description": "Champion label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1919,
+        "likely_end": 1998,
+        "confidence": "medium",
+        "notes": "Champion moved most production offshore by the late 1990s. Made in USA is strong evidence of pre-1998 production."
+      },
+      "reverse_weave_label": {
+        "description": "Label specifically calls out 'Reverse Weave'",
+        "type": "soft_anchor",
+        "likely_start": 1938,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Reverse Weave as a named product line dates to 1938. Label design changes within this line need further documentation."
+      }
+    }
+  },
+
+  "Russell_Athletic": {
+    "official_name": "Russell Corporation",
+    "founded": 1902,
+    "still_active": true,
+    "signals": {
+      "russell_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1902,
+        "likely_end": 2002,
+        "confidence": "medium",
+        "notes": "Russell Athletic was based in Alexander City, Alabama and primarily domestic through the 20th century. Offshore shift accelerated in the early 2000s."
+      },
+      "russell_jerzees_label": {
+        "description": "Label reads 'Jerzees' (Russell's budget activewear line)",
+        "type": "soft_anchor",
+        "likely_start": 1984,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Jerzees was introduced by Russell in 1984. Presence indicates post-1984."
+      }
+    }
+  },
+
+  "Pendleton": {
+    "official_name": "Pendleton Woolen Mills",
+    "founded": 1863,
+    "still_active": true,
+    "signals": {
+      "pure_virgin_wool": {
+        "description": "Label reads '100% Pure Virgin Wool' or 'Pure Wool'",
+        "type": "soft_anchor",
+        "likely_start": 1900,
+        "likely_end": 1980,
+        "confidence": "medium",
+        "notes": "The 'Pure Virgin Wool' label copy is associated with Pendleton's mid-century production. Later labels added more content detail and regulatory fiber disclosure language."
+      },
+      "made_in_oregon": {
+        "description": "Label reads 'Made in Oregon' or lists an Oregon mill",
+        "type": "soft_anchor",
+        "likely_start": 1909,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Pendleton's Oregon mills were active through the 20th century. The specific Oregon callout is more common on older labels."
+      }
+    }
+  },
+
+  "Carhartt": {
+    "official_name": "Carhartt Inc.",
+    "founded": 1889,
+    "still_active": true,
+    "signals": {
+      "carhartt_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1889,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Carhartt shifted significant production offshore in the late 1990s-early 2000s. Made in USA Carhartt is strongly pre-2000. Some USA production continued post-2000 on select lines."
+      },
+      "carhartt_union_label": {
+        "description": "Carhartt garment bears ACWA, ACTWU, or ILGWU union label",
+        "type": "hard_bound",
+        "latest": 1995,
+        "confidence": "high",
+        "notes": "Union label presence applies union existence hard bounds. Carhartt workwear was frequently union-made through the mid-20th century."
+      }
+    }
+  },
+
+  "Fruit_of_the_Loom": {
+    "official_name": "Fruit of the Loom",
+    "founded": 1851,
+    "still_active": true,
+    "signals": {
+      "fotl_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1851,
+        "likely_end": 1998,
+        "confidence": "medium",
+        "notes": "Fruit of the Loom closed its last US plant in 1998. Made in USA is a hard indicator of pre-1998."
+      },
+      "fotl_screen_stars": {
+        "description": "Label reads 'Screen Stars' (FOTL's blank T-shirt line)",
+        "type": "soft_anchor",
+        "likely_start": 1960,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Screen Stars was FOTL's premium blank line, popular with screenprinters. The specific era of Screen Stars needs sub-design documentation."
+      }
+    }
+  },
+
+  "Hanes": {
+    "official_name": "Hanesbrands Inc. (formerly Sara Lee Knit Products)",
+    "founded": 1901,
+    "still_active": true,
+    "signals": {
+      "hanes_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1901,
+        "likely_end": 1999,
+        "confidence": "medium",
+        "notes": "Hanes shifted offshore significantly in the late 1990s. Made in USA is strongly pre-2000."
+      },
+      "sara_lee_era": {
+        "description": "Label or brand materials reference Sara Lee Corporation",
+        "type": "hard_bound",
+        "earliest": 1979,
+        "latest": 2006,
+        "confidence": "high",
+        "notes": "Sara Lee Corporation acquired Hanes in 1979. Sara Lee spun off its apparel brands in 2006 as Hanesbrands Inc."
+      }
+    }
+  },
+
+  "Polo_Ralph_Lauren": {
+    "official_name": "Polo Ralph Lauren",
+    "founded": 1967,
+    "still_active": true,
+    "signals": {
+      "polo_founding_bound": {
+        "description": "Any Polo Ralph Lauren label",
+        "type": "hard_bound",
+        "earliest": 1967,
+        "confidence": "high",
+        "notes": "Ralph Lauren brand did not exist before 1967. Any Polo/Ralph Lauren label is post-1967."
+      },
+      "polo_made_usa": {
+        "description": "Polo label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1967,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Polo produced more domestically in its earlier decades. Made in USA Polo suggests earlier production, generally pre-1995."
+      }
+    }
+  },
+
+  "Tommy_Hilfiger": {
+    "official_name": "Tommy Hilfiger Corporation",
+    "founded": 1985,
+    "still_active": true,
+    "signals": {
+      "founding_bound": {
+        "description": "Any Tommy Hilfiger label",
+        "type": "hard_bound",
+        "earliest": 1985,
+        "confidence": "high",
+        "notes": "Tommy Hilfiger brand did not exist before 1985."
+      }
+    }
+  },
+
+  "Nautica": {
+    "official_name": "Nautica Enterprises",
+    "founded": 1983,
+    "still_active": true,
+    "signals": {
+      "founding_bound": {
+        "description": "Any Nautica label",
+        "type": "hard_bound",
+        "earliest": 1983,
+        "confidence": "high",
+        "notes": "Nautica brand did not exist before 1983."
+      }
+    }
+  },
+
+  "Calvin_Klein": {
+    "official_name": "Calvin Klein Inc.",
+    "founded": 1968,
+    "still_active": true,
+    "signals": {
+      "founding_bound": {
+        "description": "Any Calvin Klein label",
+        "type": "hard_bound",
+        "earliest": 1968,
+        "confidence": "high",
+        "notes": "Calvin Klein brand did not exist before 1968."
+      },
+      "ck_jeans_label": {
+        "description": "Label reads 'Calvin Klein Jeans'",
+        "type": "soft_anchor",
+        "likely_start": 1978,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Calvin Klein Jeans launched ~1978. Presence suggests post-1978."
+      }
+    }
+  },
+
+  "Members_Only": {
+    "official_name": "Members Only (Glenoit Mills / Europe Craft Imports)",
+    "founded": 1975,
+    "still_active": true,
+    "signals": {
+      "peak_era": {
+        "description": "Members Only brand jacket or garment",
+        "type": "soft_anchor",
+        "likely_start": 1975,
+        "likely_end": 1992,
+        "confidence": "medium",
+        "notes": "Members Only jackets had their cultural peak in the early-to-mid 1980s. The brand faded significantly post-1990. A Members Only garment is most likely 1980-1990, though the brand technically continues."
+      }
+    }
+  }
+}

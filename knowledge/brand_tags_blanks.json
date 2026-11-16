@@ -1,0 +1,483 @@
+{
+  "_schema_notes": {
+    "purpose": "Blank / activewear T-shirt and sweatshirt brands. These are the primary production blanks used for screen printing and mass-market casualwear. Dating these is critical since most vintage graphic tees are printed on these blanks.",
+    "confidence": "high = well-documented. medium = generally accepted ±2-3 years. low = rough estimate.",
+    "key_signals": "Single stitch hem (pre-~1994), Made in USA (brand-specific cutoffs), tagless (post-2002), specific label eras per brand."
+  },
+
+  "universal_tshirt_signals": {
+    "single_stitch_sleeves_hem": {
+      "type": "soft_anchor",
+      "likely_start": 1950,
+      "likely_end": 1994,
+      "confidence": "high",
+      "notes": "Single-needle stitching on sleeve ends and bottom hem is the most reliable general T-shirt dating signal. The vast majority of American T-shirt manufacturers used single stitch through the early-to-mid 1990s. Transition to double-needle (chainstitch/coverstitch) occurred through the mid-1990s, largely complete by ~1994-1996. A shirt with single stitch hems is almost certainly pre-1995. Transitional 1994-1998 garments may show either. Double-needle dominated post-1998."
+    },
+    "tagless_printed_neck": {
+      "type": "hard_bound",
+      "earliest": 2002,
+      "confidence": "high",
+      "notes": "Tagless (neck label printed directly on inside fabric) was launched by Hanes in 2002 and rapidly adopted industry-wide. Any garment with a printed-on tagless neck label is post-2002. Garments through 2001 have sewn woven or printed labels."
+    },
+    "made_in_usa_tshirt": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 1998,
+      "confidence": "high",
+      "notes": "Approximately 70% of US T-shirts were made domestically in the 1980s. By 1994 the industry shift to offshore was accelerating rapidly. By 1998-2000 the vast majority of major blank brands had ceased US production. Made in USA on a T-shirt strongly suggests pre-1998."
+    }
+  },
+
+  "Champion": {
+    "official_name": "Champion Products Inc.",
+    "founded": 1919,
+    "still_active": true,
+    "notes": "Founded in Rochester, NY as Knickerbocker Knitting Co. Changed name to Champion Knitwear Co., then Champion Products in 1967 when it went public. Became wholly owned by Sara Lee in 1989. One of the most collected vintage blank brands.",
+    "signals": {
+      "champion_knitwear_label": {
+        "description": "Label reads 'Champion Knitwear Co.' or 'Champion Knitwear'",
+        "type": "hard_bound",
+        "latest": 1967,
+        "confidence": "high",
+        "notes": "Champion operated as 'Champion Knitwear Co.' until going public and changing name to 'Champion Products' in 1967."
+      },
+      "c_logo_sleeve_1950s": {
+        "description": "Woven 'C' with vertical bar on left sleeve — dark navy/maroon, no contrast bar color",
+        "type": "soft_anchor",
+        "likely_start": 1952,
+        "likely_end": 1966,
+        "confidence": "medium",
+        "notes": "The 'C' with vertical bar appeared on sleeves from the early 1950s but was not yet the standardized official logo. Early 1950s versions had dark blue/maroon C with bar, all one color family."
+      },
+      "blue_bar_tag_1960s_1970s": {
+        "description": "Neck tag: white background, blue horizontal bar through 'Champion' in block font",
+        "type": "soft_anchor",
+        "likely_start": 1967,
+        "likely_end": 1979,
+        "confidence": "high",
+        "notes": "The blue bar tag is the signature late-1960s to late-1970s Champion identifier. Blue bar tags ruled from the late 60s through the late 70s. One of the most recognizable vintage Champion signals."
+      },
+      "script_logo_1970s": {
+        "description": "Script 'Champion' logo on tag, often offset on colored background",
+        "type": "soft_anchor",
+        "likely_start": 1969,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "Champion script logo introduced to T-shirt tags in 1969 (blue or red). Became widely adopted on tags in the 1970s. The script with the C-bar was offset on a colored background. Blue script was more common."
+      },
+      "blue_tag_1980s_script": {
+        "description": "Blue woven label with Champion C logo and script, 'It Takes A Little More' tagline on reverse",
+        "type": "soft_anchor",
+        "likely_start": 1980,
+        "likely_end": 1988,
+        "confidence": "medium",
+        "notes": "Early 1980s Champion push into branded merchandise. Blue labels with C logo and 'It Takes A Little More...' tagline on the reverse. Associated with the early 1980s branded streetwear push."
+      },
+      "grey_tag_1980s_printed": {
+        "description": "Script logo printed in blue on white/grey tag background",
+        "type": "soft_anchor",
+        "likely_start": 1985,
+        "likely_end": 1993,
+        "confidence": "medium",
+        "notes": "Mid-to-late 1980s Champion tags feature the script logo printed in blue on white or grey background. Simple clean tag."
+      },
+      "heavy_shiny_tag_1990s": {
+        "description": "Thick, slightly shiny/coated tag material with pixelated or stitched text",
+        "type": "soft_anchor",
+        "likely_start": 1990,
+        "likely_end": 1999,
+        "confidence": "medium",
+        "notes": "1990s Champion tags used a heavier, slightly shiny material. The thick tag with pixelated/stitched text is a reliable 1990s signal."
+      },
+      "reverse_weave_label": {
+        "description": "Label specifically reads 'Reverse Weave'",
+        "type": "hard_bound",
+        "earliest": 1938,
+        "confidence": "high",
+        "notes": "Champion introduced Reverse Weave in 1938. Any garment with a Reverse Weave label is post-1938. The Reverse Weave label design itself evolved through the decades."
+      },
+      "champion_made_usa": {
+        "description": "Champion label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1919,
+        "likely_end": 1998,
+        "confidence": "medium",
+        "notes": "Champion moved most production offshore by the late 1990s. Made in USA is strong evidence of pre-1998 production."
+      },
+      "sara_lee_era": {
+        "description": "Tags or corporate materials reference Sara Lee ownership",
+        "type": "hard_bound",
+        "earliest": 1989,
+        "confidence": "high",
+        "notes": "Sara Lee acquired Champion in 1989. Any reference to Sara Lee Corporation on a Champion garment indicates post-1989."
+      }
+    }
+  },
+
+  "Hanes": {
+    "official_name": "Hanes (originally Shamrock Mills / Hanes Knitting)",
+    "founded": 1901,
+    "still_active": true,
+    "notes": "Founded by J. Wesley Hanes in 1901 as Shamrock Mills (hosiery). Became Hanes Knitting by 1910. Expanded to undershirts by 1920. Introduced Beefy-T in 1975, creating the concept of the T-shirt as outerwear. Went tagless in 2002. Acquired by Sara Lee in 1979, spun off as Hanesbrands in 2006.",
+    "signals": {
+      "gold_logo_1940s_1950s": {
+        "description": "Tag with gold/yellow Hanes logo, rectangular shape",
+        "type": "soft_anchor",
+        "likely_start": 1940,
+        "likely_end": 1959,
+        "confidence": "medium",
+        "notes": "1940s-1950s vintage Hanes tags feature the first logo in gold/yellow with letter/number sizing. Rarely seen."
+      },
+      "red_logo_1950s_1960s": {
+        "description": "Rectangular tag with red Hanes logo, letter/number sizing, composition details",
+        "type": "soft_anchor",
+        "likely_start": 1950,
+        "likely_end": 1969,
+        "confidence": "medium",
+        "notes": "1950s tags with red Hanes logo. References marketing campaigns of the era. Includes sizing information."
+      },
+      "beefy_t_label": {
+        "description": "Label reads 'Hanes Beefy-T'",
+        "type": "hard_bound",
+        "earliest": 1975,
+        "confidence": "high",
+        "notes": "Hanes introduced the Beefy-T in 1975, specifically for screen-printing as a heavier-weight garment. Any garment labeled 'Beefy-T' is post-1975."
+      },
+      "hanes_printables_division": {
+        "description": "Label references Hanes Printables",
+        "type": "hard_bound",
+        "earliest": 1980,
+        "confidence": "high",
+        "notes": "Hanes Printables division created in 1980 specifically for blank garment distribution to screen-printers. Presence indicates post-1980."
+      },
+      "fifty_fifty_label": {
+        "description": "Label reads 'Hanes Fifty-Fifty' or '50/50'",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Hanes Fifty-Fifty was prominent by the 1980s. The red and blue palette on Hanes tags shifted to more modern styling by this era."
+      },
+      "sara_lee_era": {
+        "description": "Tag or corporate reference to Sara Lee Knit Products",
+        "type": "hard_bound",
+        "earliest": 1979,
+        "latest": 2006,
+        "confidence": "high",
+        "notes": "Sara Lee acquired Hanes in 1979. Spun off as Hanesbrands Inc. in 2006. Any Sara Lee reference brackets to this window."
+      },
+      "updated_logo_1999": {
+        "description": "Updated Hanes logo introduced 1999",
+        "type": "soft_anchor",
+        "likely_start": 1999,
+        "likely_end": 2010,
+        "confidence": "medium",
+        "notes": "Hanes updated its logo in 1999. The new logo is distinctive from earlier versions."
+      },
+      "tagless_printed_neck": {
+        "description": "Size and care information printed directly onto neck fabric — no sewn label",
+        "type": "hard_bound",
+        "earliest": 2002,
+        "confidence": "high",
+        "notes": "Hanes went tagless in 2002, the first major brand to do so. Any Hanes with a printed-on neck label is post-2002."
+      },
+      "hanes_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1901,
+        "likely_end": 1999,
+        "confidence": "medium",
+        "notes": "Hanes shifted significantly offshore in the late 1990s. Made in USA Hanes is strongly pre-2000."
+      }
+    }
+  },
+
+  "Fruit_of_the_Loom": {
+    "official_name": "Fruit of the Loom",
+    "founded": 1851,
+    "still_active": true,
+    "notes": "One of the oldest American apparel brands. RN number 13765. Screen Stars was FOTL's blank line launched ~1980 specifically for the screen-printing market. Last US plant closed 1998.",
+    "signals": {
+      "screen_stars_label": {
+        "description": "Label reads 'Screen Stars' (FOTL's imprint-market blank line)",
+        "type": "hard_bound",
+        "earliest": 1965,
+        "latest": 2000,
+        "confidence": "high",
+        "notes": "Screen Stars was launched by FOTL specifically for the screen-printing industry. The line has been documented as early as the late 1960s, with major expansion around 1980. Screen Stars Best sub-line appeared ~1986-1987. Screen Stars is the most recognizable vintage T-shirt brand of the 1980s."
+      },
+      "screen_stars_best": {
+        "description": "Label reads 'Screen Stars Best'",
+        "type": "hard_bound",
+        "earliest": 1986,
+        "confidence": "high",
+        "notes": "Screen Stars Best was an extended premium line first documented around 1986-1987. Presence indicates post-1986."
+      },
+      "fotl_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "hard_bound",
+        "latest": 1998,
+        "confidence": "high",
+        "notes": "Fruit of the Loom closed its last US manufacturing plant in 1998. Made in USA is a hard pre-1998 indicator."
+      },
+      "rn_13765": {
+        "description": "RN number 13765 on label",
+        "type": "hard_bound",
+        "earliest": 1952,
+        "confidence": "high",
+        "notes": "RN 13765 is Fruit of the Loom's registered number. Presence on Screen Stars confirms FOTL production."
+      }
+    }
+  },
+
+  "Russell_Athletic": {
+    "official_name": "Russell Corporation / Russell Athletic",
+    "founded": 1902,
+    "still_active": true,
+    "notes": "Founded in Alexander City, Alabama. Originally Russell Manufacturing Co. Changed name to Russell Athletic in 1960. Tags that say 'Russell Southern' are pre-1960. Launched Jerzees budget line in 1984. Acquired by Berkshire Hathaway in 2006.",
+    "signals": {
+      "russell_southern_label": {
+        "description": "Label reads 'Russell Southern' or 'Russell Southern Mills'",
+        "type": "hard_bound",
+        "latest": 1960,
+        "confidence": "high",
+        "notes": "Russell changed its name to Russell Athletic in 1960. Any label reading 'Russell Southern' predates the name change."
+      },
+      "sanforized_shrinkproof_1950s": {
+        "description": "Label includes 'Sanforized' or 'Shrink-Proof', simple thick fabric tag",
+        "type": "soft_anchor",
+        "likely_start": 1950,
+        "likely_end": 1965,
+        "confidence": "medium",
+        "notes": "1950s Russell crewnecks typically have simple thick-fabric labels with 'Made in USA' and often 'Sanforized' or 'Shrink-Proof'. May have stitched-in text."
+      },
+      "eagle_r_logo_1970s": {
+        "description": "Eagle-R logo on label",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "The Eagle-R logo was used on Russell tags from the 1970s onwards. Various fonts used over this decade."
+      },
+      "cotton_polyester_blend_tag": {
+        "description": "Tag lists '75% Cotton / 25% Polyester' or '50% / 50%' blend",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Blend T-shirts were common in the 1970s-1980s Russell Athletic lineup. Tags from this era show the composition and 'Made in USA'."
+      },
+      "barcode_tag_1990s": {
+        "description": "Tag includes a barcode",
+        "type": "soft_anchor",
+        "likely_start": 1990,
+        "likely_end": 2010,
+        "confidence": "medium",
+        "notes": "Barcode appeared on Russell tags starting in the early 1990s."
+      },
+      "jerzees_label": {
+        "description": "Label reads 'Jerzees' (Russell's budget casualwear line)",
+        "type": "hard_bound",
+        "earliest": 1984,
+        "confidence": "high",
+        "notes": "Jerzees was launched by Russell Corporation in 1984. Any Jerzees-labeled garment is post-1984."
+      },
+      "russell_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1902,
+        "likely_end": 2002,
+        "confidence": "medium",
+        "notes": "Russell Athletic was a primarily domestic producer for most of the 20th century, headquartered in Alabama. Made in USA Russell is strongly pre-2002. Production shifted offshore in the early 2000s."
+      },
+      "made_in_vietnam_china": {
+        "description": "Label reads 'Made in Vietnam' or 'Made in China'",
+        "type": "soft_anchor",
+        "likely_start": 2000,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Offshore production beginning. 'Made in Vietnam' or 'Made in China' on Russell tags indicates 2000s or later."
+      }
+    }
+  },
+
+  "Gildan": {
+    "official_name": "Gildan Activewear Inc.",
+    "founded": 1984,
+    "still_active": true,
+    "notes": "Founded by Glenn and Greg Chamandy in Montreal, Canada in 1984. Began as a distributor of activewear, shifted to manufacturing in the late 1980s. Became dominant in the blank T-shirt market in the 1990s-2000s through aggressive pricing. Never had US domestic production.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Gildan label",
+        "type": "hard_bound",
+        "earliest": 1984,
+        "confidence": "high",
+        "notes": "Gildan did not exist before 1984. Any Gildan-labeled garment is post-1984."
+      },
+      "early_paper_tag_1980s": {
+        "description": "Early thin paper or cardboard tag with company name and address",
+        "type": "soft_anchor",
+        "likely_start": 1984,
+        "likely_end": 1993,
+        "confidence": "medium",
+        "notes": "Gildan's earliest tags were simple thin paper/cardboard with company name and address."
+      },
+      "barcode_serial_tag_1990s": {
+        "description": "Tag includes barcode and serial number",
+        "type": "soft_anchor",
+        "likely_start": 1990,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Mid-1990s Gildan introduced barcode and serial number on tags, plus fiber content and care instructions in multiple languages."
+      },
+      "double_tag_late_1990s": {
+        "description": "Double tag: top tag with logo and size, bottom/under tag with laundering and fiber content in multiple languages",
+        "type": "soft_anchor",
+        "likely_start": 1997,
+        "likely_end": 2005,
+        "confidence": "medium",
+        "notes": "Double tag was common on Gildan by the late 1990s. Top tag: logo/size. Under tag: care/fiber in multilingual format."
+      }
+    }
+  },
+
+  "Anvil": {
+    "official_name": "Anvil Knitwear (formerly BVD division)",
+    "founded": 1976,
+    "still_active": true,
+    "notes": "Anvil Knitwear began operating in 1976 when the BVD trademark was sold to Fruit of the Loom. The company continued as Anvil, producing blank T-shirts for the screen-printing market. Roots trace back to BVD (Bradley Voorhees & Day), a 130+ year-old men's undergarment brand.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Anvil Knitwear label",
+        "type": "hard_bound",
+        "earliest": 1976,
+        "confidence": "high",
+        "notes": "Anvil Knitwear as a distinct brand dates to 1976. Garments with Anvil labels postdate 1976."
+      },
+      "anvil_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1976,
+        "likely_end": 1998,
+        "confidence": "medium",
+        "notes": "Anvil produced domestically for most of its early history. Made in USA Anvil is pre-1998."
+      }
+    }
+  },
+
+  "Oneita": {
+    "official_name": "Oneita Industries Inc.",
+    "founded": 1967,
+    "dissolved": 2002,
+    "notes": "South Carolina-based blank T-shirt and sweatshirt manufacturer. Primary product lines: Power-T, Power 50 Plus, Power-Sweats. Competed directly with Fruit of the Loom, Russell, and Sara Lee. Filed for bankruptcy and shut down in 2002.",
+    "signals": {
+      "existence_bound": {
+        "description": "Any Oneita label",
+        "type": "hard_bound",
+        "earliest": 1967,
+        "latest": 2002,
+        "confidence": "high",
+        "notes": "Oneita ceased operations in 2002. Any Oneita-labeled garment predates 2002."
+      },
+      "oneita_cotton_tag": {
+        "description": "Oneita cotton tag",
+        "type": "soft_anchor",
+        "likely_start": 1986,
+        "likely_end": 2002,
+        "confidence": "medium",
+        "notes": "Oneita cotton tags documented from approximately 1986-1987. Most commonly seen in the 1990s."
+      },
+      "oneita_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1967,
+        "likely_end": 1996,
+        "confidence": "medium",
+        "notes": "Oneita began offshore production in the mid-1990s. Made in USA Oneita is pre-1996."
+      }
+    }
+  },
+
+  "Stedman": {
+    "official_name": "Stedman Manufacturing Company / The Stedman Corporation",
+    "founded": 1953,
+    "still_active": true,
+    "notes": "Asheboro, North Carolina manufacturer. Started producing sportswear and undergarments in 1953. US Navy contract in WWII era. Stedman Corporation formed 1970. Known for all-over print concert shirts with vivid colors. Tags span late 1970s through 1999 in the vintage T-shirt collector context.",
+    "signals": {
+      "stedman_vintage_tag": {
+        "description": "Stedman tag on garment",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Stedman tags as collectible vintage T-shirt blanks are predominantly from the 1970s-1990s. Known for all-over print graphics."
+      },
+      "stedman_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1953,
+        "likely_end": 1997,
+        "confidence": "medium",
+        "notes": "Stedman produced domestically through the 1990s. Made in USA is pre-1997."
+      }
+    }
+  },
+
+  "Giant": {
+    "official_name": "Giant Industries / Giant Brand",
+    "founded": 1991,
+    "dissolved": 2008,
+    "notes": "Giant was a blank T-shirt brand that operated from approximately 1991 to 2008. Notable for being one of the first major blank brands to shift to offshore production, beginning in 1994.",
+    "signals": {
+      "existence_bound": {
+        "description": "Any Giant label",
+        "type": "hard_bound",
+        "earliest": 1991,
+        "latest": 2008,
+        "confidence": "high",
+        "notes": "Giant operated 1991-2008."
+      },
+      "giant_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "hard_bound",
+        "earliest": 1991,
+        "latest": 1994,
+        "confidence": "high",
+        "notes": "Giant started shifting to offshore production in 1994. Made in USA Giant is a very tight 1991-1993 window."
+      },
+      "giant_made_el_salvador": {
+        "description": "Label reads 'Made in El Salvador'",
+        "type": "soft_anchor",
+        "likely_start": 1996,
+        "likely_end": 1999,
+        "confidence": "high",
+        "notes": "Giant's non-woven 'Made in El Salvador' tag was documented as the most common Giant tag from 1996-1999."
+      },
+      "giant_made_mexico": {
+        "description": "Label reads 'Made in Mexico'",
+        "type": "soft_anchor",
+        "likely_start": 1997,
+        "likely_end": 2005,
+        "confidence": "medium",
+        "notes": "Made in Mexico version introduced 1997."
+      }
+    }
+  },
+
+  "Delta": {
+    "official_name": "Delta Woodside Industries / Delta Pro Weight",
+    "founded": 1917,
+    "still_active": true,
+    "notes": "Delta is a South Carolina textile company with roots in 1917. Delta Pro Weight became a significant blank T-shirt brand in the 1980s-1990s. The brand has changed ownership multiple times.",
+    "signals": {
+      "delta_made_usa": {
+        "description": "Delta label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1999,
+        "confidence": "medium",
+        "notes": "Delta Pro Weight produced domestically through most of the 1990s. Made in USA is pre-2000."
+      }
+    }
+  }
+}

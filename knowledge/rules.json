@@ -116,6 +116,77 @@
       "latest": 1992,
       "confidence": "high",
       "notes": "Yugoslavia dissolved in 1991-1992."
+    },
+
+    "Japan": {
+      "type": "soft_anchor",
+      "likely_start": 1945,
+      "likely_end": 1975,
+      "confidence": "medium",
+      "notes": "Japan was a significant US garment exporter in the late 1950s-1960s. Rising labor costs pushed production to cheaper markets by the mid-1970s. 'Made in Japan' on American-market clothing is a strong signal for 1955-1975."
+    },
+
+    "Philippines": {
+      "type": "soft_anchor",
+      "likely_start": 1975,
+      "likely_end": 2010,
+      "confidence": "medium",
+      "notes": "Philippines became a significant US garment supplier from the mid-1970s onward as Japan became too expensive. Peak window 1975-1995."
+    },
+
+    "India": {
+      "type": "soft_anchor",
+      "likely_start": 1980,
+      "likely_end": 2030,
+      "confidence": "medium",
+      "notes": "India's garment export to the US grew substantially from the 1980s onward. Presence suggests post-1980."
+    },
+
+    "Sri_Lanka": {
+      "type": "soft_anchor",
+      "likely_start": 1980,
+      "likely_end": 2030,
+      "confidence": "medium",
+      "notes": "Sri Lanka developed as a garment export country in the 1980s. Presence suggests post-1980."
+    },
+
+    "Vietnam": {
+      "type": "soft_anchor",
+      "likely_start": 1995,
+      "likely_end": 2030,
+      "confidence": "high",
+      "notes": "US-Vietnam trade relations normalized with the US embargo lifting in 1994. 'Made in Vietnam' on US-market garments indicates post-1994, with significant volume beginning in 1995-1996."
+    },
+
+    "Cambodia": {
+      "type": "soft_anchor",
+      "likely_start": 1995,
+      "likely_end": 2030,
+      "confidence": "medium",
+      "notes": "Cambodia's garment export to the US grew from the mid-1990s following trade agreements. Presence suggests post-1995."
+    },
+
+    "Indonesia": {
+      "type": "soft_anchor",
+      "likely_start": 1985,
+      "likely_end": 2030,
+      "confidence": "medium",
+      "notes": "Indonesia became a major US garment supplier from the mid-1980s. Strongly associated with Nike and other sportswear brands."
+    },
+
+    "Czechoslovakia": {
+      "type": "hard_bound",
+      "latest": 1993,
+      "confidence": "high",
+      "notes": "Czechoslovakia dissolved into the Czech Republic and Slovakia on January 1, 1993. Any garment labeled 'Made in Czechoslovakia' or 'Czechoslovakia' predates 1993."
+    },
+
+    "Romania": {
+      "type": "soft_anchor",
+      "likely_start": 1990,
+      "likely_end": 2015,
+      "confidence": "low",
+      "notes": "Romania became a significant European garment manufacturer for Western markets after 1990. Presence suggests post-1990."
     }
 
   },
@@ -180,7 +251,327 @@
   },
 
   "rn_number": {
-    "_note": "RN (Registered Number) and WPL (Wool Products Label) numbers are traceable to specific companies and registration dates via the FTC database. A garment cannot predate the registration year of its RN number. This is a hard bound — implement RN lookup as a separate module against the FTC registry."
+    "_note": "RN (Registered Number) and WPL (Wool Products Label) numbers are traceable to specific companies and registration dates via the FTC database. A garment cannot predate the registration year of its RN number. This is a hard bound — implement RN lookup as a separate module against the FTC registry.",
+    "wpl_present": {
+      "type": "hard_bound",
+      "latest": 1971,
+      "confidence": "high",
+      "notes": "WPL numbers were issued under the Wool Products Label Act of 1939. The FTC replaced WPL numbers with RN numbers in 1971. A garment displaying a WPL number (not RN) is pre-1971. Note: some garments made near the transition may show both."
+    },
+    "rn_present": {
+      "type": "hard_bound",
+      "earliest": 1952,
+      "confidence": "high",
+      "notes": "RN numbers were introduced by the FTC in 1952 under the Fur Products Labeling Act, then extended to all textile products. Presence of an RN number means the garment is post-1952 at the earliest. Higher RN numbers indicate later registration dates."
+    }
+  },
+
+  "zipper_hardware": {
+
+    "talon": {
+      "type": "soft_anchor",
+      "likely_start": 1920,
+      "likely_end": 1980,
+      "confidence": "medium",
+      "notes": "Talon was the dominant American zipper manufacturer for most of the 20th century. 'Talon' stamped on the pull or slider. Presence strongly suggests pre-1980 production on American garments. Talon lost significant market share to YKK through the 1970s and largely exited the apparel market."
+    },
+
+    "talon_lightning": {
+      "type": "soft_anchor",
+      "likely_start": 1936,
+      "likely_end": 1955,
+      "confidence": "medium",
+      "notes": "The 'Lightning' brand was Talon's early zipper line. More specific than just 'Talon' — associated with 1930s-1950s garments."
+    },
+
+    "conmar": {
+      "type": "soft_anchor",
+      "likely_start": 1930,
+      "likely_end": 1965,
+      "confidence": "medium",
+      "notes": "Conmar Products Corporation was an American zipper manufacturer active from the 1930s. Largely absorbed or displaced by the 1960s. 'Conmar' on the pull indicates pre-1965."
+    },
+
+    "scovill": {
+      "type": "soft_anchor",
+      "likely_start": 1930,
+      "likely_end": 1970,
+      "confidence": "medium",
+      "notes": "Scovill Manufacturing made zippers (and snaps) under the 'Gripper' brand. Present on workwear and casual garments from the 1930s-1960s."
+    },
+
+    "ykk": {
+      "type": "hard_bound",
+      "earliest": 1960,
+      "confidence": "high",
+      "notes": "YKK (Yoshida Kogyo Kabushikikaisha) began US operations approximately 1960 and became the dominant American market zipper by the mid-1970s. 'YKK' on the pull is a hard post-1960 indicator. On American vintage clothing, YKK presence strongly suggests post-1965."
+    },
+
+    "crown": {
+      "type": "soft_anchor",
+      "likely_start": 1930,
+      "likely_end": 1970,
+      "confidence": "low",
+      "notes": "Crown was an American zipper brand. Needs further documentation — flag for user verification."
+    }
+
+  },
+
+  "snap_hardware": {
+
+    "gripper_scovill": {
+      "type": "soft_anchor",
+      "likely_start": 1920,
+      "likely_end": 1975,
+      "confidence": "medium",
+      "notes": "Scovill's 'Gripper' snaps are common on American workwear, western shirts, and outerwear. 'Gripper' or 'Scovill' stamped on snap. Associated with mid-20th century American production."
+    },
+
+    "dot_snaps": {
+      "type": "soft_anchor",
+      "likely_start": 1940,
+      "likely_end": 2030,
+      "confidence": "low",
+      "notes": "DOT brand snaps (also Scovill) appear on workwear and western shirts across a wide date range. Not a strong dating signal alone but can corroborate other evidence."
+    },
+
+    "no_name_stamped_snaps": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 1960,
+      "confidence": "low",
+      "notes": "Plain stamped metal snaps without brand marking are more common on earlier garments. Low signal on its own."
+    }
+
+  },
+
+  "label_text_patterns": {
+
+    "wash_n_wear": {
+      "type": "soft_anchor",
+      "likely_start": 1952,
+      "likely_end": 1972,
+      "confidence": "medium",
+      "notes": "'Wash and Wear', 'Wash 'N Wear', or 'Wrinkle-Free' marketing copy on labels is associated with the synthetic fabric boom of the 1950s-1960s. These terms were heavily marketed before the FTC care label mandate made them redundant."
+    },
+
+    "sanforized": {
+      "type": "soft_anchor",
+      "likely_start": 1936,
+      "likely_end": 1980,
+      "confidence": "medium",
+      "notes": "'Sanforized' is a trademarked pre-shrinking process developed by Sanford Cluett, licensed from 1936. Common marketing term on denim and workwear labels through the mid-20th century. Fell out of label use as preshrinking became industry standard."
+    },
+
+    "sanforized_plus": {
+      "type": "soft_anchor",
+      "likely_start": 1967,
+      "likely_end": 1985,
+      "confidence": "medium",
+      "notes": "'Sanforized-Plus' (also 'Sanforized Plus-2') was a follow-up process for stretch fabrics introduced in the late 1960s."
+    },
+
+    "drip_dry": {
+      "type": "soft_anchor",
+      "likely_start": 1950,
+      "likely_end": 1972,
+      "confidence": "medium",
+      "notes": "'Drip Dry' copy on labels is associated with the synthetic/rayon garment era of the 1950s-1960s, before formal care label requirements."
+    },
+
+    "size_without_state_country": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 1971,
+      "confidence": "low",
+      "notes": "Older labels often show only the brand and size with no country of origin, care instructions, or fiber content. Absence of all regulatory info suggests pre-1960 production."
+    },
+
+    "percent_symbol_fiber": {
+      "type": "hard_bound",
+      "earliest": 1960,
+      "confidence": "high",
+      "notes": "Percentage-based fiber content disclosure (e.g., '65% Polyester, 35% Cotton') is required by the Textile Fiber Products Identification Act of 1960. Presence confirms post-1960."
+    },
+
+    "polyester_blend": {
+      "type": "hard_bound",
+      "earliest": 1953,
+      "confidence": "high",
+      "notes": "Commercial polyester (Dacron) was introduced to the US market in 1953. Any garment labeled as containing polyester postdates 1953. Polyester blends in mass-market clothing peaked 1965-1980."
+    },
+
+    "dacron_label": {
+      "type": "hard_bound",
+      "earliest": 1953,
+      "latest": 1985,
+      "confidence": "medium",
+      "notes": "Dacron was DuPont's brand name for polyester fiber, heavily marketed as a label claim in the 1950s-1970s. By the 1980s, garments simply listed 'polyester' rather than the trade name."
+    },
+
+    "nylon_label": {
+      "type": "hard_bound",
+      "earliest": 1940,
+      "confidence": "high",
+      "notes": "Nylon was introduced commercially in 1940. Any garment containing nylon is post-1940."
+    },
+
+    "qiana": {
+      "type": "hard_bound",
+      "earliest": 1968,
+      "latest": 1985,
+      "confidence": "high",
+      "notes": "Qiana was DuPont's luxury nylon brand, introduced 1968, heavily used in disco-era fashion. Fell out of use by the mid-1980s."
+    },
+
+    "spandex_lycra": {
+      "type": "hard_bound",
+      "earliest": 1962,
+      "confidence": "high",
+      "notes": "Spandex (Lycra) introduced commercially by DuPont in 1962. Any garment labeled with spandex/Lycra content postdates 1962. Became common in activewear from the 1980s onward."
+    },
+
+    "made_in_usa_no_qualifiers": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 1995,
+      "confidence": "medium",
+      "notes": "Plain 'Made in U.S.A.' with no additional manufacturing qualifiers is more common pre-NAFTA. Post-1994 FTC rules required 'Made in U.S.A.' to mean all or virtually all domestic content — some brands moved to qualified claims or stopped using it."
+    },
+
+    "assembled_in_usa": {
+      "type": "soft_anchor",
+      "likely_start": 1990,
+      "likely_end": 2010,
+      "confidence": "medium",
+      "notes": "'Assembled in U.S.A. of imported components' or similar qualified claims are post-1994 FTC rule era. Distinguishes from full domestic production."
+    }
+
+  },
+
+  "construction_details": {
+
+    "single_stitch_hem": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 1994,
+      "confidence": "medium",
+      "notes": "Single-needle stitching on T-shirt sleeve and bottom hems is associated with pre-1994 production on American blanks (Fruit of the Loom, Hanes, Champion, etc.). Chain-stitch and double-needle hems became standard as brands moved offshore. One of the most reliable T-shirt dating signals."
+    },
+
+    "selvedge_denim": {
+      "type": "soft_anchor",
+      "likely_start": 1873,
+      "likely_end": 1985,
+      "confidence": "medium",
+      "notes": "Selvedge (self-edge) denim from narrow-width shuttle looms was standard on American jeans until the 1960s-1980s when projectile looms producing wider non-selvedge denim became dominant. Selvedge visible on the inside seam of jeans strongly suggests pre-1985, and likely pre-1970s on major brands like Levi's."
+    },
+
+    "chain_stitch_outseam": {
+      "type": "soft_anchor",
+      "likely_start": 1873,
+      "likely_end": 1983,
+      "confidence": "medium",
+      "notes": "Chain stitch on the outseam of jeans is a vintage production indicator. Major brands transitioned to lock stitch as production modernized in the late 1970s-early 1980s."
+    }
+
+  },
+
+  "woolmark_symbol": {
+
+    "woolmark_present": {
+      "type": "hard_bound",
+      "earliest": 1964,
+      "confidence": "high",
+      "notes": "The Woolmark symbol (circular interlocked yarn ball design) was launched in August 1964 by the International Wool Secretariat. Any garment bearing the Woolmark symbol is post-1964."
+    },
+
+    "woolblend_mark": {
+      "type": "hard_bound",
+      "earliest": 1971,
+      "confidence": "high",
+      "notes": "The Woolblend Mark was introduced in 1971 for garments made from wool blended with another fiber. Presence indicates post-1971."
+    }
+
+  },
+
+  "care_label_text_patterns": {
+
+    "symbols_only_no_words": {
+      "type": "hard_bound",
+      "earliest": 1996,
+      "confidence": "high",
+      "notes": "In December 1996 the USA adopted the ASTM D5489 care symbol system. Labels using only pictorial care symbols with no accompanying text are post-1996 by the new standard. Mixed symbol/text labels were common in the transition 1996-2005."
+    },
+
+    "text_only_care_instructions": {
+      "type": "soft_anchor",
+      "likely_start": 1971,
+      "likely_end": 2000,
+      "confidence": "medium",
+      "notes": "Care instructions in text only (no symbols) were the standard from the 1971 FTC mandate through the 1990s. Text-only labels are consistent with 1971-1996, though some manufacturers continued text into the 2000s."
+    },
+
+    "hand_wash_cold": {
+      "type": "soft_anchor",
+      "likely_start": 1971,
+      "likely_end": 1995,
+      "confidence": "low",
+      "notes": "Instruction to hand wash cold is more common on vintage delicate garments and pre-machine-wash-era instructions. Low signal on its own."
+    }
+
+  },
+
+  "military_contract_label": {
+
+    "dsa_contract_prefix": {
+      "type": "hard_bound",
+      "earliest": 1962,
+      "latest": 1977,
+      "confidence": "high",
+      "notes": "US military contracts prefixed 'DSA' (Defense Supply Agency) were issued 1962-1977. DSA was renamed DLA (Defense Logistics Agency) in 1977. A DSA contract number on a military garment brackets it to 1962-1977."
+    },
+
+    "dla_contract_prefix": {
+      "type": "hard_bound",
+      "earliest": 1977,
+      "confidence": "high",
+      "notes": "DLA (Defense Logistics Agency) contract prefix used from 1977 onward."
+    },
+
+    "military_date_code": {
+      "type": "hard_bound",
+      "confidence": "high",
+      "notes": "US military contract labels contain a two-digit date code within the contract number representing the fiscal year the contract was awarded. This is a direct manufacturing date indicator. Note: contract award year may precede garment production by up to 1-2 years in some cases."
+    },
+
+    "m65_field_jacket": {
+      "type": "hard_bound",
+      "earliest": 1965,
+      "confidence": "high",
+      "notes": "The M-65 Field Jacket was introduced in 1965 to replace the M-51. Any M-65 labeled garment is post-1965."
+    },
+
+    "m51_field_jacket": {
+      "type": "hard_bound",
+      "earliest": 1951,
+      "latest": 1968,
+      "confidence": "high",
+      "notes": "The M-51 Field Jacket was introduced in 1951 and phased out by 1968 when M-65 production was fully established."
+    }
+
+  },
+
+  "care_label_additional": {
+
+    "ginetex_symbols": {
+      "type": "soft_anchor",
+      "likely_start": 1963,
+      "likely_end": 2030,
+      "confidence": "medium",
+      "notes": "GINETEX care symbols (used internationally, especially on European-origin garments) date to 1963 when the organization was founded. ISO 3758 standard first published 1991."
+    }
+
   }
 
 }

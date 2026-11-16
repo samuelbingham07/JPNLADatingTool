@@ -1,0 +1,142 @@
+{
+  "_schema_notes": {
+    "purpose": "Western wear brand dating signals. Covers brands that produced cowboy shirts, rodeo clothing, and Western Americana fashion.",
+    "confidence": "high = well-documented. medium = generally accepted ±2-3 years. low = rough estimate.",
+    "notes": "The 1940s-1950s are considered the Golden Age of Western shirts — this era produced some of the most artistically crafted production shirts in American fashion history."
+  },
+
+  "pearl_snap_buttons": {
+    "type": "hard_bound",
+    "earliest": 1946,
+    "confidence": "medium",
+    "notes": "Pearl snap buttons on Western shirts were popularized and arguably invented for shirts by Jack A. Weil of Rockmount Ranch Wear in 1946-1947. While snap buttons existed earlier (on other applications), decorative pearl snaps as a Western shirt defining detail originate here. A Western shirt with pearl snaps is post-1946. Very early snap buttons (pre-1946) would be plain metal, not pearl."
+  },
+
+  "Rockmount_Ranch_Wear": {
+    "official_name": "Rockmount Ranch Wear Manufacturing Co.",
+    "founded": 1946,
+    "still_active": true,
+    "notes": "Founded in Denver, Colorado in 1946 by Jack A. Weil (Papa Jack). Credited with putting snap buttons on Western shirts and establishing the modern Western shirt. Still family-owned and Denver-based. One of the most collectible vintage Western brands.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Rockmount Ranch Wear label",
+        "type": "hard_bound",
+        "earliest": 1946,
+        "confidence": "high",
+        "notes": "Rockmount Ranch Wear was founded in 1946."
+      },
+      "rockmount_golden_era": {
+        "description": "Rockmount Western shirt with intricate embroidery, piping, or decorative yoke",
+        "type": "soft_anchor",
+        "likely_start": 1946,
+        "likely_end": 1965,
+        "confidence": "medium",
+        "notes": "The Golden Age of Rockmount production (late 1940s-1950s) featured the most artistically elaborate Western shirts. Post-1965 shirts are more simplified."
+      },
+      "rockmount_made_usa": {
+        "description": "Label reads 'Made in U.S.A.' or 'Made in Denver, Colorado'",
+        "type": "soft_anchor",
+        "likely_start": 1946,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Rockmount has maintained significant US production throughout its history. Denver-specific callout is older."
+      }
+    }
+  },
+
+  "H_Bar_C": {
+    "official_name": "H Bar C Ranchwear (California Ranchwear Inc.)",
+    "founded": 1906,
+    "dissolved": 1990,
+    "notes": "H Bar C was one of the earliest Western wear manufacturers, emerging around 1906. Became known for combining ranchwear practicality with Hollywood glamour during the Singing Cowboy era. Closely associated with Gene Autry and Roy Rogers. Sometimes called 'California Ranchwear.' Highly collectible — particularly the 1940s-1960s pieces.",
+    "signals": {
+      "existence_bound": {
+        "description": "Any H Bar C label",
+        "type": "hard_bound",
+        "earliest": 1906,
+        "latest": 1990,
+        "confidence": "medium",
+        "notes": "H Bar C operated from approximately 1906 until around 1990. Any H Bar C label predates 1990."
+      },
+      "hbarc_golden_era": {
+        "description": "H Bar C Western shirt with decorative piping, contrasting yokes, embroidery",
+        "type": "soft_anchor",
+        "likely_start": 1935,
+        "likely_end": 1965,
+        "confidence": "medium",
+        "notes": "H Bar C's peak production quality coincided with the Singing Cowboy/Hollywood Western era. Elaborate decorative details are associated with this golden period."
+      },
+      "hbarc_made_usa": {
+        "description": "H Bar C label reads 'Made in U.S.A.' or 'Made in California'",
+        "type": "soft_anchor",
+        "likely_start": 1906,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "H Bar C was a US manufacturer throughout its active period."
+      }
+    }
+  },
+
+  "Panhandle_Slim": {
+    "official_name": "Panhandle Slim (Westmoor Manufacturing)",
+    "founded": 1943,
+    "still_active": true,
+    "notes": "Founded in the 1940s. Originally from Minneapolis/Omaha area, moved to Fort Worth, Texas in 1975. Known for sawtooth pockets, embroidered roses, and extremely lightweight thin shirts. The vintage lightweight line was hugely popular in the 1970s-1980s.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Panhandle Slim label",
+        "type": "hard_bound",
+        "earliest": 1943,
+        "confidence": "medium",
+        "notes": "Panhandle Slim was founded in the early 1940s."
+      },
+      "fort_worth_texas_label": {
+        "description": "Label reads 'Fort Worth, Texas' or references Fort Worth address",
+        "type": "hard_bound",
+        "earliest": 1975,
+        "confidence": "high",
+        "notes": "Panhandle Slim moved to Fort Worth, Texas in 1975. Fort Worth address on label indicates post-1975."
+      },
+      "panhandle_slim_peak_era": {
+        "description": "Panhandle Slim lightweight Western shirt",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1990,
+        "confidence": "medium",
+        "notes": "The vintage lightweight Panhandle Slim line was hugely popular in the 1970s-1980s. Sawtooth pockets and embroidered details."
+      }
+    }
+  },
+
+  "Karman": {
+    "official_name": "Karman Inc. / Karman Western Wear",
+    "founded": 1944,
+    "still_active": true,
+    "notes": "Founded 1944. One of the four brands (alongside Rockmount, H Bar C, and Panhandle Slim) that almost simultaneously began producing Western shirts into the market post-WWII. Known for quality embroidered and piped Western shirts.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Karman label",
+        "type": "hard_bound",
+        "earliest": 1944,
+        "confidence": "medium",
+        "notes": "Karman Western Wear was founded in 1944."
+      }
+    }
+  },
+
+  "Sheplers": {
+    "official_name": "Sheplers Western Wear",
+    "founded": 1899,
+    "still_active": true,
+    "notes": "Founded in Wichita, Kansas in 1899. Major Western wear retailer that also produced private-label garments. Known as a significant catalog retailer for Western clothing.",
+    "signals": {
+      "sheplers_private_label": {
+        "description": "Label reads 'Sheplers' as manufacturer (not just retailer)",
+        "type": "hard_bound",
+        "earliest": 1899,
+        "confidence": "medium",
+        "notes": "Sheplers private-label garments date from the 1899 founding onward."
+      }
+    }
+  }
+}

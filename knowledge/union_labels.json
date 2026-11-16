@@ -1,0 +1,207 @@
+{
+  "_schema_notes": {
+    "purpose": "Union label dating rules. Union existence dates are historical record (high confidence). Specific label design era dates are approximations based on documented design changes and may need refinement.",
+    "type_hard_bound": "Garment cannot exist outside these dates.",
+    "type_soft_anchor": "Strong probability toward this range; exceptions possible.",
+    "confidence": "high = historical fact or very well documented, medium = generally accepted but ±2-3 years possible, low = rough estimate needing verification"
+  },
+
+  "ILGWU": {
+    "full_name": "International Ladies' Garment Workers' Union",
+    "founded": 1900,
+    "dissolved": 1995,
+    "merged_into": "UNITE",
+    "primary_garment_types": ["women's dresses", "blouses", "skirts", "children's clothing", "some men's garments"],
+    "existence_bound": {
+      "type": "hard_bound",
+      "earliest": 1900,
+      "latest": 1995,
+      "confidence": "high",
+      "notes": "ILGWU merged into UNITE in February 1995. Any garment bearing an ILGWU label predates 1995. One of the most common union labels on American vintage women's clothing."
+    },
+    "sub_designs": {
+      "pre_1936_no_scallop": {
+        "type": "hard_bound",
+        "latest": 1936,
+        "confidence": "high",
+        "notes": "Very early ILGWU labels without the scalloped circle design. Extremely rare."
+      },
+      "AFL_only": {
+        "type": "hard_bound",
+        "latest": 1955,
+        "confidence": "high",
+        "notes": "AFL merged with CIO in December 1955 to form AFL-CIO. Labels reading 'AFL' without 'CIO' predate the merger. Hard ceiling of 1955."
+      },
+      "1936_CIO": {
+        "type": "hard_bound",
+        "earliest": 1936,
+        "latest": 1940,
+        "confidence": "medium",
+        "notes": "During 1936-1940 a faction of ILGWU was affiliated with CIO following a union split. Labels reading 'ILGWU CIO' indicate this short window."
+      },
+      "1955_1963_scallop_needle": {
+        "type": "hard_bound",
+        "earliest": 1955,
+        "latest": 1963,
+        "confidence": "high",
+        "notes": "Design features large scalloped circle surrounding a union logo in front of needle and thread, 'UNION LABEL' above, AFL-CIO below. Tightly brackets garment to 1955-1963."
+      },
+      "1963_1974_dark_circle": {
+        "type": "hard_bound",
+        "earliest": 1963,
+        "latest": 1974,
+        "confidence": "high",
+        "notes": "Large scalloped circle with dark inner circle, 'UNION MADE' at top, 'ILGWU' in center, 'AFL-CIO' at bottom. If a small circled-R trademark symbol appears below the scallop, garment is post April 21, 1964."
+      },
+      "1964_R_trademark": {
+        "type": "hard_bound",
+        "earliest": 1964,
+        "latest": 1974,
+        "confidence": "high",
+        "notes": "Small circled-R below scalloped circle — trademark registered April 21, 1964. Narrows to 1964-1974."
+      },
+      "1974_1995_red_white_blue": {
+        "type": "hard_bound",
+        "earliest": 1974,
+        "latest": 1995,
+        "confidence": "high",
+        "notes": "Same scalloped/dark-circle design as 1963-1974 but in red, white, and blue. The most commonly seen ILGWU label. This is the 'patriotic' era label that most collectors recognize."
+      },
+      "AFL_CIO_generic": {
+        "type": "hard_bound",
+        "earliest": 1956,
+        "latest": 1995,
+        "confidence": "high",
+        "notes": "AFL-CIO affiliation present but sub-design unclear. Use when specific design era is not identifiable."
+      },
+      "look_for_the_union_label_campaign": {
+        "type": "soft_anchor",
+        "likely_start": 1975,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "The 'Look for the Union Label' advertising campaign launched 1975. Labels or hang tags explicitly referencing this campaign postdate 1975."
+      }
+    }
+  },
+
+  "ACWA": {
+    "full_name": "Amalgamated Clothing Workers of America",
+    "founded": 1914,
+    "dissolved": 1976,
+    "merged_into": "ACTWU",
+    "primary_garment_types": ["men's suits", "dress shirts", "trousers", "coats"],
+    "existence_bound": {
+      "type": "hard_bound",
+      "earliest": 1914,
+      "latest": 1976,
+      "confidence": "high",
+      "notes": "ACWA merged with the Textile Workers Union of America in 1976 to form ACTWU. Label is conclusive proof of pre-1976 production."
+    },
+    "sub_designs": {
+      "AFL_only": {
+        "type": "hard_bound",
+        "latest": 1955,
+        "confidence": "high",
+        "notes": "Pre-AFL-CIO merger. Hard ceiling of 1955."
+      },
+      "AFL_CIO": {
+        "type": "hard_bound",
+        "earliest": 1956,
+        "latest": 1976,
+        "confidence": "high",
+        "notes": "Post-merger, pre-ACTWU formation. Narrow 20-year window."
+      }
+    }
+  },
+
+  "ACTWU": {
+    "full_name": "Amalgamated Clothing and Textile Workers Union",
+    "founded": 1976,
+    "dissolved": 1995,
+    "merged_into": "UNITE",
+    "primary_garment_types": ["men's clothing", "workwear", "textile products"],
+    "existence_bound": {
+      "type": "hard_bound",
+      "earliest": 1976,
+      "latest": 1995,
+      "confidence": "high",
+      "notes": "Formed from merger of ACWA and TWU in 1976. Merged into UNITE in 1995. Tight 19-year window."
+    }
+  },
+
+  "TWU": {
+    "full_name": "Textile Workers Union of America",
+    "founded": 1939,
+    "dissolved": 1976,
+    "merged_into": "ACTWU",
+    "primary_garment_types": ["textiles", "woven goods", "some finished garments"],
+    "existence_bound": {
+      "type": "hard_bound",
+      "earliest": 1939,
+      "latest": 1976,
+      "confidence": "high",
+      "notes": "Merged with ACWA in 1976. Less common on finished garments than ILGWU/ACWA."
+    },
+    "sub_designs": {
+      "AFL_CIO": {
+        "type": "hard_bound",
+        "earliest": 1956,
+        "latest": 1976,
+        "confidence": "high",
+        "notes": "AFL-CIO affiliation brackets this label to 1956-1976."
+      }
+    }
+  },
+
+  "UNITE": {
+    "full_name": "Union of Needletrades, Industrial and Textile Employees",
+    "founded": 1995,
+    "dissolved": 2004,
+    "merged_into": "UNITE HERE",
+    "existence_bound": {
+      "type": "hard_bound",
+      "earliest": 1995,
+      "latest": 2004,
+      "confidence": "high",
+      "notes": "Formed from ILGWU + ACTWU merger in 1995. Merged with HERE in 2004 to form UNITE HERE. Rarely seen on garments — domestic union production was declining sharply during this window."
+    }
+  },
+
+  "UNITE_HERE": {
+    "full_name": "UNITE HERE",
+    "founded": 2004,
+    "dissolved": null,
+    "existence_bound": {
+      "type": "hard_bound",
+      "earliest": 2004,
+      "confidence": "high",
+      "notes": "Formed in 2004. Extremely rare on garment labels given near-total offshore shift by this point. Presence would be notable and likely indicates a specialty or boutique domestic producer."
+    }
+  },
+
+  "UGWA": {
+    "full_name": "United Garment Workers of America",
+    "founded": 1891,
+    "dissolved": null,
+    "primary_garment_types": ["overalls", "workwear", "men's work clothing"],
+    "existence_bound": {
+      "type": "soft_anchor",
+      "likely_start": 1891,
+      "likely_end": 1955,
+      "confidence": "medium",
+      "notes": "Technically still exists but became largely inactive after losing jurisdiction to ACWA in the mid-20th century. UGWA labels on garments are predominantly pre-1950. Seeing this label is a strong early-to-mid 20th century signal."
+    }
+  },
+
+  "BRAC": {
+    "full_name": "Brotherhood of Railway, Airline and Steamship Clerks",
+    "notes": "Occasionally appears on garments made for rail/transport workers. Limited dating utility without sub-design research. Flag for manual review.",
+    "existence_bound": {
+      "type": "soft_anchor",
+      "likely_start": 1900,
+      "likely_end": 1988,
+      "confidence": "low",
+      "notes": "BRAC merged into TCU in 1988. Appearance on clothing labels is rare and context-specific."
+    }
+  }
+}

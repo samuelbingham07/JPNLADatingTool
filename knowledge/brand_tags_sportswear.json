@@ -1,0 +1,227 @@
+{
+  "_schema_notes": {
+    "purpose": "Athletic and sportswear brand dating signals. Covers brands primarily associated with athletic performance wear, tracksuits, sneaker-adjacent clothing, and branded athletic casualwear.",
+    "confidence": "high = well-documented. medium = generally accepted ±2-3 years. low = rough estimate."
+  },
+
+  "Nike": {
+    "official_name": "Nike Inc. (originally Blue Ribbon Sports)",
+    "founded": 1964,
+    "still_active": true,
+    "notes": "Blue Ribbon Sports founded 1964 by Phil Knight and Bill Bowerman. Renamed Nike in 1971 when the Swoosh logo was introduced. Nike is the most collected vintage sportswear brand. Tag color sequence is the primary dating method.",
+    "signals": {
+      "blue_ribbon_sports_label": {
+        "description": "Label reads 'Blue Ribbon Sports' or 'BRS'",
+        "type": "hard_bound",
+        "earliest": 1964,
+        "latest": 1971,
+        "confidence": "high",
+        "notes": "Blue Ribbon Sports was the company name from 1964 to 1971. Labels bearing BRS or Blue Ribbon Sports predate the Nike name change."
+      },
+      "white_tag_orange_swoosh_1971_1983": {
+        "description": "White tag with brand name in blue letters and orange Swoosh",
+        "type": "hard_bound",
+        "earliest": 1971,
+        "latest": 1983,
+        "confidence": "high",
+        "notes": "Nike's first label era after the name change. White background, blue 'nike' text, orange Swoosh. Used 1971-1983."
+      },
+      "pinwheel_label_1978_1982": {
+        "description": "Nike Pinwheel label — circular pinwheel design",
+        "type": "hard_bound",
+        "earliest": 1978,
+        "latest": 1982,
+        "confidence": "high",
+        "notes": "The iconic Nike Pinwheel label with its distinctive circular/pinwheel graphic design. Very narrow and highly identifiable window: 1978-1982. Found primarily on T-shirts."
+      },
+      "orange_label_1978_1983": {
+        "description": "Orange/orange-dominated label",
+        "type": "hard_bound",
+        "earliest": 1978,
+        "latest": 1983,
+        "confidence": "high",
+        "notes": "Nike's Orange Label era: 1978-1983. Found on T-shirts, sweatshirts, jackets, and shoes. Bold orange color and prominent Swoosh placement."
+      },
+      "blue_label_1984_1987": {
+        "description": "Blue label with silver-grey logo and silver-grey text",
+        "type": "hard_bound",
+        "earliest": 1984,
+        "latest": 1987,
+        "confidence": "high",
+        "notes": "Nike Blue Label: 1984-1987. Found on T-shirts, sweatshirts, jackets, and joggers. Blue background with silver-grey logo/text."
+      },
+      "grey_label_1987_1994": {
+        "description": "Grey label",
+        "type": "hard_bound",
+        "earliest": 1987,
+        "latest": 1994,
+        "confidence": "high",
+        "notes": "Nike Grey Label: 1987-1994. Found on T-shirts, sweatshirts, jackets, and joggers. One of the most common and collectible vintage Nike eras."
+      },
+      "white_label_1994_1999": {
+        "description": "White label (second generation white)",
+        "type": "hard_bound",
+        "earliest": 1994,
+        "latest": 1999,
+        "confidence": "high",
+        "notes": "Nike White Label second era: 1994-1999. Found on T-shirts and sweatshirts (printed label) and jackets, shorts, joggers, caps (embroidered label)."
+      },
+      "nike_made_usa": {
+        "description": "Nike label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1971,
+        "likely_end": 1990,
+        "confidence": "medium",
+        "notes": "Nike made products in the USA primarily through the early 1980s. By the late 1980s most production had shifted offshore. Made in USA Nike strongly suggests pre-1990. Note: 1997 FTC rule change also affected how 'Made in USA' could be claimed."
+      },
+      "made_in_taiwan": {
+        "description": "Nike label reads 'Made in Taiwan'",
+        "type": "soft_anchor",
+        "likely_start": 1980,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Made in Taiwan common during the early offshore transition period for Nike. Suggests early-to-mid 1980s through mid-1990s."
+      },
+      "made_in_indonesia": {
+        "description": "Nike label reads 'Made in Indonesia'",
+        "type": "soft_anchor",
+        "likely_start": 1988,
+        "likely_end": 2010,
+        "confidence": "medium",
+        "notes": "Indonesia became a major Nike production location from the late 1980s onward."
+      }
+    }
+  },
+
+  "Adidas": {
+    "official_name": "Adidas AG",
+    "founded": 1949,
+    "still_active": true,
+    "notes": "Founded by Adolf Dassler in Herzogenaurach, Germany in 1949. US market clothing presence from the 1960s onward. Peak vintage collectible era: 1970s-early 1980s tracksuits with Trefoil logo.",
+    "signals": {
+      "trefoil_logo_era": {
+        "description": "Three-leaf Trefoil logo on label or garment",
+        "type": "hard_bound",
+        "earliest": 1971,
+        "confidence": "high",
+        "notes": "The Adidas Trefoil logo was introduced in 1971. Any garment with the Trefoil is post-1971."
+      },
+      "large_chest_trefoil_tracksuit": {
+        "description": "Full tracksuit with large Trefoil on chest and 'Adidas' typeface below",
+        "type": "soft_anchor",
+        "likely_start": 1971,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "Early 1970s-mid 1980s Adidas tracksuits featured a large Trefoil on the chest. Often bright, bold colors, tight-fitting. Associated with the aerobics/fitness movement era."
+      },
+      "smaller_trefoil_side_text_1980s": {
+        "description": "Smaller Trefoil with Adidas typeface beside it (not below)",
+        "type": "soft_anchor",
+        "likely_start": 1983,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Mid-1980s Adidas moved to a smaller Trefoil with the Adidas typeface beside it. Baggier fits, geometric patterns. The 'three stripe' identity more prominent."
+      },
+      "performance_logo": {
+        "description": "Three-bar 'performance' logo (not Trefoil) on label",
+        "type": "hard_bound",
+        "earliest": 1991,
+        "confidence": "high",
+        "notes": "Adidas introduced the three-bar 'performance' logo in 1991. Any garment with this logo (not Trefoil) is post-1991."
+      },
+      "made_in_west_germany": {
+        "description": "Label reads 'Made in West Germany'",
+        "type": "hard_bound",
+        "latest": 1990,
+        "confidence": "high",
+        "notes": "West Germany ceased to exist upon reunification in October 1990. Hard pre-1990 ceiling."
+      },
+      "thick_1980s_tag_material": {
+        "description": "Thick tag material with information sewn into the tag (not printed)",
+        "type": "soft_anchor",
+        "likely_start": 1980,
+        "likely_end": 1992,
+        "confidence": "medium",
+        "notes": "1980s Adidas tags used thick material with stitched/woven text instead of printed text."
+      }
+    }
+  },
+
+  "Puma": {
+    "official_name": "Puma SE",
+    "founded": 1948,
+    "still_active": true,
+    "notes": "Founded by Rudolf Dassler (brother of Adidas founder) in Herzogenaurach, Germany in 1948. Being exported to the US by 1950. Known for Suede trainers and 1980s shell suits and track jackets.",
+    "signals": {
+      "puma_us_market": {
+        "description": "Puma clothing in the US market",
+        "type": "soft_anchor",
+        "likely_start": 1950,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Puma was exported to the US from approximately 1950."
+      },
+      "made_in_west_germany_puma": {
+        "description": "Puma label reads 'Made in West Germany'",
+        "type": "hard_bound",
+        "latest": 1990,
+        "confidence": "high",
+        "notes": "West Germany ceased to exist in 1990. Hard pre-1990 ceiling."
+      },
+      "puma_shell_suit_era": {
+        "description": "Puma shell suit or track jacket from this era",
+        "type": "soft_anchor",
+        "likely_start": 1980,
+        "likely_end": 1993,
+        "confidence": "medium",
+        "notes": "Puma shell suits and track jackets are most associated with the 1980s. The shell suit as a garment type peaked 1988-1992."
+      }
+    }
+  },
+
+  "Reebok": {
+    "official_name": "Reebok International Ltd.",
+    "founded": 1958,
+    "still_active": true,
+    "notes": "Founded in Bolton, England in 1958. US market entry and dominance began in the early 1980s with the aerobics shoe boom. US subsidiary formed 1979. Most clothing from the 1980s onward. Acquired by Adidas in 2005.",
+    "signals": {
+      "reebok_us_market_clothing": {
+        "description": "Reebok clothing label in US market",
+        "type": "hard_bound",
+        "earliest": 1979,
+        "confidence": "high",
+        "notes": "Reebok's US subsidiary formed 1979. US market clothing is post-1979. Peak US popularity was early-to-mid 1980s."
+      },
+      "adidas_acquisition_reference": {
+        "description": "Corporate reference to Adidas ownership on Reebok label",
+        "type": "hard_bound",
+        "earliest": 2005,
+        "confidence": "high",
+        "notes": "Adidas acquired Reebok in 2005."
+      }
+    }
+  },
+
+  "Converse": {
+    "official_name": "Converse Inc.",
+    "founded": 1908,
+    "still_active": true,
+    "notes": "Founded 1908 in Malden, Massachusetts. Primarily footwear but clothing has been part of the brand identity. Nike acquired Converse in 2003.",
+    "signals": {
+      "converse_founded": {
+        "description": "Any Converse label",
+        "type": "hard_bound",
+        "earliest": 1908,
+        "confidence": "high",
+        "notes": "Converse founded 1908."
+      },
+      "nike_acquisition": {
+        "description": "Corporate reference to Nike on Converse label",
+        "type": "hard_bound",
+        "earliest": 2003,
+        "confidence": "high",
+        "notes": "Nike acquired Converse in 2003."
+      }
+    }
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "_schema_notes": {
+    "purpose": "Lifestyle, retail, and fashion brand dating signals. Covers brands associated with casualwear, preppy/collegiate fashion, mass-market retail private labels, and fashion-forward American brands.",
+    "confidence": "high = well-documented. medium = generally accepted ±2-3 years. low = rough estimate."
+  },
+
+  "Ralph_Lauren_Polo": {
+    "official_name": "Polo Ralph Lauren / Ralph Lauren Corporation",
+    "founded": 1967,
+    "still_active": true,
+    "notes": "Ralph Lauren brand founded 1967 in New York. Originally sold neckties. The polo player logo was introduced in the 1970s. Chaps Ralph Lauren sub-brand launched 1978. Polo Sport line launched 1993.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Ralph Lauren or Polo by Ralph Lauren label",
+        "type": "hard_bound",
+        "earliest": 1967,
+        "confidence": "high",
+        "notes": "Ralph Lauren brand did not exist before 1967."
+      },
+      "polo_player_logo": {
+        "description": "Polo player on horseback logo on label or garment",
+        "type": "soft_anchor",
+        "likely_start": 1972,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "The polo player design appears on Ralph Lauren tags beginning in the 1970s (approximately 1972+)."
+      },
+      "polo_by_ralph_lauren_text": {
+        "description": "Label reads 'Polo by Ralph Lauren'",
+        "type": "soft_anchor",
+        "likely_start": 1967,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "First labels were simple with 'Polo by Ralph Lauren' text, often embroidered in white on navy blue."
+      },
+      "chaps_ralph_lauren": {
+        "description": "Label reads 'Chaps Ralph Lauren'",
+        "type": "hard_bound",
+        "earliest": 1978,
+        "latest": 1999,
+        "confidence": "high",
+        "notes": "Chaps Ralph Lauren was created in 1978 as a diffusion line in response to the counterfeit market. The label was used through the late 1990s."
+      },
+      "polo_sport": {
+        "description": "Label reads 'Polo Sport' or 'Polo Sport Ralph Lauren'",
+        "type": "hard_bound",
+        "earliest": 1993,
+        "confidence": "high",
+        "notes": "Polo Sport line launched in 1993."
+      },
+      "ralph_lauren_made_usa": {
+        "description": "Polo/Ralph Lauren label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1967,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "Polo produced more domestically in its earlier decades. Made in USA Polo suggests generally pre-1995."
+      }
+    }
+  },
+
+  "Lacoste_Izod": {
+    "official_name": "Lacoste (licensed to Izod/David Crystal in US)",
+    "founded": 1933,
+    "still_active": true,
+    "notes": "Lacoste founded by Rene Lacoste in France, 1933. US market entered via licensing: 1952 agreement with David Crystal Company (also owned Izod), formalized with Izod licensing to manufacture in the US from 1966. The Lacoste/Izod relationship ended in 1992. Key for dating: labels reading 'Izod Lacoste' or 'Lacoste Made in USA by Izod' indicate specific US manufacture window.",
+    "signals": {
+      "lacoste_any_label": {
+        "description": "Any Lacoste label (global)",
+        "type": "hard_bound",
+        "earliest": 1933,
+        "confidence": "high",
+        "notes": "Lacoste brand founded 1933."
+      },
+      "izod_lacoste_combined": {
+        "description": "Label reads 'Izod Lacoste' or combines both brand names",
+        "type": "hard_bound",
+        "earliest": 1966,
+        "latest": 1992,
+        "confidence": "high",
+        "notes": "Izod licensed Lacoste for US manufacturing from 1966. The relationship ended in 1992. Combined Izod/Lacoste label is a tight 1966-1992 window for US-made Lacoste."
+      },
+      "izod_lacoste_early_us": {
+        "description": "US-market Lacoste label with David Crystal or Izod reference",
+        "type": "hard_bound",
+        "earliest": 1952,
+        "latest": 1992,
+        "confidence": "high",
+        "notes": "David Crystal began importing/distributing Lacoste in the US from 1952 (formal agreement). US manufacture began 1966."
+      },
+      "lacoste_without_izod": {
+        "description": "Lacoste label with no Izod reference (post-1992 US)",
+        "type": "soft_anchor",
+        "likely_start": 1992,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "After the Izod relationship ended in 1992, US Lacoste labels dropped the Izod name."
+      }
+    }
+  },
+
+  "Gap": {
+    "official_name": "The Gap Inc.",
+    "founded": 1969,
+    "still_active": true,
+    "notes": "Founded by Donald and Doris Fisher in San Francisco in 1969. Originally sold only Levi's jeans. Started producing own-label clothing in 1974. Logo changed from lowercase black text to blue box with white capital letters in 1986.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Gap label",
+        "type": "hard_bound",
+        "earliest": 1969,
+        "confidence": "high",
+        "notes": "Gap was founded in 1969."
+      },
+      "gap_original_logo_lowercase": {
+        "description": "Gap logo in all lowercase black text ('the gap') on white/light background",
+        "type": "hard_bound",
+        "earliest": 1969,
+        "latest": 1986,
+        "confidence": "high",
+        "notes": "Gap's 1969-1986 logo featured all-lowercase black text on white. Changed to blue box with capitalized white text in 1986."
+      },
+      "gap_blue_box_logo": {
+        "description": "Gap logo in blue box with white capitalized 'GAP' text",
+        "type": "hard_bound",
+        "earliest": 1986,
+        "confidence": "high",
+        "notes": "Blue box logo introduced 1986 and still in use (with brief failed rebranding attempt in 2010 quickly reverted)."
+      },
+      "gap_own_label_start": {
+        "description": "Gap-branded clothing label (not Levi's or other third-party)",
+        "type": "hard_bound",
+        "earliest": 1974,
+        "confidence": "high",
+        "notes": "Gap sold only Levi's through 1973. Own-brand Gap clothing labels begin in 1974."
+      }
+    }
+  },
+
+  "Banana_Republic_Original": {
+    "official_name": "Banana Republic Travel & Safari Clothing Company (original)",
+    "founded": 1978,
+    "still_active": true,
+    "notes": "Founded 1978 by Mel and Patricia Ziegler in Mill Valley, California as an army surplus import business with a safari/travel theme. Acquired by Gap Inc. in 1983. Original safari/travel concept phased out by 1988 when founders left; fully gone by 1990. The original Banana Republic (1978-1988) is a very distinct vintage proposition from the modern preppy brand.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Banana Republic label",
+        "type": "hard_bound",
+        "earliest": 1978,
+        "confidence": "high",
+        "notes": "Banana Republic was founded in 1978."
+      },
+      "safari_travel_era": {
+        "description": "Label reads 'Banana Republic Travel & Safari Clothing Co.' or similar safari-era branding",
+        "type": "hard_bound",
+        "earliest": 1978,
+        "latest": 1988,
+        "confidence": "high",
+        "notes": "The original 'Travel & Safari Clothing Co.' branding ran from 1978 until the Zieglers left in 1988. This is the highly collectible vintage Banana Republic era."
+      },
+      "gap_acquisition_era": {
+        "description": "Banana Republic after Gap acquisition (corporate Banana Republic feel, no safari theme)",
+        "type": "soft_anchor",
+        "likely_start": 1983,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Gap acquired Banana Republic in 1983 but kept original management through 1988. Post-1990 Banana Republic has no safari identity."
+      }
+    }
+  },
+
+  "Abercrombie_Fitch_Original": {
+    "official_name": "Abercrombie & Fitch Co. (original outdoor/sporting goods brand)",
+    "founded": 1892,
+    "still_active": true,
+    "notes": "IMPORTANT: There are two distinct Abercrombie & Fitch identities. The ORIGINAL A&F (1892-1977) was a prestigious outdoor sporting goods retailer with celebrity clientele (Teddy Roosevelt, Hemingway, Amelia Earhart). It went bankrupt in 1977. The MODERN A&F (1988-present) is a teen fashion brand revived by Limited Brands with no connection to the outdoor heritage. Vintage A&F clothing from before 1977 is completely different in character and value from modern A&F.",
+    "signals": {
+      "original_af_1892_1977": {
+        "description": "A&F label in heavyweight canvas/twill with bold serif font, no ampersand in early versions, 'EST. 1892' reference",
+        "type": "hard_bound",
+        "earliest": 1892,
+        "latest": 1977,
+        "confidence": "high",
+        "notes": "Original A&F went bankrupt in 1977. Labels from this era feature heavy woven construction, 'ABERCROMBIE & FITCH' in serif font. Often sewn into necklines or waistbands. This is a completely different brand identity from modern A&F."
+      },
+      "modern_af_teen_fashion": {
+        "description": "Modern A&F label (soft paper tags, fashion branding, moose logo)",
+        "type": "hard_bound",
+        "earliest": 1988,
+        "confidence": "high",
+        "notes": "Limited Brands (now L Brands) revived A&F as a teen fashion retailer in 1988. Modern A&F has paper tags, moose branding, and no outdoor heritage connection."
+      }
+    }
+  },
+
+  "Tommy_Hilfiger": {
+    "official_name": "Tommy Hilfiger Corporation",
+    "founded": 1985,
+    "still_active": true,
+    "notes": "Founded 1985. Rapidly grew in the 1990s through hip-hop culture adoption.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Tommy Hilfiger label",
+        "type": "hard_bound",
+        "earliest": 1985,
+        "confidence": "high",
+        "notes": "Tommy Hilfiger brand did not exist before 1985."
+      }
+    }
+  },
+
+  "Nautica": {
+    "official_name": "Nautica Enterprises Inc.",
+    "founded": 1983,
+    "still_active": true,
+    "signals": {
+      "founding_bound": {
+        "description": "Any Nautica label",
+        "type": "hard_bound",
+        "earliest": 1983,
+        "confidence": "high",
+        "notes": "Nautica brand did not exist before 1983."
+      }
+    }
+  },
+
+  "Calvin_Klein": {
+    "official_name": "Calvin Klein Inc.",
+    "founded": 1968,
+    "still_active": true,
+    "signals": {
+      "founding_bound": {
+        "description": "Any Calvin Klein label",
+        "type": "hard_bound",
+        "earliest": 1968,
+        "confidence": "high",
+        "notes": "Calvin Klein brand did not exist before 1968."
+      },
+      "ck_jeans": {
+        "description": "Label reads 'Calvin Klein Jeans'",
+        "type": "hard_bound",
+        "earliest": 1978,
+        "confidence": "high",
+        "notes": "Calvin Klein Jeans launched approximately 1978."
+      }
+    }
+  },
+
+  "Members_Only": {
+    "official_name": "Members Only (Europe Craft Imports / Glenoit Mills)",
+    "founded": 1975,
+    "still_active": true,
+    "notes": "Members Only jacket became a cultural phenomenon in the early 1980s. Peak cultural relevance 1981-1988.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Members Only label",
+        "type": "hard_bound",
+        "earliest": 1975,
+        "confidence": "high",
+        "notes": "Members Only brand dates to 1975."
+      },
+      "peak_era": {
+        "description": "Members Only jacket (especially cafe/racer-style with epaulettes)",
+        "type": "soft_anchor",
+        "likely_start": 1981,
+        "likely_end": 1990,
+        "confidence": "medium",
+        "notes": "Members Only's cultural peak was early-to-mid 1980s. Garments from this era are the most collectible."
+      }
+    }
+  },
+
+  "Izod": {
+    "official_name": "Izod (David Crystal Inc.)",
+    "founded": 1930,
+    "still_active": true,
+    "notes": "The Izod name came from a London tailoring firm. David Crystal Inc. acquired the Izod brand in 1938. David Crystal also held the Lacoste license from 1952-1992. After the Lacoste license ended, Izod continued as an independent preppy brand under various ownership.",
+    "signals": {
+      "izod_david_crystal": {
+        "description": "Label references David Crystal or Izod by David Crystal",
+        "type": "hard_bound",
+        "earliest": 1938,
+        "confidence": "medium",
+        "notes": "David Crystal Inc. held the Izod name from 1938."
+      },
+      "izod_lacoste_license": {
+        "description": "Label reads 'Izod Lacoste' or similar combined branding",
+        "type": "hard_bound",
+        "earliest": 1966,
+        "latest": 1992,
+        "confidence": "high",
+        "notes": "Izod manufactured Lacoste under license 1966-1992. See Lacoste_Izod entry."
+      },
+      "izod_post_lacoste": {
+        "description": "Izod label without Lacoste reference",
+        "type": "soft_anchor",
+        "likely_start": 1992,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Post-1992, Izod operated independently. The standalone Izod brand continued but without Lacoste association."
+      }
+    }
+  }
+}

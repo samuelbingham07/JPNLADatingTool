@@ -1,0 +1,258 @@
+{
+  "_schema_notes": {
+    "purpose": "Outdoor, field, and heritage wool brand dating signals. Covers brands associated with hunting, fishing, mountaineering, camping outerwear, and American wool heritage.",
+    "confidence": "high = well-documented. medium = generally accepted ±2-3 years. low = rough estimate."
+  },
+
+  "Woolrich": {
+    "official_name": "Woolrich Inc.",
+    "founded": 1830,
+    "still_active": true,
+    "notes": "Woolrich is the oldest outdoor clothing manufacturer in the United States, founded 1830 in Plum Run, Pennsylvania by John Rich. Known for the Buffalo Check pattern (introduced 1850) and the Arctic Parka (1970s, designed for Alaskan Pipeline workers). Last US manufacturing plant closed 2013.",
+    "signals": {
+      "woolrich_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "hard_bound",
+        "latest": 2013,
+        "confidence": "high",
+        "notes": "Woolrich's last US manufacturing plant closed in 2013. Made in USA Woolrich predates 2013. The vast majority of Woolrich's offshore shift happened in the 1990s — Made in USA most likely means pre-2000."
+      },
+      "arctic_parka_label": {
+        "description": "Label references 'Arctic Parka' or 'Arctic' in product name",
+        "type": "hard_bound",
+        "earliest": 1970,
+        "confidence": "medium",
+        "notes": "The Woolrich Arctic Parka was designed in the early 1970s for Alaskan Pipeline workers."
+      },
+      "buffalo_check_pattern": {
+        "description": "Buffalo/black-red check plaid pattern",
+        "type": "soft_anchor",
+        "likely_start": 1850,
+        "likely_end": 2030,
+        "confidence": "low",
+        "notes": "The Woolrich Buffalo Check (red/black) was introduced in 1850. Pattern alone is not a strong dating signal since it has been continuous, but it confirms Woolrich identity."
+      }
+    }
+  },
+
+  "Pendleton": {
+    "official_name": "Pendleton Woolen Mills",
+    "founded": 1863,
+    "still_active": true,
+    "notes": "Originally established 1863 in Oregon. Family-owned through multiple generations. Produces exclusively in wool until 1972 when they added their first spring (non-wool) line. Known for Native American-inspired blankets and shirts. Oregon mills still active.",
+    "signals": {
+      "warranted_to_be_a_pendleton": {
+        "description": "Label reads 'Warranted to be a Pendleton' phrase",
+        "type": "soft_anchor",
+        "likely_start": 1910,
+        "likely_end": 1969,
+        "confidence": "medium",
+        "notes": "The 'Warranted to be a Pendleton' phrase on labels is associated with earlier Pendleton production, up to the late 1960s."
+      },
+      "pendleton_woolen_mills_label": {
+        "description": "Label reads 'Pendleton Woolen Mills'",
+        "type": "soft_anchor",
+        "likely_start": 1863,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "The full 'Pendleton Woolen Mills' designation on labels is more common in older production."
+      },
+      "pure_virgin_wool_label": {
+        "description": "Label reads '100% Pure Virgin Wool' or 'Pure Virgin Wool'",
+        "type": "soft_anchor",
+        "likely_start": 1900,
+        "likely_end": 1980,
+        "confidence": "medium",
+        "notes": "The 'Pure Virgin Wool' label copy is associated with Pendleton's mid-century production. Label language simplified and shifted after regulatory fiber disclosure requirements."
+      },
+      "pre_spring_line_wool_only": {
+        "description": "Pendleton garment in 100% wool with no synthetic content",
+        "type": "soft_anchor",
+        "likely_start": 1863,
+        "likely_end": 1972,
+        "confidence": "medium",
+        "notes": "Pendleton worked exclusively in wool until 1972 when they produced their first spring non-wool line. A Pendleton in pure wool is consistent with pre-1972, though wool production continued after."
+      },
+      "woolmark_symbol": {
+        "description": "Woolmark symbol (circular wool ball logo) on Pendleton label",
+        "type": "hard_bound",
+        "earliest": 1964,
+        "confidence": "high",
+        "notes": "The Woolmark symbol was launched in August 1964. Presence on a Pendleton label indicates post-1964 production."
+      },
+      "woolmark_1970_1994_era": {
+        "description": "Pendleton label with Woolmark symbol, unchanged design",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1994,
+        "confidence": "medium",
+        "notes": "Pendleton labels featured the Woolmark logo from 1970 to 1994 in a largely unchanged format."
+      },
+      "sizing_bottom_right": {
+        "description": "Size information in lower right corner of label",
+        "type": "soft_anchor",
+        "likely_start": 1950,
+        "likely_end": 1975,
+        "confidence": "medium",
+        "notes": "1950s-1960s Pendleton labels placed sizing information in the lower right corner of the label. This placement is characteristic of the mid-century era."
+      },
+      "made_in_oregon": {
+        "description": "Label reads 'Made in Oregon' or lists an Oregon mill",
+        "type": "soft_anchor",
+        "likely_start": 1909,
+        "likely_end": 2000,
+        "confidence": "medium",
+        "notes": "Oregon-specific production callout more common on older labels."
+      }
+    }
+  },
+
+  "North_Face": {
+    "official_name": "The North Face",
+    "founded": 1966,
+    "still_active": true,
+    "notes": "Founded by Doug Tompkins and Susie Tompkins in San Francisco in 1966 as a retail store. Originally sold high-end outdoor gear. VF Corporation acquired the brand in 2000.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any North Face label",
+        "type": "hard_bound",
+        "earliest": 1966,
+        "confidence": "high",
+        "notes": "The North Face did not exist before 1966."
+      },
+      "vf_corporation_ownership": {
+        "description": "Corporate reference to VF Corporation on North Face label",
+        "type": "hard_bound",
+        "earliest": 2000,
+        "confidence": "high",
+        "notes": "VF Corporation acquired The North Face in 2000."
+      },
+      "half_dome_logo": {
+        "description": "Half Dome / TNF box logo on label or garment",
+        "type": "soft_anchor",
+        "likely_start": 1966,
+        "likely_end": 2030,
+        "confidence": "low",
+        "notes": "The Half Dome logo is The North Face's primary identifier. Presence confirms TNF. Sub-design changes over decades exist but need visual documentation."
+      },
+      "north_face_made_usa": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1966,
+        "likely_end": 1992,
+        "confidence": "medium",
+        "notes": "The North Face produced domestically in its early years. Made in USA North Face suggests pre-1992."
+      }
+    }
+  },
+
+  "Patagonia": {
+    "official_name": "Patagonia Inc.",
+    "founded": 1973,
+    "still_active": true,
+    "notes": "Founded by Yvon Chouinard in Ventura, California in 1973. Originally sold climbing hardware, transitioned to clothing. Known for environmental activism and durability. Chouinard Equipment (climbing hardware) dates to 1957.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Patagonia clothing label",
+        "type": "hard_bound",
+        "earliest": 1973,
+        "confidence": "high",
+        "notes": "Patagonia as a clothing brand did not exist before 1973."
+      },
+      "patagonia_made_usa": {
+        "description": "Patagonia label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1973,
+        "likely_end": 1992,
+        "confidence": "medium",
+        "notes": "Early Patagonia garments were made domestically. Production shifted offshore by the early 1990s."
+      }
+    }
+  },
+
+  "Columbia_Sportswear": {
+    "official_name": "Columbia Sportswear Company (originally Columbia Hat Company)",
+    "founded": 1938,
+    "still_active": true,
+    "notes": "Founded as Columbia Hat Company in Portland, Oregon in 1938 by Paul Lamfrom, who fled Nazi Germany. Changed from hat distribution to sportswear manufacturing in 1960. Gert Boyle took over in 1970 after husband's death. 'One Tough Mother' era. Omni-Tech waterproofing introduced in the 1980s.",
+    "signals": {
+      "columbia_hat_company_era": {
+        "description": "Label reads 'Columbia Hat Company' or similar",
+        "type": "hard_bound",
+        "earliest": 1938,
+        "latest": 1960,
+        "confidence": "high",
+        "notes": "Columbia operated as Columbia Hat Company from 1938-1960."
+      },
+      "columbia_sportswear_name": {
+        "description": "Label reads 'Columbia Sportswear Company'",
+        "type": "hard_bound",
+        "earliest": 1960,
+        "confidence": "high",
+        "notes": "Company changed name to Columbia Sportswear Company in 1960."
+      },
+      "omni_tech_label": {
+        "description": "Label references Omni-Tech waterproofing technology",
+        "type": "soft_anchor",
+        "likely_start": 1986,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Columbia's Omni-Tech waterproof technology was introduced mid-to-late 1980s. Presence indicates post-1986."
+      },
+      "pfg_logo": {
+        "description": "Performance Fishing Gear (PFG) logo on label",
+        "type": "soft_anchor",
+        "likely_start": 1998,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Columbia's PFG line gained prominence from the late 1990s. PFG logo presence suggests post-1998."
+      }
+    }
+  },
+
+  "Eddie_Bauer": {
+    "official_name": "Eddie Bauer Inc.",
+    "founded": 1920,
+    "still_active": true,
+    "notes": "Founded in Seattle, Washington in 1920. First down-insulated jacket in the US launched 1936. Skyliner down jacket patented 1940 — America's first puffy jacket. Long history of US-made premium outdoor clothing. General Sportswear acquired Eddie Bauer in 1971, then Spiegel in 1988, then Otto Group.",
+    "signals": {
+      "founding_bound": {
+        "description": "Any Eddie Bauer label",
+        "type": "hard_bound",
+        "earliest": 1920,
+        "confidence": "high",
+        "notes": "Eddie Bauer did not exist before 1920."
+      },
+      "first_down_jacket_1936": {
+        "description": "Eddie Bauer down-insulated jacket",
+        "type": "hard_bound",
+        "earliest": 1936,
+        "confidence": "high",
+        "notes": "Down-insulated clothing was not available from Eddie Bauer before 1936."
+      },
+      "skyliner_model_patent": {
+        "description": "Skyliner down jacket",
+        "type": "hard_bound",
+        "earliest": 1940,
+        "confidence": "high",
+        "notes": "The Skyliner Model Down Jacket was patented in 1940."
+      },
+      "cotton_nylon_mix": {
+        "description": "60/40 or 40/60 cotton/nylon shell material",
+        "type": "soft_anchor",
+        "likely_start": 1960,
+        "likely_end": 1985,
+        "confidence": "medium",
+        "notes": "Cotton/nylon blended shell materials were used in Eddie Bauer clothing from the 1960s onward. The ratio changed over time. Pure nylon shells also appeared from the 1960s."
+      },
+      "eddie_bauer_made_usa": {
+        "description": "Eddie Bauer label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1920,
+        "likely_end": 1990,
+        "confidence": "medium",
+        "notes": "Eddie Bauer produced high-quality US-made goods for most of its early history. Offshore shift in the late 1980s-1990s."
+      }
+    }
+  }
+}

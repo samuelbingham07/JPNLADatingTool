@@ -1,0 +1,235 @@
+<View>
+
+  <!-- Listing info header -->
+  <View style="background:#f5f5f5; padding:10px; margin-bottom:12px; border-radius:4px;">
+    <Header value="$title" size="4"/>
+    <Text name="listing_meta" value="Item: $item_id | Scraped label: $label_raw ($label_confidence)"/>
+  </View>
+
+  <!-- Images -->
+  <Header value="Images" size="3"/>
+  <Image name="image_0" value="$image_0" zoom="true" zoomControl="true"/>
+  <Image name="image_1" value="$image_1" zoom="true" zoomControl="true"/>
+  <Image name="image_2" value="$image_2" zoom="true" zoomControl="true"/>
+  <Image name="image_3" value="$image_3" zoom="true" zoomControl="true"/>
+  <Image name="image_4" value="$image_4" zoom="true" zoomControl="true"/>
+  <Image name="image_5" value="$image_5" zoom="true" zoomControl="true"/>
+
+  <!-- Use listing_meta as the anchor for all non-image annotations -->
+
+  <!-- Garment type -->
+  <Header value="Garment type" size="3"/>
+  <Choices name="garment_type" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="tshirt"/>
+    <Choice value="sweatshirt_crewneck"/>
+    <Choice value="hoodie"/>
+    <Choice value="flannel_shirt"/>
+    <Choice value="dress_shirt"/>
+    <Choice value="western_shirt"/>
+    <Choice value="polo_shirt"/>
+    <Choice value="denim_jacket"/>
+    <Choice value="chore_coat"/>
+    <Choice value="work_jacket"/>
+    <Choice value="varsity_jacket"/>
+    <Choice value="outerwear_coat"/>
+    <Choice value="jeans"/>
+    <Choice value="trousers_pants"/>
+    <Choice value="overalls"/>
+    <Choice value="coveralls"/>
+    <Choice value="dress_skirt"/>
+    <Choice value="blazer_sportcoat"/>
+    <Choice value="sweater_knit"/>
+    <Choice value="other"/>
+  </Choices>
+
+  <!-- Material -->
+  <Header value="Material (check all visible)" size="3"/>
+  <Choices name="material" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="cotton"/>
+    <Choice value="denim"/>
+    <Choice value="flannel"/>
+    <Choice value="wool"/>
+    <Choice value="polyester"/>
+    <Choice value="nylon"/>
+    <Choice value="corduroy"/>
+    <Choice value="canvas_duck"/>
+    <Choice value="leather"/>
+    <Choice value="fleece"/>
+    <Choice value="satin_rayon"/>
+    <Choice value="blend_unsure"/>
+  </Choices>
+
+  <!-- Brand visible -->
+  <Header value="Brand visible in images?" size="3"/>
+  <Choices name="brand_visible" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="yes_readable"/>
+    <Choice value="partial"/>
+    <Choice value="no"/>
+  </Choices>
+  <TextArea name="brand_name" toName="listing_meta" placeholder="Brand name if readable" rows="1" maxSubmissions="1"/>
+
+  <!-- Tag visibility -->
+  <Header value="Tag visibility" size="3"/>
+  <Choices name="tag_visibility" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="clear_readable"/>
+    <Choice value="partial_some_text"/>
+    <Choice value="no_tag_visible"/>
+  </Choices>
+
+  <!-- Date range -->
+  <Header value="Date Range" size="3"/>
+  <Number name="date_start" toName="listing_meta" placeholder="Start year e.g. 1965"/>
+  <Number name="date_end" toName="listing_meta" placeholder="End year e.g. 1970"/>
+
+  <!-- Confidence -->
+  <Header value="Confidence" size="3"/>
+  <Choices name="confidence" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="high"/>
+    <Choice value="medium"/>
+    <Choice value="low"/>
+    <Choice value="skip"/>
+  </Choices>
+
+  <!-- Regulatory labels -->
+  <Header value="Regulatory labels" size="3"/>
+  <Choices name="signals_regulatory" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="care_label_absent"/>
+    <Choice value="care_label_present"/>
+    <Choice value="care_symbols_only"/>
+    <Choice value="fiber_content_present"/>
+    <Choice value="fiber_content_absent"/>
+    <Choice value="rn_number_present"/>
+    <Choice value="wpl_number_present"/>
+    <Choice value="country_origin_absent"/>
+  </Choices>
+
+  <!-- Country of origin -->
+  <Header value="Country of origin" size="3"/>
+  <Choices name="signals_country" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="usa"/>
+    <Choice value="china"/>
+    <Choice value="japan"/>
+    <Choice value="hong_kong"/>
+    <Choice value="taiwan"/>
+    <Choice value="korea"/>
+    <Choice value="mexico"/>
+    <Choice value="west_germany"/>
+    <Choice value="east_germany"/>
+    <Choice value="ussr"/>
+    <Choice value="yugoslavia"/>
+    <Choice value="vietnam"/>
+    <Choice value="indonesia"/>
+    <Choice value="bangladesh"/>
+    <Choice value="india"/>
+    <Choice value="el_salvador"/>
+    <Choice value="honduras"/>
+    <Choice value="other_country"/>
+    <Choice value="no_country_visible"/>
+  </Choices>
+
+  <!-- Union label -->
+  <Header value="Union label" size="3"/>
+  <Choices name="signals_union" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="ilgwu_afl_only"/>
+    <Choice value="ilgwu_1955_1963"/>
+    <Choice value="ilgwu_1963_1974"/>
+    <Choice value="ilgwu_1974_1995"/>
+    <Choice value="acwa"/>
+    <Choice value="actwu"/>
+    <Choice value="unite"/>
+    <Choice value="ugwa"/>
+    <Choice value="other_union"/>
+    <Choice value="no_union"/>
+  </Choices>
+
+  <!-- Construction -->
+  <Header value="Construction signals" size="3"/>
+  <Choices name="signals_construction" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="single_stitch"/>
+    <Choice value="double_stitch"/>
+    <Choice value="selvedge_denim"/>
+    <Choice value="chain_stitch_outseam"/>
+    <Choice value="screenprinted_collar"/>
+    <Choice value="tagless"/>
+  </Choices>
+
+  <!-- Hardware -->
+  <Header value="Hardware" size="3"/>
+  <Choices name="signals_hardware" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="talon_zipper"/>
+    <Choice value="ykk_zipper"/>
+    <Choice value="conmar_zipper"/>
+    <Choice value="scovill_zipper"/>
+    <Choice value="other_zipper"/>
+    <Choice value="pearl_snaps"/>
+    <Choice value="gripper_snaps"/>
+  </Choices>
+
+  <!-- Fiber content -->
+  <Header value="Fiber / fabric" size="3"/>
+  <Choices name="signals_fiber" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="100_cotton"/>
+    <Choice value="polyester_blend"/>
+    <Choice value="nylon_content"/>
+    <Choice value="wool_content"/>
+    <Choice value="woolmark"/>
+    <Choice value="dacron_listed"/>
+    <Choice value="spandex_lycra"/>
+    <Choice value="sanforized"/>
+  </Choices>
+
+  <!-- Brand-specific signals -->
+  <Header value="Brand signals" size="3"/>
+  <Choices name="signals_brand" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="levis_big_e"/>
+    <Choice value="levis_small_e"/>
+    <Choice value="levis_selvedge"/>
+    <Choice value="levis_cinch_back"/>
+    <Choice value="levis_batwing_label"/>
+    <Choice value="nike_orange_tag"/>
+    <Choice value="nike_blue_tag"/>
+    <Choice value="nike_grey_tag"/>
+    <Choice value="champion_blue_bar"/>
+    <Choice value="champion_reverse_weave"/>
+    <Choice value="blue_bell_wrangler"/>
+    <Choice value="carhartt_date_code"/>
+  </Choices>
+
+  <!-- Primary deciding signal -->
+  <Header value="Primary deciding signal" size="3"/>
+  <Choices name="primary_signal" toName="listing_meta" choice="single" showInline="true">
+    <Choice value="care_label"/>
+    <Choice value="union_label"/>
+    <Choice value="country_origin"/>
+    <Choice value="brand_tag_design"/>
+    <Choice value="construction"/>
+    <Choice value="hardware"/>
+    <Choice value="fiber_content"/>
+    <Choice value="rn_wpl"/>
+    <Choice value="multiple_combined"/>
+    <Choice value="title_only"/>
+  </Choices>
+
+  <!-- Visual style dating (no tag needed) -->
+  <Header value="Visual style signals (garment shape/cut only)" size="3"/>
+  <Choices name="style_signals" toName="listing_meta" choice="multiple" showInline="true">
+    <Choice value="bellbottom_flare"/>
+    <Choice value="shoulder_pads"/>
+    <Choice value="raglan_sleeve"/>
+    <Choice value="slim_tapered_cut"/>
+    <Choice value="boxy_oversized"/>
+    <Choice value="high_waist"/>
+    <Choice value="wide_lapels"/>
+    <Choice value="narrow_lapels"/>
+    <Choice value="western_yoke_piping"/>
+    <Choice value="acid_wash"/>
+    <Choice value="stone_wash"/>
+    <Choice value="distressed_raw_hem"/>
+    <Choice value="none_visible"/>
+  </Choices>
+
+  <!-- Notes -->
+  <Header value="Notes (optional)" size="3"/>
+  <TextArea name="notes" toName="listing_meta" placeholder="Edge cases, conflicts, questions..." rows="2" maxSubmissions="1"/>
+
+</View>

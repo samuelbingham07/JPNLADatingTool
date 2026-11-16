@@ -1,0 +1,355 @@
+{
+  "_schema_notes": {
+    "purpose": "Denim and jeans brand-specific tag and construction dating signals. These are the most heavily researched and documented vintage dating signals in the entire knowledge base.",
+    "confidence": "high = well-documented, verified. medium = generally accepted ±2-3 years. low = rough estimate.",
+    "primary_sources": "Heddels, Rope Dye, Flying Apple Vintage, JeansZa, Levi Strauss & Co. official history, Wrangler/VF Corp history"
+  },
+
+  "Levis": {
+    "official_name": "Levi Strauss & Co.",
+    "founded": 1853,
+    "still_active": true,
+    "last_us_factory": 2002,
+    "notes": "One of the most comprehensively documented vintage dating subjects. Each signal below is well-researched. Levi's 501 is the primary reference model.",
+    "signals": {
+      "no_red_tab": {
+        "description": "No red tab on back right pocket",
+        "type": "hard_bound",
+        "latest": 1936,
+        "confidence": "high",
+        "notes": "Levi's introduced the red pocket tab on September 1, 1936 (jeans) and July 1, 1937 (jackets). Absence of a red tab predates these dates."
+      },
+      "red_tab_one_sided_white": {
+        "description": "Red tab with LEVI'S in white capital letters on ONE SIDE only",
+        "type": "hard_bound",
+        "earliest": 1936,
+        "latest": 1952,
+        "confidence": "high",
+        "notes": "The original red tab (1936-~1952) was stitched in white capital letters on one side only. By ~1953 the text appeared on both sides."
+      },
+      "red_tab_both_sides_white": {
+        "description": "Red tab with LEVI'S in white capitals on BOTH sides",
+        "type": "soft_anchor",
+        "likely_start": 1953,
+        "likely_end": 1971,
+        "confidence": "high",
+        "notes": "By approximately 1953 the tab was stitched on both sides. Combined with Big E (all caps) this indicates 1953-1971."
+      },
+      "red_tab_big_E": {
+        "description": "Red tab reads 'LEVI'S' with all capital letters (capital E)",
+        "type": "hard_bound",
+        "latest": 1971,
+        "confidence": "high",
+        "notes": "Capital E in LEVI'S is the famous 'Big E' indicator. Levi's changed to lowercase 'e' (LeVI'S) in 1971. Big E is a hard pre-1971 ceiling. One of the most valuable and reliable signals in vintage denim dating."
+      },
+      "red_tab_small_e": {
+        "description": "Red tab reads 'LeVI'S' with lowercase e",
+        "type": "hard_bound",
+        "earliest": 1971,
+        "confidence": "high",
+        "notes": "Small e tab introduced ~1971. Hard post-1971 indicator."
+      },
+      "cinch_back": {
+        "description": "Cinch strap and buckle on rear waistband",
+        "type": "hard_bound",
+        "latest": 1941,
+        "confidence": "high",
+        "notes": "Cinch backs were eliminated during WWII fabric conservation measures (War Production Board restrictions, 1942). Presence is a hard pre-1942 indicator."
+      },
+      "crotch_rivet_visible": {
+        "description": "Visible copper rivet at crotch seam (on outside)",
+        "type": "hard_bound",
+        "latest": 1937,
+        "confidence": "high",
+        "notes": "The original crotch rivet was moved to the interior (concealed) in 1937. A visible external crotch rivet indicates pre-1937 production."
+      },
+      "back_pocket_rivets_exposed": {
+        "description": "Copper rivets on back pockets visible externally",
+        "type": "soft_anchor",
+        "likely_start": 1873,
+        "likely_end": 1937,
+        "confidence": "medium",
+        "notes": "Exposed back pocket rivets predate 1937 when they were moved inside. Some sources indicate the change came incrementally."
+      },
+      "back_pocket_rivets_hidden": {
+        "description": "Back pocket rivets concealed inside the pocket",
+        "type": "hard_bound",
+        "earliest": 1937,
+        "confidence": "high",
+        "notes": "Hidden/concealed back pocket rivets introduced 1937 to prevent scratching saddles and furniture."
+      },
+      "two_horse_leather_patch": {
+        "description": "Waistband patch of genuine tan/brown leather",
+        "type": "soft_anchor",
+        "likely_start": 1880,
+        "likely_end": 1954,
+        "confidence": "medium",
+        "notes": "Original leather patch. Genuine leather strongly suggests pre-1955. Transition to simulated/cardstock was gradual through the mid-1950s."
+      },
+      "two_horse_paper_patch": {
+        "description": "Waistband patch of cardstock or simulated leather",
+        "type": "soft_anchor",
+        "likely_start": 1954,
+        "likely_end": 1992,
+        "confidence": "medium",
+        "notes": "Paper/cardstock patch replaced leather progressively from the mid-1950s."
+      },
+      "lot_xx_uppercase": {
+        "description": "Back patch lot number shows uppercase 'XX' suffix (e.g., 501XX)",
+        "type": "hard_bound",
+        "latest": 1968,
+        "confidence": "high",
+        "notes": "The XX notation in uppercase appeared on early 501s and was removed from the lot number in 1968."
+      },
+      "lot_xx_lowercase_reintroduced": {
+        "description": "Back patch lot number shows lowercase 'xx' suffix (e.g., 501xx)",
+        "type": "hard_bound",
+        "earliest": 1987,
+        "confidence": "high",
+        "notes": "Lowercase 'xx' was reintroduced in 1987. If present, the garment is post-1986."
+      },
+      "care_instructions_inside_patch_text": {
+        "description": "Two-horse patch has printed line 'CARE INSTRUCTIONS INSIDE GARMENT'",
+        "type": "hard_bound",
+        "earliest": 1968,
+        "latest": 1971,
+        "confidence": "high",
+        "notes": "Between 1968 and the FTC care label mandate in 1971, Levi's added a text note to the patch referencing care instructions inside rather than a separate label. Very narrow window."
+      },
+      "paper_care_label": {
+        "description": "Paper (non-woven) care label inside garment",
+        "type": "hard_bound",
+        "earliest": 1971,
+        "latest": 1985,
+        "confidence": "high",
+        "notes": "Levi's began using paper care labels from 1971 (FTC mandate). Paper labels preceded the woven fabric labels."
+      },
+      "selvedge_denim": {
+        "description": "Selvedge (self-edge) finish visible on inside outseam",
+        "type": "hard_bound",
+        "latest": 1985,
+        "confidence": "high",
+        "notes": "Selvedge denim was used in nearly all Levi's 501s from 1915 through the mid-1980s. Cone Mills supplied selvedge denim to Levi's for 70 years. Levi's officially discontinued selvedge in 1985. Presence of selvedge on an outseam is a hard pre-1985 indicator for major production."
+      },
+      "red_lot_number": {
+        "description": "Lot number on back patch is printed in red",
+        "type": "hard_bound",
+        "earliest": 1986,
+        "latest": 1993,
+        "confidence": "high",
+        "notes": "Red lot number on the back tag is associated with 1986-1993 production."
+      },
+      "batwing_care_label_red": {
+        "description": "Care label features red Levi's bat-wing logo",
+        "type": "hard_bound",
+        "earliest": 1986,
+        "latest": 1994,
+        "confidence": "high",
+        "notes": "Red batwing Levi's logo on care label. First appeared around 1986-1987 (some overlap with earlier tags). The Bat Wings label was used 1987-1994 in two colors: red and black. Date codes on batwing labels work as three-digit month-year codes (e.g., 012 = January 1992)."
+      },
+      "batwing_care_label_black": {
+        "description": "Care label features black Levi's bat-wing logo",
+        "type": "hard_bound",
+        "earliest": 1987,
+        "latest": 1994,
+        "confidence": "high",
+        "notes": "Black batwing variant. Same era as red batwing."
+      },
+      "care_on_reverse_text": {
+        "description": "Care label reads 'Care on Reverse' or similar",
+        "type": "hard_bound",
+        "latest": 1992,
+        "confidence": "high",
+        "notes": "Care labels reading 'Care on Reverse' were used before 1992."
+      },
+      "silver_batwing_label_1994_2007": {
+        "description": "Care label features silver/grey Levi's bat-wing logo",
+        "type": "hard_bound",
+        "earliest": 1994,
+        "latest": 2007,
+        "confidence": "high",
+        "notes": "Silver/grey batwing care label followed the red/black version from 1994 onward."
+      },
+      "made_in_usa_levis": {
+        "description": "Label reads 'Made in U.S.A.'",
+        "type": "soft_anchor",
+        "likely_start": 1853,
+        "likely_end": 2002,
+        "confidence": "high",
+        "notes": "The last Levi's US production facility closed in 2002. Made in USA on Levi's is a hard pre-2002 indicator."
+      },
+      "suspender_buttons": {
+        "description": "Interior waistband has buttons for suspenders",
+        "type": "soft_anchor",
+        "likely_start": 1873,
+        "likely_end": 1960,
+        "confidence": "medium",
+        "notes": "Suspender buttons were standard into the mid-20th century as suspenders coexisted with belt loops. Presence suggests pre-1960."
+      }
+    }
+  },
+
+  "Lee": {
+    "official_name": "H.D. Lee Company (later VF Corporation)",
+    "founded": 1889,
+    "still_active": true,
+    "notes": "Founded in Salina, Kansas by Henry David Lee as Lee Mercantile Co. Became H.D. Lee Company. Developed Lee Union-Alls (overalls/coveralls) in 1913. Introduced the zipper fly to jeans in 1926. Acquired by VF Corporation in 1969.",
+    "signals": {
+      "lee_mercantile_label": {
+        "description": "Label reads 'H.D. Lee Mercantile Co.' or 'Lee Mercantile'",
+        "type": "hard_bound",
+        "latest": 1913,
+        "confidence": "high",
+        "notes": "Lee operated as Lee Mercantile Co. until establishing the manufacturing arm. Very early labels with this name are pre-1913."
+      },
+      "union_alls_label": {
+        "description": "Label reads 'Lee Union-Alls'",
+        "type": "soft_anchor",
+        "likely_start": 1913,
+        "likely_end": 1960,
+        "confidence": "medium",
+        "notes": "Lee Union-Alls (coveralls/work suits) product line from 1913. Predominantly mid-century production."
+      },
+      "hd_lee_company_full_name": {
+        "description": "Label reads 'H.D. Lee Company' with full company name",
+        "type": "soft_anchor",
+        "likely_start": 1889,
+        "likely_end": 1969,
+        "confidence": "medium",
+        "notes": "Full H.D. Lee Company name was used on labels into the 1960s. By the early 1970s, branding simplified to just 'Lee'."
+      },
+      "black_label_1940s": {
+        "description": "Black label with Lee branding, often including 'Sanforized'",
+        "type": "soft_anchor",
+        "likely_start": 1940,
+        "likely_end": 1952,
+        "confidence": "medium",
+        "notes": "Lee tags from the 1940s were predominantly black labels with 'Sanforized' noting pre-shrinking."
+      },
+      "leather_patch_1945": {
+        "description": "Lee leather waistband patch",
+        "type": "hard_bound",
+        "earliest": 1945,
+        "confidence": "medium",
+        "notes": "The Lee leather patch was first introduced in 1945."
+      },
+      "hip_pocket_woven_label_goldenrod": {
+        "description": "Small woven hip pocket label with goldenrod/gold thread",
+        "type": "soft_anchor",
+        "likely_start": 1945,
+        "likely_end": 1970,
+        "confidence": "medium",
+        "notes": "Hip pocket label woven with goldenrod-colored thread, appearing after WWII on Lee 101 jackets and jeans."
+      },
+      "red_label_101_jacket": {
+        "description": "Red and gold label on Lee 101-J denim jacket",
+        "type": "soft_anchor",
+        "likely_start": 1948,
+        "likely_end": 1956,
+        "confidence": "medium",
+        "notes": "Red label on Lee 101-J was used until around 1956 on this style introduced in 1948."
+      },
+      "lee_riders_label": {
+        "description": "Label reads 'Lee Riders'",
+        "type": "soft_anchor",
+        "likely_start": 1924,
+        "likely_end": 1978,
+        "confidence": "medium",
+        "notes": "Lee Riders was a western/cowboy-cut product line designation used through mid-century."
+      },
+      "storm_rider_label": {
+        "description": "Label reads 'Lee Storm Rider' or 'Storm Rider'",
+        "type": "hard_bound",
+        "earliest": 1933,
+        "confidence": "medium",
+        "notes": "The Lee Storm Rider blanket-lined denim jacket was introduced in 1933. Any Storm Rider label is post-1933."
+      },
+      "no_union_made_1970s": {
+        "description": "Lee tag without 'Union Made' designation",
+        "type": "soft_anchor",
+        "likely_start": 1975,
+        "likely_end": 2030,
+        "confidence": "low",
+        "notes": "Some Lee tags from the late 1970s stopped using 'Union Made' as it became less of a marketing point. Absence of Union Made is a weak post-1975 signal."
+      },
+      "vf_corporation_era": {
+        "description": "Lee garment with VF Corporation ownership indicated",
+        "type": "hard_bound",
+        "earliest": 1969,
+        "confidence": "high",
+        "notes": "VF Corporation acquired Lee in 1969. Any corporate reference to VF indicates post-1969."
+      },
+      "simple_logo_only_1980s": {
+        "description": "Tag has only Lee logo, 'Made in USA', and a product code",
+        "type": "soft_anchor",
+        "likely_start": 1980,
+        "likely_end": 1995,
+        "confidence": "medium",
+        "notes": "1980s Lee tags were the biggest design update in a while — simplified to just logo, Made in USA, product code. Clean modern design."
+      }
+    }
+  },
+
+  "Wrangler": {
+    "official_name": "Wrangler (Blue Bell Inc., then VF Corporation)",
+    "founded": 1947,
+    "still_active": true,
+    "notes": "Wrangler brand launched 1947 by Blue Bell Inc. (originally Hudson Overall Co., founded 1904, renamed Blue Bell 1919). Designer Rodeo Ben (Bernard Lichtenstein) worked with Wrangler from 1946. Designed specifically for rodeo performers. Blue Bell acquired by VF Corporation in 1986.",
+    "signals": {
+      "blue_bell_on_label": {
+        "description": "Label reads 'Blue Bell' or displays Blue Bell branding alongside Wrangler",
+        "type": "hard_bound",
+        "latest": 1986,
+        "confidence": "high",
+        "notes": "Blue Bell Inc. was acquired by VF Corporation in 1986. Any label referencing Blue Bell is pre-acquisition."
+      },
+      "wrangler_blue_bell_tag": {
+        "description": "Tag reads 'Wrangler Blue Bell' (combined branding)",
+        "type": "hard_bound",
+        "latest": 1986,
+        "confidence": "high",
+        "notes": "Pre-VF acquisition combined branding tag."
+      },
+      "pre_1980s_blue_white_tag": {
+        "description": "Blue or white tag with bold blocky text, 'Big W' reference",
+        "type": "soft_anchor",
+        "likely_start": 1947,
+        "likely_end": 1979,
+        "confidence": "medium",
+        "notes": "Pre-1980s Wrangler jeans often feature blue or white tags with bold, blocky text. 'Big W' reference or 'Wrangler Blue Bell' confirms authenticity of this era."
+      },
+      "no_separate_care_tag_1970s": {
+        "description": "Care instructions printed on reverse of main tag (no separate wash tag)",
+        "type": "soft_anchor",
+        "likely_start": 1971,
+        "likely_end": 1979,
+        "confidence": "medium",
+        "notes": "Many pre-1980 Wrangler jeans printed care instructions on the back of the main tag rather than attaching a separate care label. 1980 is when Wrangler began attaching independent wash tags."
+      },
+      "independent_wash_tag_1980s": {
+        "description": "Separate attached wash/care tag",
+        "type": "soft_anchor",
+        "likely_start": 1980,
+        "likely_end": 2030,
+        "confidence": "medium",
+        "notes": "Wrangler began attaching independent wash tags in the 1980s."
+      },
+      "black_tag_1970s": {
+        "description": "Black wrangler tag",
+        "type": "soft_anchor",
+        "likely_start": 1970,
+        "likely_end": 1979,
+        "confidence": "medium",
+        "notes": "Black tags were used more frequently in the 1970s Wrangler lineup."
+      },
+      "wrangler_11mwz": {
+        "description": "Label or waistband tag shows style '11MWZ' (classic cowboy cut)",
+        "type": "soft_anchor",
+        "likely_start": 1947,
+        "likely_end": 2030,
+        "confidence": "low",
+        "notes": "11MWZ is the classic Wrangler cowboy cut, a long-running style. Label design evolution within this style needs further documentation."
+      }
+    }
+  }
+}
