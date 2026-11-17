@@ -12,3 +12,8 @@ __pycache__/
 
 # Local editor/assistant settings
 .claude/settings.local.json
+
+# Derived artifacts
+data/embeddings/
+dist/
+.gradio/
