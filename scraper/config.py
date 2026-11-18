@@ -170,3 +170,35 @@ SEARCH_QUERIES = [
 MAX_PAGES_PER_QUERY = 10   # 100 results/page = 1000 listings per query
 DELAY_BETWEEN_REQUESTS = 1  # seconds between Shopping API calls
 MAX_IMAGES_PER_LISTING = 12
+
+# 2000s / 2010s coverage. Vintage cutoff is pre-2006, but the tool must also date 2006-2019 pieces
+# so people can tell whether something counts as vintage. Dated event tees give single-year labels.
+MODERN_QUERIES = [
+    # 2000s by category
+    "vintage 2000s t-shirt", "vintage 00s graphic tee", "vintage 2000s band tee",
+    "vintage 2000s hoodie", "vintage 00s zip up hoodie", "vintage 2000s sweatshirt",
+    "vintage 2000s nike", "vintage 00s nike shox shirt", "vintage 2000s adidas track jacket",
+    "vintage 2000s carhartt jacket", "vintage 00s carhartt pants", "vintage 2000s dickies",
+    "vintage 2000s levi's jeans", "vintage 00s baggy jeans", "vintage 2000s jnco",
+    "vintage 2000s ecko unltd", "vintage 2000s southpole", "vintage 2000s fubu",
+    "vintage 2000s sean john", "vintage 2000s rocawear", "vintage 2000s von dutch",
+    "vintage 2000s ed hardy", "vintage 2000s abercrombie", "vintage 2000s hollister",
+    "vintage 2000s american eagle", "vintage 2000s old navy", "vintage 2000s gap hoodie",
+    "vintage 2000s north face fleece", "vintage 2000s patagonia", "vintage 2000s columbia jacket",
+    "vintage 2000s nfl jersey", "vintage 2000s nba jersey reebok", "vintage 2000s starter jacket",
+    "vintage 2000s harley davidson shirt", "vintage 2000s nascar shirt", "vintage 2000s racing jacket",
+    "vintage 2000s tommy hilfiger", "vintage 2000s polo ralph lauren", "vintage 2000s leather jacket",
+    "vintage 2000s sweater", "vintage 2000s flannel shirt", "vintage 2000s womens top",
+    # dated event/tour tees, 2000-2019
+    "2001 tour t-shirt", "2002 tour shirt", "2003 concert tee", "2004 tour t-shirt",
+    "2005 tour shirt", "2006 concert tee", "2007 tour t-shirt", "2008 tour shirt",
+    "2008 obama shirt", "2009 concert tee", "2010 tour t-shirt", "2011 tour shirt",
+    "2012 concert tee", "2013 tour t-shirt", "2014 tour shirt", "2015 concert tee",
+    "2016 tour t-shirt", "2016 election shirt", "2017 tour shirt", "2018 concert tee",
+    "2019 tour t-shirt",
+    # 2010s by category
+    "2010s streetwear hoodie", "2010s supreme t-shirt", "2010s graphic tee",
+    "vintage 2010s nike", "vintage 2010s adidas", "2010s carhartt wip",
+    "2010s north face jacket", "2010s patagonia", "2010s band tee",
+    "2010s denim jacket", "2010s sweatshirt", "2010s jersey",
+]

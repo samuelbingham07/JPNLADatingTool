@@ -20,7 +20,7 @@ _DECADE_MAP = {
     "80s": (1980, 1989), "1980s": (1980, 1989),
     "90s": (1990, 1999), "1990s": (1990, 1999),
     "00s": (2000, 2009), "2000s": (2000, 2009),
-    "y2k": (1998, 2004),
+    "10s": (2010, 2019), "2010s": (2010, 2019),
 }
 
 _EARLY_MID_LATE = {
@@ -66,7 +66,7 @@ def extract(title: str) -> DateLabel | None:
         decade_str = decade_str.lower().strip()
 
         if len(decade_str) == 3:  # "60s" → "1960s"
-            prefix = "19" if decade_str[0] in "234567890" else "20"
+            prefix = "20" if decade_str[0] in "01" else "19"
             decade_str = prefix + decade_str
 
         if decade_str in _DECADE_MAP:
@@ -87,5 +87,9 @@ def extract(title: str) -> DateLabel | None:
         year = int(m.group(1))
         if 1900 <= year <= 2025:
             return DateLabel(year, year, "medium", m.group(0))
+
+    # "Y2K" is mostly an aesthetic tag (often new repro), so it's low confidence and excluded from training
+    if re.search(r"\by2k\b", title_lower):
+        return DateLabel(1998, 2004, "low", "y2k")
 
     return None

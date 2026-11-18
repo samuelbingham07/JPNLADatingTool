@@ -14,7 +14,8 @@ from model.backbone import embed, load_backbone, load_image, preprocess  # noqa:
 
 HEAD = ROOT / "model" / "weights" / "head.npz"
 OCR_MAX = 1600
-FLOOR = 0.03  # mass spread uniformly so rules can push outside the model's training decades
+FLOOR = 0.03
+VINTAGE_BEFORE = 2006  # mass spread uniformly so rules can push outside the model's training decades
 
 
 @lru_cache(maxsize=1)
@@ -113,6 +114,7 @@ def date_garment(images, tag_text: str | None = None, observations=()):
         "signals": drivers, "dropped": [s.label for s in dropped], "bounds": bounds,
         "tag_text": tag_text, "posterior": post.tolist(),
         "needs_more": result["kind"] == "low",
+        "vintage_prob": float(post[C.YEARS < VINTAGE_BEFORE].sum()),
     }
 
 

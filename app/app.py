@@ -67,13 +67,16 @@ def render(r):
     dropped = (f'<div class="sig-note" style="margin-top:8px">Conflicting rules ignored: {html.escape(", ".join(r["dropped"]))}</div>'
                if r["dropped"] else "")
     warn = f'<div class="sig-note" style="margin-top:10px"><span class="pill warn">More photos</span> {LOW_CONF_ASK}</div>' if r["needs_more"] else ""
+    v = r["vintage_prob"]
+    verdict = "Vintage" if v >= 0.8 else "Not vintage" if v <= 0.2 else "Borderline vintage"
+    vintage = f'<span class="pill">{verdict} (pre-2006): {v:.0%}</span>'
     kind = {"tell": "Clear tell", "early": "Early decade", "mid": "Mid decade", "late": "Late decade",
             "full": "Full decade", "low": "Wide range"}[r["kind"]]
     return f"""
 <div class="result-card">
   <div class="tagline">Estimated production date · {kind}</div>
   <div class="result-range">{r['range']}</div>
-  <div class="result-meta">{decided}<span class="pill">Confidence {r['confidence']:.0%}</span></div>
+  <div class="result-meta">{decided}<span class="pill">Confidence {r['confidence']:.0%}</span>{vintage}</div>
   <div class="conf-track"><div class="conf-fill" style="width:{r['confidence']*100:.0f}%"></div></div>
   {warn}
   <div class="tagline" style="margin-top:18px">What drove it</div>
@@ -87,7 +90,7 @@ def run(files, tag_text, observations, use_typed_text):
     paths = [f if isinstance(f, str) else f.name for f in files]
     r = date_garment(paths, tag_text if use_typed_text and tag_text.strip() else None, observations)
     years = pd.DataFrame({"Year": C.YEARS, "Probability": r["posterior"]})
-    years = years[(years.Year >= 1925) & (years.Year <= 2015)]
+    years = years[years.Year >= 1925]
     all_sigs = pd.DataFrame([{"Signal": s["label"], "Range": s["span"], "Type": "hard" if s["hard"] else "soft",
                               "Confidence": s["confidence"], "Source": s["source"]} for s in r["signals"]]
                             or [{"Signal": "No tag-text or observed signals", "Range": "", "Type": "", "Confidence": "", "Source": ""}])
@@ -123,7 +126,8 @@ Labels come from listing titles, so they are noisy and the numbers are conservat
 precision on top whenever tag text is legible.
 
 ### Limitations
-Built for **American-market garments, 1940s–1990s**. Earlier and later pieces rely mostly on the rules.
+Built for **American-market garments, 1940s–2010s**. "Vintage" here means made before 2006.
+Pre-1940 pieces rely mostly on the rules.
 This is an estimate, not an appraisal or authentication.
 """
 

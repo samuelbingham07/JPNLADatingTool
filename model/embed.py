@@ -1,7 +1,9 @@
-"""Embed every labeled listing image with the frozen backbone.
+"""Embed listing images with the frozen backbone, cached per listing.
 
-Saves a shard every 2048 images to data/embeddings/shards/; a rerun skips finished shards.
-Merges into data/embeddings/{embeddings.npy, index.json} at the end.
+data/embeddings/items/{item_id}.npy holds one row per image; a rerun only embeds listings without a
+cache file, so new scrapes are incremental and interruptions lose at most one chunk. Labels are
+re-extracted from titles at merge time, so label-extractor fixes apply without re-embedding.
+Merged output: data/embeddings/{embeddings.npy, index.json}.
 """
 
 import json
@@ -15,71 +17,106 @@ from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from model.backbone import SIZE, embed, load_backbone, load_image, preprocess  # noqa: E402
+from scraper.label_extractor import extract  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "embeddings"
-SHARDS = OUT / "shards"
-SHARD_SIZE = 2048
+ITEMS = OUT / "items"
+CHUNK_IMAGES = 2048
 
 
-def collect():
-    rows = []
+def listings():
+    out = []
     for meta_path in sorted(RAW.glob("*/metadata.json")):
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        label = meta.get("label")
-        if not label:
+        label = extract(meta.get("title", ""))
+        if not label or label.confidence == "low":
             continue
-        for img in sorted((meta_path.parent / "images").glob("*.jpg"), key=lambda p: int(p.stem)):
-            rows.append({"item_id": meta["item_id"], "image": int(img.stem),
-                         "start": label["start"], "end": label["end"], "path": str(img)})
-    return rows
+        imgs = sorted((meta_path.parent / "images").glob("*.jpg"), key=lambda p: int(p.stem))
+        if imgs:
+            out.append({"item_id": meta["item_id"], "start": label.start, "end": label.end, "images": imgs})
+    return out
+
+
+def migrate_legacy():
+    """One-time split of the old monolithic embeddings.npy into per-listing files."""
+    legacy_idx = OUT / "index.json"
+    if not legacy_idx.exists() or any(ITEMS.glob("*.npy")):
+        return
+    idx = json.loads(legacy_idx.read_text())
+    if "image" not in idx[0]:
+        return
+    X = np.load(OUT / "embeddings.npy")
+    rows = {}
+    for i, r in enumerate(idx):
+        rows.setdefault(r["item_id"], []).append((r["image"], i))
+    for item_id, pairs in rows.items():
+        pairs.sort()
+        np.save(ITEMS / f"{item_id}.npy", X[[i for _, i in pairs]])
+    print(f"migrated {len(rows)} listings from legacy embeddings")
 
 
 class Images(Dataset):
-    def __init__(self, rows):
-        self.rows = rows
+    def __init__(self, paths):
+        self.paths = paths
 
     def __len__(self):
-        return len(self.rows)
+        return len(self.paths)
 
     def __getitem__(self, i):
         try:
-            return preprocess(load_image(self.rows[i]["path"])), True
+            return preprocess(load_image(self.paths[i])), True
         except Exception:
             return torch.zeros(3, SIZE, SIZE), False
 
 
 def main():
-    OUT.mkdir(parents=True, exist_ok=True)
-    rows = collect()
-    print(f"{len(rows)} images from {len({r['item_id'] for r in rows})} labeled listings")
+    ITEMS.mkdir(parents=True, exist_ok=True)
+    migrate_legacy()
+    items = listings()
+    todo = [it for it in items if not (ITEMS / f"{it['item_id']}.npy").exists()]
+    print(f"{len(items)} labeled listings, {len(todo)} need embedding "
+          f"({sum(len(it['images']) for it in todo)} images)")
 
-    torch.set_num_threads(8)
-    model = load_backbone()
-    SHARDS.mkdir(parents=True, exist_ok=True)
-    chunks = range(0, len(rows), SHARD_SIZE)
-    todo = [s for s in chunks if not (SHARDS / f"{s:07d}.npz").exists()]
-    print(f"{len(chunks) - len(todo)}/{len(chunks)} shards already done")
+    if todo:
+        torch.set_num_threads(8)
+        model = load_backbone()
+        chunks, cur, n = [], [], 0
+        for it in todo:
+            cur.append(it)
+            n += len(it["images"])
+            if n >= CHUNK_IMAGES:
+                chunks.append(cur)
+                cur, n = [], 0
+        if cur:
+            chunks.append(cur)
 
-    for start in tqdm(todo, desc="shards"):
-        loader = DataLoader(Images(rows[start:start + SHARD_SIZE]), batch_size=64, num_workers=6)
-        embs, ok = [], []
-        for batch, good in loader:
-            embs.append(embed(model, batch).numpy().astype(np.float16))
-            ok.append(good.numpy())
-        tmp = SHARDS / f"{start:07d}.tmp.npz"
-        np.savez(tmp, emb=np.concatenate(embs), ok=np.concatenate(ok))
-        tmp.replace(SHARDS / f"{start:07d}.npz")
+        for chunk in tqdm(chunks, desc="chunks"):
+            paths = [p for it in chunk for p in it["images"]]
+            loader = DataLoader(Images(paths), batch_size=64, num_workers=6)
+            embs, ok = [], []
+            for batch, good in loader:
+                embs.append(embed(model, batch).numpy().astype(np.float16))
+                ok.append(good.numpy())
+            embs, ok = np.concatenate(embs), np.concatenate(ok)
+            pos = 0
+            for it in chunk:
+                k = len(it["images"])
+                e, g = embs[pos:pos + k], ok[pos:pos + k]
+                pos += k
+                tmp = ITEMS / f"{it['item_id']}.tmp.npy"
+                np.save(tmp, e[g])
+                tmp.replace(ITEMS / f"{it['item_id']}.npy")
 
-    parts = [np.load(SHARDS / f"{s:07d}.npz") for s in chunks]
-    embs = np.concatenate([p["emb"] for p in parts])
-    ok = np.concatenate([p["ok"] for p in parts])
-
-    keep = [{k: v for k, v in r.items() if k != "path"} for r, g in zip(rows, ok) if g]
-    np.save(OUT / "embeddings.npy", embs[ok])
-    (OUT / "index.json").write_text(json.dumps(keep))
-    print(f"saved {ok.sum()} embeddings ({(~ok).sum()} unreadable images skipped)")
+    X, index = [], []
+    for it in items:
+        e = np.load(ITEMS / f"{it['item_id']}.npy")
+        X.append(e)
+        index += [{"item_id": it["item_id"], "start": it["start"], "end": it["end"]}] * len(e)
+    np.save(OUT / "embeddings.npy", np.concatenate(X))
+    (OUT / "index.json").write_text(json.dumps(index))
+    print(f"merged {len(index)} image embeddings from {len(items)} listings")
 
 
 if __name__ == "__main__":

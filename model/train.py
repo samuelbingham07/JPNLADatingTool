@@ -16,7 +16,7 @@ from sklearn.metrics import confusion_matrix, log_loss
 ROOT = Path(__file__).resolve().parent.parent
 EMB = ROOT / "data" / "embeddings"
 OUT = ROOT / "model" / "weights"
-DECADES = [1940, 1950, 1960, 1970, 1980, 1990]
+DECADES = [1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
 SEED = 0
 
 
@@ -60,6 +60,8 @@ def evaluate(P, y, items):
         "within_one_decade": float((np.abs(pred - yl) <= 1).mean()),
         "macro_recall": float(recall[cm.sum(1) > 0].mean()),
         "log_loss": float(log_loss(yl, Pl, labels=range(len(DECADES)))),
+        "balanced_log_loss": float(log_loss(yl, Pl, labels=range(len(DECADES)),
+                                            sample_weight=1.0 / np.bincount(yl, minlength=len(DECADES))[yl])),
         "per_decade_recall": {f"{d}s": float(r) for d, r, n in zip(DECADES, recall, cm.sum(1)) if n},
         "confusion": cm.tolist(),
     }
@@ -112,25 +114,23 @@ def main():
     print("train images per decade:", dict(zip(DECADES, counts.tolist())))
     print(f"listings: train {len(set(items[tr]))}, val {len(set(items[va]))}, test {len(set(items[te]))}")
 
-    # sqrt-balanced weights: helps the rare decades without wrecking calibration on common ones
-    w_sqrt = (counts.max() / counts[y[tr]]) ** 0.5
-    w_sqrt = w_sqrt / w_sqrt.mean()
-    w_none = np.ones(tr.sum())
+    # Class-reweighting by power of inverse frequency: 0 = none, 0.5 = sqrt, 1 = fully balanced
+    def class_weights(power):
+        w = np.minimum((counts.max() / np.maximum(counts[y[tr]], 1)) ** power, 20.0)
+        return w / w.mean()
 
-    candidates = {}
-    for C in (0.3, 1.0, 3.0):
-        for wname, w in (("none", w_none), ("sqrt", w_sqrt)):
-            candidates[f"logreg C={C} w={wname}"] = fit_logreg(X[tr], y[tr], C, w)
-            print("fit", f"logreg C={C} w={wname}")
-    for wname, w in (("none", w_none), ("sqrt", w_sqrt)):
-        candidates[f"mlp512 w={wname}"] = fit_mlp(X[tr], y[tr], w)
-        print("fit", f"mlp512 w={wname}")
+    candidates = {"logreg C=3.0 w=sqrt": fit_logreg(X[tr], y[tr], 3.0, class_weights(0.5))}
+    print("fit logreg")
+    for power in (0.0, 0.5, 0.75, 1.0):
+        candidates[f"mlp512 w^{power}"] = fit_mlp(X[tr], y[tr], class_weights(power))
+        print("fit", f"mlp512 w^{power}")
 
     results = {name: evaluate(probs(L, X[va]), y[va], items[va]) for name, L in candidates.items()}
     for name, r in results.items():
         print(f"{name:28s} val acc {r['accuracy']:.3f}  ±1 {r['within_one_decade']:.3f}  "
-              f"macroR {r['macro_recall']:.3f}  nll {r['log_loss']:.3f}")
-    best = min(results, key=lambda n: results[n]["log_loss"])
+              f"macroR {r['macro_recall']:.3f}  nll {r['log_loss']:.3f}  bal-nll {r['balanced_log_loss']:.3f}")
+    # Selected on decade-balanced log loss so the most-scraped decade can't dominate the tool's output
+    best = min(results, key=lambda n: results[n]["balanced_log_loss"])
     layers = candidates[best]
 
     test = evaluate(probs(layers, X[te]), y[te], items[te])

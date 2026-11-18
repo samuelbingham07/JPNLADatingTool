@@ -55,8 +55,9 @@ EXAMPLES = {
     "1980sRoseBowlCrewneck": "Russell Rose Bowl crewneck · known 1980s",
     "1990sCarharttJacket": "Carhartt chore jacket · known 1990s",
     "1990sHarleyTee": "Harley-Davidson tee · known 1990s",
+    "2000sTee": "Alstyle tee, Made in Mexico · known 2000s",
 }
-EXAMPLE_MAX = 1280
+EXAMPLE_MAX = 1600  # match predict.OCR_MAX so examples OCR exactly like full-size uploads
 
 
 def copy_examples():

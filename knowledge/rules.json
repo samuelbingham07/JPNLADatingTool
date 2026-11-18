@@ -256,7 +256,8 @@
       "type": "hard_bound",
       "latest": 1971,
       "confidence": "high",
-      "notes": "WPL numbers were issued under the Wool Products Label Act of 1939. The FTC replaced WPL numbers with RN numbers in 1971. A garment displaying a WPL number (not RN) is pre-1971. Note: some garments made near the transition may show both."
+      "void_if_care_label_present": true,
+      "notes": "WPL numbers were issued under the Wool Products Label Act of 1939. The FTC stopped issuing WPL numbers in 1971 and switched to RN numbers, but existing WPL numbers stayed valid and many brands (Levi's WPL 423, Russell, others) kept printing them for decades. A WPL with no care label is pre-1971; a WPL alongside a care label is not a ceiling."
     },
     "rn_present": {
       "type": "hard_bound",

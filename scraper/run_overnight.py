@@ -18,7 +18,7 @@ from tqdm import tqdm
 from scraper.config import (
     DATA_DIR, EBAY_APP_ID, EBAY_CERT_ID,
     DELAY_BETWEEN_REQUESTS, MAX_IMAGES_PER_LISTING,
-    SEARCH_QUERIES,
+    SEARCH_QUERIES, MODERN_QUERIES,
 )
 from scraper.label_extractor import extract as extract_label
 from scraper.ebay_scraper import EbayClient, _parse_item, scrape_listing
@@ -26,7 +26,7 @@ from scraper.ebay_scraper import EbayClient, _parse_item, scrape_listing
 PAGE_SIZE = 100
 
 
-async def run_timed(hours: float, labeled_only: bool = True):
+async def run_timed(hours: float, labeled_only: bool = True, queries=SEARCH_QUERIES, pages: int = 10):
     deadline = time.time() + hours * 3600
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -36,14 +36,14 @@ async def run_timed(hours: float, labeled_only: bool = True):
     async with httpx.AsyncClient(follow_redirects=True) as http:
         ebay = EbayClient(http)
 
-        for query in SEARCH_QUERIES:
+        for query in queries:
             if time.time() >= deadline:
                 break
 
             print(f"\n[{int((time.time()-start)/60)}min] Searching: {query}")
             all_listings = []
 
-            for page in range(10):  # up to 10 pages per query
+            for page in range(pages):
                 if time.time() >= deadline:
                     break
                 offset = page * PAGE_SIZE
@@ -89,9 +89,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--hours", type=float, default=8.0)
     parser.add_argument("--no-label-filter", action="store_true")
+    parser.add_argument("--pages", type=int, default=10)
+    parser.add_argument("--set", choices=["default", "modern", "2010s"], default="default")
     args = parser.parse_args()
     print(f"Running for up to {args.hours} hours. Press Ctrl+C to stop early.")
-    asyncio.run(run_timed(args.hours, labeled_only=not args.no_label_filter))
+    queries = {"default": SEARCH_QUERIES, "modern": MODERN_QUERIES,
+               "2010s": [q for q in MODERN_QUERIES if "201" in q]}[args.set]
+    asyncio.run(run_timed(args.hours, labeled_only=not args.no_label_filter, queries=queries, pages=args.pages))
 
 
 if __name__ == "__main__":
