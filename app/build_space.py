@@ -1,5 +1,6 @@
 """Assemble a self-contained Hugging Face Space in dist/space/ (inference code, weights, knowledge base only)."""
 
+import json
 import shutil
 from pathlib import Path
 
@@ -49,10 +50,34 @@ rapidocr_onnxruntime
 """
 
 
+EXAMPLES = {
+    "1970sWoolSweater": "Johnstons wool sweater · known 1970s",
+    "1980sRoseBowlCrewneck": "Russell Rose Bowl crewneck · known 1980s",
+    "1990sCarharttJacket": "Carhartt chore jacket · known 1990s",
+    "1990sHarleyTee": "Harley-Davidson tee · known 1990s",
+}
+EXAMPLE_MAX = 1280
+
+
+def copy_examples():
+    from PIL import Image, ImageOps
+    labels = {}
+    for i, (src, label) in enumerate(EXAMPLES.items()):
+        dst = OUT / "examples" / f"{i}"
+        dst.mkdir(parents=True)
+        for j, p in enumerate(sorted((ROOT / "examples" / src).glob("*.jp*g"))):
+            img = ImageOps.exif_transpose(Image.open(p)).convert("RGB")
+            img.thumbnail((EXAMPLE_MAX, EXAMPLE_MAX))
+            img.save(dst / f"{j}.jpg", quality=88)  # re-encoding without exif= drops GPS and all other metadata
+        labels[str(i)] = label
+    (OUT / "examples" / "labels.json").write_text(json.dumps(labels, indent=1), encoding="utf-8")
+
+
 def main():
     import gradio
     if OUT.exists():
         shutil.rmtree(OUT)
+    copy_examples()
     for src, dst in FILES:
         (OUT / dst).parent.mkdir(parents=True, exist_ok=True)
         s = ROOT / src

@@ -17,3 +17,6 @@ __pycache__/
 data/embeddings/
 dist/
 .gradio/
+
+# Raw photos carry GPS EXIF; build_space.py publishes stripped copies
+examples/

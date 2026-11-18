@@ -135,8 +135,9 @@ OBSERVATIONS = {
 }
 
 
-# Brands that kept printing their WPL number long after RNs replaced them in 1971
-WPL_KEPT_AFTER_1971 = {423}  # Levi Strauss & Co.
+# Brands kept printing WPL numbers after RNs replaced them in 1971, so WPL is only a ceiling when no
+# care label is present (enforced in extract_signals); Levi's WPL 423 is never a ceiling.
+WPL_KEPT_AFTER_1971 = {423}
 
 
 def _union_rule(name, sub=None):
@@ -155,7 +156,7 @@ def extract_signals(text: str, observations=()) -> list[Signal]:
             out.append(Signal(key, label, rule, evidence, source))
 
     for country, pat in COUNTRY_ALIASES.items():
-        m = re.search(rf"(?:made|hecho|fabriqu[eé]|manufactured)\s+(?:in|en)\s+(?:the\s+)?(?:{pat})\b", t)
+        m = re.search(rf"(?:made|hecho|fabriqu[eé]|manufactured)\s*(?:in|en)\s*(?:the\s+)?(?:{pat})\b", t)
         if m and not re.search(r"assembled|imported\s+(?:fabric|materials)", t[max(0, m.start() - 40):m.end() + 40]):
             add(f"country:{country}", f"Made in {country.replace('_', ' ')}",
                 _rule("country_of_origin", country), m.group(0).strip())
@@ -190,9 +191,12 @@ def extract_signals(text: str, observations=()) -> list[Signal]:
         if m:
             add(path[1], label, _rule(*path), m.group(0).strip())
 
-    if "talon_lightning" in {s.key for s in out}:
+    keys = {s.key for s in out}
+    if "wpl" in keys and "present" in keys:
+        out = [s for s in out if s.key != "wpl"]
+    if "talon_lightning" in keys:
         out = [s for s in out if s.key != "talon"]
-    if "sanforized_plus" in {s.key for s in out}:
+    if "sanforized_plus" in keys:
         out = [s for s in out if s.key != "sanforized"]
 
     for obs in observations:

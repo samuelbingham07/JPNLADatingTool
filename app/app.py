@@ -145,9 +145,20 @@ with gr.Blocks(title="Vintage Garment Dater") as demo:
             go = gr.Button("Date this garment", variant="primary", size="lg")
         with gr.Column(scale=6):
             result = gr.HTML('<div class="result-card"><div class="tagline">Result</div>'
-                             '<div class="sig-note">Your estimate shows up here.</div></div>')
+                             '<div class="sig-note">Your estimate shows up here. No garment handy? Try an example below.</div></div>')
             dist = gr.LinePlot(x="Year", y="Probability", height=220, label="Probability by year (after rules)")
             sig_table = gr.Dataframe(label="All signals found", interactive=False, wrap=True)
+    examples_dir = HERE / "examples"
+    if (examples_dir / "labels.json").exists():
+        labels = json.loads((examples_dir / "labels.json").read_text(encoding="utf-8"))
+        gr.Examples(
+            examples=[[sorted(str(p) for p in (examples_dir / k).glob("*.jpg")), "", [], False] for k in labels],
+            example_labels=list(labels.values()),
+            inputs=[files, tag_text, obs, use_typed],
+            outputs=[result, dist, sig_table, tag_text, use_typed],
+            fn=run, run_on_click=True, cache_examples=False,
+            label="Try one of my garments (click to date it)",
+        )
     with gr.Accordion("About this tool", open=False):
         gr.Markdown(about_md())
 
