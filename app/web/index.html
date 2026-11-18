@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vintage Garment Dater</title>
+<meta name="description" content="Date vintage clothing from photos of the garment and its tags. A trained vision model plus a rules engine built on garment-labeling history.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f1ea; --surface: #fffdf9; --surface-2: #f0e8dc; --text: #2b241d; --muted: #75685a;
+  --border: #e2d6c5; --accent: #9a5b2a; --accent-ink: #fff; --model: #2f5450; --warn: #b4441f;
+  --vintage: #5c6b2e; --chart: #9a5b2a; --chart-fill: rgba(154, 91, 42, .14); --band: rgba(154, 91, 42, .12);
+  --shadow: 0 1px 2px rgba(60, 40, 20, .06), 0 8px 24px rgba(60, 40, 20, .06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171411; --surface: #211d19; --surface-2: #2a2520; --text: #efe7dc; --muted: #a89a8a;
+    --border: #3a332c; --accent: #d08a52; --accent-ink: #1b140e; --model: #6fa59e; --warn: #e2734c;
+    --vintage: #a7b86a; --chart: #d08a52; --chart-fill: rgba(208, 138, 82, .18); --band: rgba(208, 138, 82, .14);
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171411; --surface: #211d19; --surface-2: #2a2520; --text: #efe7dc; --muted: #a89a8a;
+  --border: #3a332c; --accent: #d08a52; --accent-ink: #1b140e; --model: #6fa59e; --warn: #e2734c;
+  --vintage: #a7b86a; --chart: #d08a52; --chart-fill: rgba(208, 138, 82, .18); --band: rgba(208, 138, 82, .14);
+  --shadow: none;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 Inter, system-ui, sans-serif; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 16px 64px; }
+header h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: clamp(2rem, 5vw, 2.8rem); letter-spacing: -.015em; margin: 0; line-height: 1.05; }
+header p { color: var(--muted); margin: 8px 0 0; max-width: 60ch; }
+.grid { display: grid; grid-template-columns: 5fr 6fr; gap: 20px; margin-top: 28px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); min-width: 0; }
+.label { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+#drop { display: block; border: 1.5px dashed var(--border); border-radius: 12px; padding: 26px 16px; text-align: center; cursor: pointer; background: var(--surface-2); transition: border-color .15s; }
+#drop.over, #drop:hover { border-color: var(--accent); }
+#drop input { display: none; }
+#drop strong { display: block; font-weight: 600; }
+#drop span { color: var(--muted); font-size: .9rem; }
+#thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
+#thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+#obs { display: grid; gap: 6px; font-size: .92rem; }
+#obs label { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+#obs input { margin-top: 3px; accent-color: var(--accent); }
+details.box { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+details summary { cursor: pointer; color: var(--muted); font-weight: 500; }
+textarea { width: 100%; min-height: 96px; margin-top: 8px; padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font: 13px/1.45 ui-monospace, Menlo, Consolas, monospace; resize: vertical; }
+button { font: inherit; }
+.btn { width: 100%; margin-top: 16px; padding: 13px; border: 0; border-radius: 12px; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 1rem; cursor: pointer; }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--border); padding: 8px; font-size: .9rem; margin-top: 8px; }
+#status { margin-top: 12px; font-size: .9rem; color: var(--muted); }
+#status-track { height: 4px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+#status-bar { height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+.tagline { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.tagline.gap { margin-top: 22px; }
+.range { font-family: Fraunces, Georgia, serif; font-size: clamp(2.6rem, 8vw, 3.6rem); font-weight: 600; line-height: 1; margin: 8px 0 12px; font-variant-numeric: lining-nums; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { border-radius: 999px; padding: 3px 11px; border: 1px solid var(--border); font-size: .86rem; white-space: nowrap; }
+.pill.rules { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pill.model { background: var(--model); border-color: var(--model); color: #fff; }
+.pill.warn { background: var(--warn); border-color: var(--warn); color: #fff; }
+.pill.vintage { border-color: var(--vintage); color: var(--vintage); font-weight: 600; }
+.conf-track { height: 8px; border-radius: 4px; background: var(--border); margin: 14px 0 0; overflow: hidden; }
+.conf-fill { height: 100%; background: var(--accent); }
+.ask { margin-top: 12px; font-size: .9rem; color: var(--muted); }
+.sig { border-top: 1px solid var(--border); padding: 11px 0 3px; }
+.sig-head { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+.sig-span { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--muted); font-weight: 500; }
+.sig-note { font-size: .88rem; margin-top: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); }
+.more { margin-top: 10px; }
+.chart { width: 100%; height: auto; margin-top: 8px; display: block; }
+.chart .line { fill: none; stroke: var(--chart); stroke-width: 2; }
+.chart .area { fill: var(--chart-fill); }
+.chart .band { fill: var(--band); }
+.chart .tick { font-size: 10px; fill: var(--muted); }
+.chart .cutoff { stroke: var(--muted); stroke-dasharray: 3 3; }
+.chart .cutoff-label { font-size: 10px; fill: var(--muted); }
+.bars { display: grid; gap: 5px; margin-top: 10px; font-size: .85rem; }
+.bar-row { display: grid; grid-template-columns: 56px 1fr 44px; gap: 8px; align-items: center; font-variant-numeric: tabular-nums; }
+.bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.bar div { height: 100%; background: var(--model); }
+.refine-note { display: none; margin-top: 10px; font-size: .88rem; color: var(--accent); }
+#result.refining .refine-note { display: block; }
+.placeholder { color: var(--muted); }
+.placeholder .range { color: var(--border); }
+#examples { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+.example { display: flex; flex-direction: column; text-align: left; padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); color: var(--text); cursor: pointer; }
+.example:hover { border-color: var(--accent); }
+.example img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+.example span { padding: 8px 10px; font-size: .84rem; line-height: 1.35; }
+section.about { margin-top: 28px; }
+.about h2 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.4rem; margin: 0 0 10px; }
+.about ol { padding-left: 20px; margin: 0; }
+.about li { margin-bottom: 8px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+.stat { background: var(--surface-2); border-radius: 12px; padding: 12px 14px; }
+.stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 1.7rem; font-weight: 600; line-height: 1.1; }
+.stat span { font-size: .82rem; color: var(--muted); }
+footer { margin-top: 28px; color: var(--muted); font-size: .85rem; }
+footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Vintage Garment Dater</h1>
+    <p>Upload photos of a piece and its tags. You get a production date range, whether it counts as vintage (made before 2006), and the evidence behind the call. Everything runs in your browser, so your photos never leave your device.</p>
+  </header>
+
+  <div class="grid" id="ready" hidden>
+    <div class="card">
+      <p class="label">Photos</p>
+      <label id="drop"><input id="files" type="file" accept="image/*" multiple><strong id="drop-hint">Drop photos here or click to choose</strong><span>Garment + neck tag + care tag works best · up to 8</span></label>
+      <div id="thumbs" hidden></div>
+      <button id="go" class="btn" disabled>Date this garment</button>
+      <div id="status" hidden><span id="status-text"></span><div id="status-track" hidden><div id="status-bar"></div></div></div>
+
+      <details class="box">
+        <summary>Anything a photo might miss? (optional)</summary>
+        <div id="obs" style="margin-top:10px"></div>
+      </details>
+      <details class="box">
+        <summary>Tag text (read automatically, editable)</summary>
+        <textarea id="tag-text" placeholder="Filled in after dating. Fix any misread text and click Re-check."></textarea>
+        <button id="apply-text" class="btn ghost">Re-check with this text</button>
+      </details>
+    </div>
+
+    <div class="card" id="result">
+      <div class="placeholder">
+        <div class="tagline">Estimated production date</div>
+        <div class="range">19__–19__</div>
+        <p>Your estimate shows up here. No garment handy? Try one of mine below.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="card" style="margin-top:20px">
+    <p class="label">Try one of my garments (click to date it)</p>
+    <div id="examples"></div>
+  </section>
+
+  <section class="about card">
+    <h2>How it works</h2>
+    <ol>
+      <li><b>Visual model.</b> Each photo is embedded with a frozen open-source image encoder (CLIP ViT-B/32). A decade classifier I trained on <b id="m-train"></b> dated listings (<span id="m-imgs"></span> photos) then scores those embeddings.</li>
+      <li><b>Tag reading.</b> On-device OCR reads the tag text: country of origin, RN/WPL numbers, union names, fiber content, care copy, zipper brands. You can correct the text, or tick things OCR can't see, like a missing care label.</li>
+      <li><b>Constraint engine.</b> Each match maps to a rule in a hand-built knowledge base: the 1971 FTC care-label rule, the Textile Fiber Act, RN registration ranges, union merger dates, countries that no longer exist. Hard bounds rule out impossible years, and soft anchors reweight likely ones.</li>
+      <li><b>Range.</b> The tightest decade split (early, mid or late decade, or the full decade) holding at least 55% of the probability. If nothing does, it returns a wide range and says what photos would help.</li>
+    </ol>
+    <div class="stats">
+      <div class="stat"><b id="m-acc"></b><span>exact decade on held-out listings (baseline <span id="m-base"></span>)</span></div>
+      <div class="stat"><b id="m-one"></b><span>within one decade</span></div>
+      <div class="stat"><b id="m-n"></b><span>test listings, 1940s–2010s</span></div>
+    </div>
+    <p class="muted" style="font-size:.88rem;margin:0">Per-decade recall: <span id="m-recall"></span>. Training labels come from listing titles, so they're noisy and these numbers are conservative. When a tag is legible, the rules add precision on top. Built for American-market garments; this is an estimate, not an appraisal or authentication. No third-party AI API is involved.</p>
+  </section>
+
+  <footer><a href="https://github.com/samuelbingham07/JPNLADatingTool">Source on GitHub</a></footer>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

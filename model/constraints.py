@@ -156,7 +156,7 @@ def extract_signals(text: str, observations=()) -> list[Signal]:
             out.append(Signal(key, label, rule, evidence, source))
 
     for country, pat in COUNTRY_ALIASES.items():
-        m = re.search(rf"(?:made|hecho|fabriqu[eé]|manufactured)\s*(?:in|en)\s*(?:the\s+)?(?:{pat})\b", t)
+        m = re.search(rf"(?:ma[do]e|hecho|fabriqu[eé]|manufactured)\s*(?:in|en)\s*(?:the\s+)?(?:{pat})\b", t)
         if m and not re.search(r"assembled|imported\s+(?:fabric|materials)", t[max(0, m.start() - 40):m.end() + 40]):
             add(f"country:{country}", f"Made in {country.replace('_', ' ')}",
                 _rule("country_of_origin", country), m.group(0).strip())

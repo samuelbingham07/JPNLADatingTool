@@ -101,7 +101,7 @@ def date_garment(images, tag_text: str | None = None, observations=()):
                         "confidence": s.rule["confidence"], "source": s.source, "evidence": s.evidence,
                         "notes": s.rule.get("notes", ""), "decisive": changed,
                         "impact": mass(post, result) - mass(p_wo, result) + (1.0 if changed else 0.0)})
-    drivers.sort(key=lambda d: -d["impact"])
+    drivers.sort(key=lambda d: -round(d["impact"], 9))
 
     top_decade = max(decades, key=decades.get)
     rules_decided = (model_only["start"], model_only["end"]) != (result["start"], result["end"])
