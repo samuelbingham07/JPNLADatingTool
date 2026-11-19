@@ -35,7 +35,7 @@ pinned: false
 short_description: Date vintage clothing from photos of the garment and tags
 ---
 
-Upload photos of a vintage garment and its tags. A trained decade classifier plus a rules engine built on
+Upload photos of a vintage garment and its tags. A trained date classifier plus a rules engine built on
 garment-labeling history (FTC care labels, RN numbers, union labels, country of origin) returns a date range
 and the evidence behind it.
 """

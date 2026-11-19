@@ -242,31 +242,38 @@ def apply(prior: np.ndarray, signals: list[Signal]):
     return post / post.sum(), hard + soft, dropped, (int(lo), int(hi))
 
 
-def _candidates(lo, hi):
-    for d in range(1900, 2030, 10):
-        for a, b, kind in ((d, d + 4, "early"), (d + 3, d + 7, "mid"), (d + 6, d + 9, "late"),
-                           (d, d + 9, "full"), (d, d + 19, "wide")):
-            a, b = max(a, lo), min(b, hi)
-            if a <= b:
-                yield a, b, kind
+WINDOWS = ((5, "five"), (10, "ten"), (15, "fifteen"))
 
 
-def pick_range(post: np.ndarray, bounds):
+def _best_window(mass, lo, hi, width):
+    """Highest-mass window of this width inside [lo, hi]; masses rounded so ties resolve to the earliest
+    start identically in the JS port."""
+    best = None
+    for a in range(lo, max(lo, hi - width + 1) + 1):
+        b = min(a + width - 1, hi)
+        m = round(mass(a, b), 9)
+        if best is None or m > best[2]:
+            best = (a, b, m)
+    return best
+
+
+def pick_range(post: np.ndarray, bounds, tau=CONFIDENT_MASS):
+    """Narrowest 5/10/15-year window holding at least tau of the mass; else a 20-year 'low' range."""
     lo, hi = bounds
     if hi - lo <= 5:
         return {"start": lo, "end": hi, "confidence": 1.0, "kind": "tell"}
     cum = np.concatenate([[0], np.cumsum(post)])
 
     def mass(a, b):
-        return cum[b - YEARS[0] + 1] - cum[a - YEARS[0]]
+        return float(cum[b - YEARS[0] + 1] - cum[a - YEARS[0]])
 
-    scored = [(a, b, kind, mass(a, b)) for a, b, kind in _candidates(lo, hi)]
-    for kinds in (("early", "mid", "late"), ("full",)):
-        good = [c for c in scored if c[2] in kinds and c[3] >= CONFIDENT_MASS]
-        if good:
-            a, b, kind, m = max(good, key=lambda c: c[3])
-            return {"start": a, "end": b, "confidence": float(m), "kind": kind}
+    for width, kind in WINDOWS:
+        if width > hi - lo + 1:
+            break
+        a, b, m = _best_window(mass, lo, hi, width)
+        if m >= round(tau, 9):
+            return {"start": a, "end": b, "confidence": m, "kind": kind}
     if hi - lo <= 15:
         return {"start": lo, "end": hi, "confidence": 1.0, "kind": "tell"}
-    a, b, kind, m = max((c for c in scored if c[2] == "wide"), key=lambda c: c[3])
-    return {"start": a, "end": b, "confidence": float(m), "kind": "low"}
+    a, b, m = _best_window(mass, lo, hi, 20)
+    return {"start": a, "end": b, "confidence": m, "kind": "low"}

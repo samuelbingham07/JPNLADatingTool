@@ -24,3 +24,6 @@ examples/
 # Node build artifacts
 node_modules/
 app/web_ocr/ocr.bundle.js
+data/embeddings_*/
+data/*.log
+.venv-dml/

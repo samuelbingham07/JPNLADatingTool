@@ -1,22 +1,31 @@
-"""Train the decade head on frozen backbone embeddings.
+"""Train the date head on frozen backbone embeddings.
 
-Labels are title-extracted (weak). Split is by listing so no listing's photos leak across splits.
+The head predicts 5-year bins (1940-2019; the first bin also absorbs 1930s). Targets are soft: a
+listing labelled "1970s" spreads over two bins, an exact year lands in one, so exact-year titles teach
+sub-decade resolution. Photos of a listing are combined by averaging tempered log-probabilities.
+The range threshold tau is calibrated on validation so the model-only range contains the true year
+for TARGET_HIT of exact-year listings. Split is by listing (md5), so no listing leaks across splits.
 Writes model/weights/head.npz and model/weights/metrics.json.
 """
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import torch
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, log_loss
 
 ROOT = Path(__file__).resolve().parent.parent
-EMB = ROOT / "data" / "embeddings"
+sys.path.insert(0, str(ROOT))
+from model import constraints as C  # noqa: E402
+
+ITEMS = ROOT / "data" / "embeddings_b16" / "items"
 OUT = ROOT / "model" / "weights"
-DECADES = [1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
+BINS = np.arange(1940, 2020, 5)
+DECADES = list(range(1940, 2020, 10))
+TARGET_HIT = 0.80
+HIDDEN, DROP, EPOCHS, WD, POWER = 1024, 0.5, 40, 1e-3, 0.5
 SEED = 0
 
 
@@ -26,65 +35,39 @@ def split_of(item_id):
 
 
 def load():
-    X = np.load(EMB / "embeddings.npy").astype(np.float32)
-    idx = json.loads((EMB / "index.json").read_text())
-    keep, y, items, splits = [], [], [], []
-    for i, r in enumerate(idx):
-        if r["end"] - r["start"] > 20:
+    from model.embed import listings
+    X, lab, items = [], [], []
+    for it in listings():
+        f = ITEMS / f"{it['item_id']}.npy"
+        if it["end"] - it["start"] > 20 or not f.exists():
             continue
-        d = int((r["start"] + r["end"]) / 2) // 10 * 10
-        keep.append(i)
-        y.append(DECADES.index(min(max(d, DECADES[0]), DECADES[-1])))
-        items.append(r["item_id"])
-        splits.append(split_of(r["item_id"]))
-    return X[keep], np.array(y), np.array(items), np.array(splits)
+        e = np.load(f).astype(np.float32)
+        X.append(e)
+        lab += [(min(max(it["start"], 1930), 2019), min(max(it["end"], 1930), 2019))] * len(e)
+        items += [it["item_id"]] * len(e)
+    items = np.array(items)
+    return np.concatenate(X), np.array(lab), items, np.array([split_of(i) for i in items])
 
 
-def listing_level(P, y, items):
-    """Average per-image probabilities within each listing."""
-    order = {}
-    for i, it in enumerate(items):
-        order.setdefault(it, []).append(i)
-    rows = list(order.values())
-    return np.stack([P[r].mean(0) for r in rows]), np.array([y[r[0]] for r in rows])
+def soft_targets(lab):
+    T = np.zeros((len(lab), len(BINS)), np.float32)
+    for k, (s, e) in enumerate(lab):
+        ys = np.arange(s, e + 1)
+        np.add.at(T[k], np.clip((ys - BINS[0]) // 5, 0, len(BINS) - 1), 1.0 / len(ys))
+    return T
 
 
-def evaluate(P, y, items):
-    Pl, yl = listing_level(P, y, items)
-    pred = Pl.argmax(1)
-    cm = confusion_matrix(yl, pred, labels=range(len(DECADES)))
-    recall = cm.diagonal() / np.maximum(cm.sum(1), 1)
-    return {
-        "listings": int(len(yl)),
-        "accuracy": float((pred == yl).mean()),
-        "within_one_decade": float((np.abs(pred - yl) <= 1).mean()),
-        "macro_recall": float(recall[cm.sum(1) > 0].mean()),
-        "log_loss": float(log_loss(yl, Pl, labels=range(len(DECADES)))),
-        "balanced_log_loss": float(log_loss(yl, Pl, labels=range(len(DECADES)),
-                                            sample_weight=1.0 / np.bincount(yl, minlength=len(DECADES))[yl])),
-        "per_decade_recall": {f"{d}s": float(r) for d, r, n in zip(DECADES, recall, cm.sum(1)) if n},
-        "confusion": cm.tolist(),
-    }
-
-
-def fit_logreg(Xtr, ytr, C, weights):
-    clf = LogisticRegression(C=C, max_iter=2000)
-    clf.fit(Xtr, ytr, sample_weight=weights)
-    return [(clf.coef_.T.astype(np.float32), clf.intercept_.astype(np.float32))]
-
-
-def fit_mlp(Xtr, ytr, weights, hidden=512, epochs=30, wd=1e-3, drop=0.3):
+def fit(X, T, w):
     torch.manual_seed(SEED)
-    k = len(DECADES)
-    net = torch.nn.Sequential(torch.nn.Linear(Xtr.shape[1], hidden), torch.nn.ReLU(),
-                              torch.nn.Dropout(drop), torch.nn.Linear(hidden, k))
-    opt = torch.optim.AdamW(net.parameters(), lr=1e-3, weight_decay=wd)
-    X, y, w = torch.from_numpy(Xtr), torch.from_numpy(ytr), torch.from_numpy(weights.astype(np.float32))
-    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochs)
-    for _ in range(epochs):
+    net = torch.nn.Sequential(torch.nn.Linear(X.shape[1], HIDDEN), torch.nn.ReLU(), torch.nn.Dropout(DROP),
+                              torch.nn.Linear(HIDDEN, T.shape[1]))
+    opt = torch.optim.AdamW(net.parameters(), lr=1e-3, weight_decay=WD)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, EPOCHS)
+    Xt, Tt, wt = torch.from_numpy(X), torch.from_numpy(T), torch.from_numpy(w.astype(np.float32))
+    for _ in range(EPOCHS):
         net.train()
-        for b in torch.randperm(len(X)).split(256):
-            loss = (torch.nn.functional.cross_entropy(net(X[b]), y[b], reduction="none") * w[b]).mean()
+        for b in torch.randperm(len(Xt)).split(256):
+            loss = (-(Tt[b] * torch.log_softmax(net(Xt[b]), 1)).sum(1) * wt[b]).mean()
             opt.zero_grad()
             loss.backward()
             opt.step()
@@ -94,60 +77,99 @@ def fit_mlp(Xtr, ytr, weights, hidden=512, epochs=30, wd=1e-3, drop=0.3):
             (l2.weight.detach().numpy().T.copy(), l2.bias.detach().numpy().copy())]
 
 
-def probs(layers, X):
+def logits(layers, X):
     h = X
     for i, (W, b) in enumerate(layers):
         h = h @ W + b
         if i < len(layers) - 1:
             h = np.maximum(h, 0)
-    h = h - h.max(1, keepdims=True)
-    p = np.exp(h)
-    return p / p.sum(1, keepdims=True)
+    return h
+
+
+def combine(Z, temperature):
+    """Average tempered log-probs over a listing's photos, renormalize. Mirrors predict.bin_probs."""
+    z = Z / temperature
+    lp = z - z.max(1, keepdims=True)
+    lp = lp - np.log(np.exp(lp).sum(1, keepdims=True))
+    s = lp.mean(0)
+    p = np.exp(s - s.max())
+    return p / p.sum()
+
+
+def listings_of(items):
+    g = {}
+    for i, it in enumerate(items):
+        g.setdefault(it, []).append(i)
+    return list(g.values())
+
+
+def evaluate(Z, lab, items, temperature, tau):
+    from model.predict import year_prior
+    full = (int(C.YEARS[0]), int(C.YEARS[-1]))
+    rows = listings_of(items)
+    widths, exact, ranged, nll, dec_true, dec_pred, kinds = [], [], [], [], [], [], {}
+    for r in rows:
+        p = combine(Z[r], temperature)
+        s, e = lab[r[0]]
+        prior = year_prior(dict(zip(BINS.tolist(), p.tolist())))
+        nll.append(-np.log(prior[(C.YEARS >= s) & (C.YEARS <= e)].sum()))
+        res = C.pick_range(prior, full, tau)
+        kinds[res["kind"]] = kinds.get(res["kind"], 0) + 1
+        widths.append(res["end"] - res["start"] + 1)
+        (exact if e - s <= 2 else ranged).append(res["start"] <= e and res["end"] >= s)
+        dec_true.append((min(max((s + e) // 2, 1940), 2019) - 1940) // 10)
+        dec_pred.append(int(p.reshape(-1, 2).sum(1).argmax()))
+    dt, dpd = np.array(dec_true), np.array(dec_pred)
+    recall = {f"{d}s": float((dpd[dt == k] == k).mean()) for k, d in enumerate(DECADES) if (dt == k).any()}
+    return {"listings": len(rows), "nll_true_range": float(np.mean(nll)),
+            "mean_range_width_years": float(np.mean(widths)),
+            "exact_year_hit": float(np.mean(exact)), "range_label_overlap": float(np.mean(ranged)),
+            "range_kinds": kinds, "decade_accuracy": float((dt == dpd).mean()),
+            "within_one_decade": float((np.abs(dt - dpd) <= 1).mean()), "per_decade_recall": recall}
 
 
 def main():
-    X, y, items, splits = load()
-    mean = X[splits == "train"].mean(0)
+    X, lab, items, sp = load()
+    mean = X[sp == "train"].mean(0)
     X = X - mean
-    tr, va, te = (splits == s for s in ("train", "val", "test"))
-    counts = np.bincount(y[tr], minlength=len(DECADES))
-    print("train images per decade:", dict(zip(DECADES, counts.tolist())))
+    tr, va, te = (sp == s for s in ("train", "val", "test"))
+    dec = np.clip((lab[tr].mean(1).astype(int) - 1940) // 10, 0, 7)
+    cnt = np.bincount(dec, minlength=8)
+    print("train images per decade:", dict(zip(DECADES, cnt.tolist())))
     print(f"listings: train {len(set(items[tr]))}, val {len(set(items[va]))}, test {len(set(items[te]))}")
+    w = np.minimum((cnt.max() / cnt[dec]) ** POWER, 20.0)
+    layers = fit(X[tr], soft_targets(lab[tr]), w / w.mean())
 
-    # Class-reweighting by power of inverse frequency: 0 = none, 0.5 = sqrt, 1 = fully balanced
-    def class_weights(power):
-        w = np.minimum((counts.max() / np.maximum(counts[y[tr]], 1)) ** power, 20.0)
-        return w / w.mean()
+    Zv, Zt = logits(layers, X[va]), logits(layers, X[te])
+    from model.predict import year_prior
+    rows = listings_of(items[va])
 
-    candidates = {"logreg C=3.0 w=sqrt": fit_logreg(X[tr], y[tr], 3.0, class_weights(0.5))}
-    print("fit logreg")
-    for power in (0.0, 0.5, 0.75, 1.0):
-        candidates[f"mlp512 w^{power}"] = fit_mlp(X[tr], y[tr], class_weights(power))
-        print("fit", f"mlp512 w^{power}")
+    def val_nll(t):
+        out = []
+        for r in rows:
+            prior = year_prior(dict(zip(BINS.tolist(), combine(Zv[r], t).tolist())))
+            s, e = lab[va][r[0]]
+            out.append(-np.log(prior[(C.YEARS >= s) & (C.YEARS <= e)].sum()))
+        return np.mean(out)
 
-    results = {name: evaluate(probs(L, X[va]), y[va], items[va]) for name, L in candidates.items()}
-    for name, r in results.items():
-        print(f"{name:28s} val acc {r['accuracy']:.3f}  ±1 {r['within_one_decade']:.3f}  "
-              f"macroR {r['macro_recall']:.3f}  nll {r['log_loss']:.3f}  bal-nll {r['balanced_log_loss']:.3f}")
-    # Selected on decade-balanced log loss so the most-scraped decade can't dominate the tool's output
-    best = min(results, key=lambda n: results[n]["balanced_log_loss"])
-    layers = candidates[best]
-
-    test = evaluate(probs(layers, X[te]), y[te], items[te])
-    _, yl = listing_level(probs(layers, X[te]), y[te], items[te])
-    majority = int(np.argmax(counts))
-    test["majority_baseline_accuracy"] = float((yl == majority).mean())
-    print(f"\nselected: {best}\ntest: {json.dumps({k: v for k, v in test.items() if k != 'confusion'}, indent=1)}")
+    temperature = float(min(np.arange(0.4, 1.31, 0.1).round(2), key=val_nll))
+    taus = np.arange(0.30, 0.96, 0.01).round(2)
+    tau = float(next(t for t in taus if evaluate(Zv, lab[va], items[va], temperature, t)["exact_year_hit"] >= TARGET_HIT))
+    val = evaluate(Zv, lab[va], items[va], temperature, tau)
+    test = evaluate(Zt, lab[te], items[te], temperature, tau)
+    print(f"temperature {temperature}, tau {tau}\nval: {json.dumps(val)}\ntest: {json.dumps(test, indent=1)}")
 
     OUT.mkdir(parents=True, exist_ok=True)
-    np.savez(OUT / "head.npz", mean=mean.astype(np.float32), classes=np.array(DECADES),
-             **{f"W{i}": W for i, (W, _) in enumerate(layers)},
+    np.savez(OUT / "head.npz", mean=mean.astype(np.float32), classes=BINS, temperature=np.float32(temperature),
+             tau=np.float32(tau), **{f"W{i}": W for i, (W, _) in enumerate(layers)},
              **{f"b{i}": b for i, (_, b) in enumerate(layers)})
     (OUT / "metrics.json").write_text(json.dumps({
-        "selected": best, "decades": DECADES, "label_source": "eBay listing titles (weak labels)",
-        "backbone": "openai/clip-vit-base-patch32 (frozen)",
+        "head": f"MLP {HIDDEN} hidden, dropout {DROP}, 5-year bins, class weights (max/count)^{POWER}",
+        "bins": BINS.tolist(), "temperature": temperature, "tau": tau, "target_exact_year_hit": TARGET_HIT,
+        "label_source": "eBay listing titles (weak labels)",
+        "backbone": "openai/clip-vit-base-patch16 (frozen)",
         "train_images": int(tr.sum()), "train_listings": len(set(items[tr])),
-        "val": results, "test": test}, indent=1))
+        "val": val, "test": test}, indent=1))
 
 
 if __name__ == "__main__":

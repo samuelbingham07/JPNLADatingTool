@@ -32,7 +32,7 @@ pinned: false
 short_description: Date vintage clothing from photos of the garment and tags
 ---
 
-Upload photos of a vintage garment and its tags. A trained decade classifier plus a rules engine built on
+Upload photos of a vintage garment and its tags. A trained date classifier plus a rules engine built on
 garment-labeling history (FTC care labels, RN numbers, union labels, country of origin) returns a date range,
 a vintage verdict, and the evidence behind it. Everything runs in your browser.
 """
@@ -49,7 +49,8 @@ def export_head():
         arrays.append(a.ravel())
     (OUT / "head.bin").write_bytes(np.concatenate(arrays).tobytes())
     (OUT / "head.json").write_text(json.dumps({"layers": n, "classes": [int(c) for c in z["classes"]],
-                                               "tensors": layout}))
+                                               "temperature": round(float(z["temperature"]), 4),
+                                               "tau": round(float(z["tau"]), 4), "tensors": layout}))
 
 
 def export_engine():
@@ -59,7 +60,6 @@ def export_engine():
     cfg = {
         "years": [int(C.YEARS[0]), int(C.YEARS[-1])],
         "soft_weight": C.SOFT_WEIGHT,
-        "confident_mass": C.CONFIDENT_MASS,
         "floor": P.FLOOR,
         "vintage_before": P.VINTAGE_BEFORE,
         "countries": [{"name": k, "pattern": v, "rule": C._rule("country_of_origin", k)}

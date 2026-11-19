@@ -21,7 +21,7 @@ from scraper.label_extractor import extract  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw"
-OUT = ROOT / "data" / "embeddings"
+OUT = ROOT / "data" / "embeddings_b16"
 ITEMS = OUT / "items"
 CHUNK_IMAGES = 2048
 

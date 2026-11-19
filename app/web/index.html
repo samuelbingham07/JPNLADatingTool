@@ -152,17 +152,17 @@ footer a { color: var(--accent); }
   <section class="about card">
     <h2>How it works</h2>
     <ol>
-      <li><b>Visual model.</b> Each photo is embedded with a frozen open-source image encoder (CLIP ViT-B/32). A decade classifier I trained on <b id="m-train"></b> dated listings (<span id="m-imgs"></span> photos) then scores those embeddings.</li>
+      <li><b>Visual model.</b> Each photo is embedded with a frozen open-source image encoder (CLIP ViT-B/16). A date classifier I trained on <b id="m-train"></b> dated listings (<span id="m-imgs"></span> photos) then scores those embeddings in 5-year bins, 1940–2019. Titles that name an exact year teach it to tell early from late in a decade.</li>
       <li><b>Tag reading.</b> On-device OCR reads the tag text: country of origin, RN/WPL numbers, union names, fiber content, care copy, zipper brands. You can correct the text, or tick things OCR can't see, like a missing care label.</li>
       <li><b>Constraint engine.</b> Each match maps to a rule in a hand-built knowledge base: the 1971 FTC care-label rule, the Textile Fiber Act, RN registration ranges, union merger dates, countries that no longer exist. Hard bounds rule out impossible years, and soft anchors reweight likely ones.</li>
-      <li><b>Range.</b> The tightest decade split (early, mid or late decade, or the full decade) holding at least 55% of the probability. If nothing does, it returns a wide range and says what photos would help.</li>
+      <li><b>Range.</b> The narrowest 5-, 10- or 15-year window holding enough of the probability, with the threshold calibrated on held-out listings so the range contains the true year about 80% of the time. If nothing qualifies, it returns a 20-year range and says what photos would help.</li>
     </ol>
     <div class="stats">
-      <div class="stat"><b id="m-acc"></b><span>exact decade on held-out listings (baseline <span id="m-base"></span>)</span></div>
-      <div class="stat"><b id="m-one"></b><span>within one decade</span></div>
+      <div class="stat"><b id="m-width"></b><span>average range from photos alone, held-out listings</span></div>
+      <div class="stat"><b id="m-hit"></b><span>of those ranges contain the true year</span></div>
       <div class="stat"><b id="m-n"></b><span>test listings, 1940s–2010s</span></div>
     </div>
-    <p class="muted" style="font-size:.88rem;margin:0">Per-decade recall: <span id="m-recall"></span>. Training labels come from listing titles, so they're noisy and these numbers are conservative. When a tag is legible, the rules add precision on top. Built for American-market garments; this is an estimate, not an appraisal or authentication. No third-party AI API is involved.</p>
+    <p class="muted" style="font-size:.88rem;margin:0">Top decade correct <span id="m-acc"></span>, within one decade <span id="m-one"></span>. Per-decade recall: <span id="m-recall"></span>. Training labels come from listing titles, so they're noisy and these numbers are conservative. When a tag is legible, the rules add precision on top. Built for American-market garments; this is an estimate, not an appraisal or authentication. No third-party AI API is involved.</p>
   </section>
 
   <footer><a href="https://github.com/samuelbingham07/JPNLADatingTool">Source on GitHub</a></footer>

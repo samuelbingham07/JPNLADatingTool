@@ -121,25 +121,30 @@ export function createEngine(cfg, head) {
     return { post: post.map(p => p / sum), active: hard.concat(soft), dropped, bounds: [lo, hi] };
   }
 
+  // Narrowest 5/10/15-year window holding >= tau of the mass, else a 20-year 'low' range.
+  // Masses rounded to 9 decimals so ties resolve to the earliest start exactly as in Python.
+  const WINDOWS = [[5, 'five'], [10, 'ten'], [15, 'fifteen']];
+  const r9 = v => Math.round(v * 1e9) / 1e9;
   function pickRange(post, [lo, hi]) {
     if (hi - lo <= 5) return { start: lo, end: hi, confidence: 1, kind: 'tell' };
     const cum = [0];
     for (const p of post) cum.push(cum[cum.length - 1] + p);
     const mass = (a, b) => cum[b - Y0 + 1] - cum[a - Y0];
-    const scored = [];
-    for (let d = 1900; d < 2030; d += 10) {
-      for (const [a0, b0, kind] of [[d, d + 4, 'early'], [d + 3, d + 7, 'mid'], [d + 6, d + 9, 'late'], [d, d + 9, 'full'], [d, d + 19, 'wide']]) {
-        const a = Math.max(a0, lo), b = Math.min(b0, hi);
-        if (a <= b) scored.push([a, b, kind, mass(a, b)]);
+    const bestWindow = width => {
+      let best = null;
+      for (let a = lo; a <= Math.max(lo, hi - width + 1); a++) {
+        const b = Math.min(a + width - 1, hi), m = r9(mass(a, b));
+        if (best === null || m > best[2]) best = [a, b, m];
       }
-    }
-    const best = list => list.reduce((m, c) => (m === null || c[3] > m[3]) ? c : m, null);
-    for (const kinds of [['early', 'mid', 'late'], ['full']]) {
-      const good = scored.filter(c => kinds.includes(c[2]) && c[3] >= cfg.confident_mass);
-      if (good.length) { const [a, b, kind, m] = best(good); return { start: a, end: b, confidence: m, kind }; }
+      return best;
+    };
+    for (const [width, kind] of WINDOWS) {
+      if (width > hi - lo + 1) break;
+      const [a, b, m] = bestWindow(width);
+      if (m >= r9(head.meta.tau)) return { start: a, end: b, confidence: m, kind };
     }
     if (hi - lo <= 15) return { start: lo, end: hi, confidence: 1, kind: 'tell' };
-    const [a, b, , m] = best(scored.filter(c => c[2] === 'wide'));
+    const [a, b, m] = bestWindow(20);
     return { start: a, end: b, confidence: m, kind: 'low' };
   }
 
@@ -151,7 +156,7 @@ export function createEngine(cfg, head) {
       return { data: head.data.subarray(t.offset, t.offset + n), shape: t.shape };
     };
     const mean = get('mean').data;
-    const probs = embeds.map(e => {
+    const logps = embeds.map(e => {
       let h = Float32Array.from(e, (v, i) => v - mean[i]);
       for (let l = 0; l < head.meta.layers; l++) {
         const W = get(`W${l}`), b = get(`b${l}`).data;
@@ -166,24 +171,28 @@ export function createEngine(cfg, head) {
         if (l < head.meta.layers - 1) for (let j = 0; j < nout; j++) o[j] = Math.max(o[j], 0);
         h = o;
       }
-      const mx = Math.max(...h);
-      const ex = Array.from(h, v => Math.exp(v - mx));
-      const s = ex.reduce((a, b) => a + b, 0);
-      return ex.map(v => v / s);
+      const z = Array.from(h, v => v / head.meta.temperature);
+      const mx = Math.max(...z);
+      const lse = Math.log(z.reduce((acc, v) => acc + Math.exp(v - mx), 0));
+      return z.map(v => v - mx - lse);
     });
     const k = head.meta.classes.length;
-    const avg = Array.from({ length: k }, (_, j) => probs.reduce((a, p) => a + p[j], 0) / probs.length);
+    const s = Array.from({ length: k }, (_, j) => logps.reduce((acc, p) => acc + p[j], 0) / logps.length);
+    const smx = Math.max(...s);
+    const ex = s.map(v => Math.exp(v - smx));
+    const tot = ex.reduce((x, y) => x + y, 0);
+    const avg = ex.map(v => v / tot);
     return Object.fromEntries(head.meta.classes.map((c, j) => [c, avg[j]]));
   }
 
-  function yearPrior(decades) {
-    const ds = Object.keys(decades).map(Number);
-    const lowest = Math.min(...ds);
+  function yearPrior(bins) {
+    const bs = Object.keys(bins).map(Number).sort((a, b) => a - b);
+    const width = bs[1] - bs[0];
     const prior = new Array(N).fill(0);
-    for (const d of ds) {
-      const inSpan = YEARS.map(y => y >= (d === lowest ? d - 10 : d) && y <= d + 9);
+    for (const d of bs) {
+      const inSpan = YEARS.map(y => y >= (d === bs[0] ? d - 10 : d) && y <= d + width - 1);
       const n = inSpan.filter(Boolean).length;
-      inSpan.forEach((v, i) => { if (v) prior[i] += decades[d] / n; });
+      inSpan.forEach((v, i) => { if (v) prior[i] += bins[d] / n; });
     }
     return prior.map(p => (1 - cfg.floor) * p + cfg.floor / N);
   }
@@ -191,8 +200,15 @@ export function createEngine(cfg, head) {
   const fmt = r => r.start === r.end ? String(r.start) : `${r.start}–${r.end}`;
   const sameRange = (a, b) => a.start === b.start && a.end === b.end;
 
-  function dateFromDecades(decades, tagText, observations) {
-    const prior = yearPrior(decades);
+  function toDecades(bins) {
+    const out = {};
+    for (const b of Object.keys(bins).map(Number)) { const d = Math.floor(b / 10) * 10; out[d] = (out[d] || 0) + bins[b]; }
+    return out;
+  }
+
+  function dateFromBins(bins, tagText, observations) {
+    const prior = yearPrior(bins);
+    const decades = toDecades(bins);
     const signals = extractSignals(tagText, observations);
     const { post, active, dropped, bounds: bnds } = apply(prior, signals);
     const result = pickRange(post, bnds);
@@ -206,19 +222,18 @@ export function createEngine(cfg, head) {
                source: s.source, evidence: s.evidence, notes: s.rule.notes || '', decisive: changed,
                impact: massIn(post, result) - massIn(wo.post, result) + (changed ? 1 : 0) };
     });
-    const r9 = v => Math.round(v * 1e9) / 1e9;
     drivers.sort((a, b) => r9(b.impact) - r9(a.impact));
 
     const top = Number(Object.keys(decades).reduce((a, b) => decades[a] >= decades[b] ? a : b));
     return {
       range: fmt(result), start: result.start, end: result.end, confidence: result.confidence, kind: result.kind,
       decided_by: sameRange(modelOnly, result) ? 'model' : 'rules',
-      model: { decades, top, range: fmt(modelOnly), confidence: modelOnly.confidence },
+      model: { bins, decades, top, range: fmt(modelOnly), confidence: modelOnly.confidence },
       signals: drivers, dropped: dropped.map(s => s.label), bounds: bnds, tag_text: tagText,
       posterior: post, years: YEARS, needs_more: result.kind === 'low',
       vintage_prob: post.reduce((a, v, i) => a + (YEARS[i] < cfg.vintage_before ? v : 0), 0),
     };
   }
 
-  return { extractSignals, apply, pickRange, headProbs, yearPrior, dateFromDecades, YEARS };
+  return { extractSignals, apply, pickRange, headProbs, yearPrior, dateFromBins, YEARS };
 }

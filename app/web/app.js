@@ -2,7 +2,7 @@ import { env, CLIPVisionModelWithProjection, Tensor } from 'https://cdn.jsdelivr
 import { preprocess, SIZE } from './preprocess.js';
 import { createEngine } from './engine.js';
 
-const BACKBONE = 'Xenova/clip-vit-base-patch32';
+const BACKBONE = 'Xenova/clip-vit-base-patch16';
 const OCR_MAX = 1600;
 const MAX_PHOTOS = 8;
 const $ = id => document.getElementById(id);
@@ -113,7 +113,7 @@ function observations() {
 
 function rerender() {
   if (!state.decades) return;
-  const r = state.engine.dateFromDecades(state.decades, state.tagText, observations());
+  const r = state.engine.dateFromBins(state.decades, state.tagText, observations());
   render(r);
 }
 
@@ -172,7 +172,7 @@ function setPhotos(list) {
 // ---------- rendering ----------
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const pct = v => `${Math.round(v * 100)}%`;
-const KIND = { tell: 'Clear tell', early: 'Early decade', mid: 'Mid decade', late: 'Late decade', full: 'Full decade', low: 'Wide range' };
+const KIND = { tell: 'Clear tell', five: '5-year window', ten: '10-year window', fifteen: '15-year window', low: 'Wide range' };
 
 function signalHtml(s) {
   const kind = s.hard ? 'Hard bound' : 'Soft anchor';
@@ -224,7 +224,7 @@ function render(r) {
     <div class="tagline gap">What drove it</div>
     ${sigs}
     <div class="sig"><div class="sig-head"><span>Visual model</span><span class="sig-span">${topLabel}</span></div>
-      <div class="sig-note">Trained decade classifier over your photos. On its own it would say ${esc(r.model.range)}.</div></div>
+      <div class="sig-note">Trained date classifier over your photos. On its own it would say ${esc(r.model.range)}.</div></div>
     ${more}${dropped}
     <div class="tagline gap">Probability by year, after rules</div>
     ${chartSvg(r)}
@@ -245,8 +245,9 @@ async function boot() {
   $('obs').addEventListener('change', rerender);
 
   const t = metrics.test;
-  $('m-acc').textContent = pct(t.accuracy);
-  $('m-base').textContent = pct(t.majority_baseline_accuracy);
+  $('m-width').textContent = `${t.mean_range_width_years.toFixed(1)} yrs`;
+  $('m-hit').textContent = pct(t.exact_year_hit);
+  $('m-acc').textContent = pct(t.decade_accuracy);
   $('m-one').textContent = pct(t.within_one_decade);
   $('m-n').textContent = t.listings.toLocaleString();
   $('m-train').textContent = metrics.train_listings.toLocaleString();

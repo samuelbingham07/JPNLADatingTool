@@ -59,7 +59,7 @@ def render(r):
     top_p = r["model"]["decades"][top]
     model_line = (f'<div class="sig"><div class="sig-head"><span>Visual model</span>'
                   f'<span class="sig-span">{"≤" if top == min(r["model"]["decades"]) else ""}{top}s · {top_p:.0%}</span></div>'
-                  f'<div class="sig-note">Trained decade classifier over the uploaded photos. '
+                  f'<div class="sig-note">Trained date classifier over the uploaded photos. '
                   f'On its own it would say {r["model"]["range"]}.</div></div>')
     sigs = "".join(_signal_html(s) for s in r["signals"][:3])
     more = len(r["signals"]) - 3
@@ -70,8 +70,8 @@ def render(r):
     v = r["vintage_prob"]
     verdict = "Vintage" if v >= 0.8 else "Not vintage" if v <= 0.2 else "Borderline vintage"
     vintage = f'<span class="pill">{verdict} (pre-2006): {v:.0%}</span>'
-    kind = {"tell": "Clear tell", "early": "Early decade", "mid": "Mid decade", "late": "Late decade",
-            "full": "Full decade", "low": "Wide range"}[r["kind"]]
+    kind = {"tell": "Clear tell", "five": "5-year window", "ten": "10-year window",
+            "fifteen": "15-year window", "low": "Wide range"}[r["kind"]]
     return f"""
 <div class="result-card">
   <div class="tagline">Estimated production date · {kind}</div>
@@ -103,22 +103,25 @@ def about_md():
     return f"""
 ### How it works
 1. **Visual model.** Each photo is embedded with a frozen open-source image encoder ({METRICS['backbone']}),
-   then scored by a decade classifier **trained on {METRICS['train_listings']:,} dated vintage listings
-   ({METRICS['train_images']:,} photos)**. Photo scores are averaged into one decade distribution.
+   then scored in 5-year bins (1940–2019) by a classifier **trained on {METRICS['train_listings']:,} dated vintage
+   listings ({METRICS['train_images']:,} photos)**. Photo scores are combined into one distribution.
 2. **Tag reading.** On-device OCR reads the tag text: country of origin, RN/WPL numbers, union names, fiber content,
    care copy, zipper and snap brands. You can correct the text or tick things OCR can't see, like a missing care label.
 3. **Constraint engine.** Every match maps to a rule in a hand-built knowledge base (FTC care-label rule, Textile Fiber Act,
    RN registration ranges, union merger dates, dissolved countries, and more). *Hard bounds* clip impossible years and
    *soft anchors* reweight likely ones. Conflicting low-confidence rules are dropped first.
-4. **Range selection.** The result is the tightest decade split (early, mid, late or full decade) that holds ≥55% of the
-   probability. If nothing does, it returns a wide range and asks for more tag photos.
+4. **Range selection.** The narrowest 5-, 10- or 15-year window holding enough probability, with the threshold calibrated
+   on held-out listings so the range contains the true year about 80% of the time. If nothing qualifies, it returns a
+   20-year range and asks for more tag photos.
 
 No third-party vision or LLM API is involved. Inference runs on our own weights and rules.
 
 ### Held-out performance (visual model alone, {t['listings']:,} test listings)
 | Metric | Value |
 |---|---|
-| Exact decade | **{t['accuracy']:.1%}** (majority-class baseline {t['majority_baseline_accuracy']:.1%}) |
+| Average range (photos alone) | **{t['mean_range_width_years']:.1f} years** |
+| Range contains the true year | **{t['exact_year_hit']:.1%}** (listings titled with an exact year) |
+| Top decade correct | **{t['decade_accuracy']:.1%}** |
 | Within ±1 decade | **{t['within_one_decade']:.1%}** |
 | Per-decade recall | {recall} |
 

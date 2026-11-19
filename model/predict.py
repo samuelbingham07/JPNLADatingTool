@@ -27,7 +27,7 @@ def _backbone():
 def _head():
     z = np.load(HEAD)
     layers = [(z[f"W{i}"], z[f"b{i}"]) for i in range(len([k for k in z.files if k.startswith("W")]))]
-    return layers, z["mean"], [int(c) for c in z["classes"]]
+    return layers, z["mean"], [int(c) for c in z["classes"]], round(float(z["temperature"]), 4), round(float(z["tau"]), 4)
 
 
 @lru_cache(maxsize=1)
@@ -47,29 +47,41 @@ def ocr(images) -> str:
 
 
 def head_probs(x: np.ndarray) -> np.ndarray:
-    layers, mean, _ = _head()
+    """Bin probabilities for one garment from its photos' embeddings: tempered log-probs averaged."""
+    layers, mean, _, temperature, _ = _head()
     h = x - mean
     for i, (W, b) in enumerate(layers):
         h = h @ W + b
         if i < len(layers) - 1:
             h = np.maximum(h, 0)
-    h = h - h.max(axis=1, keepdims=True)
-    p = np.exp(h)
-    return p / p.sum(axis=1, keepdims=True)
+    z = h / temperature
+    lp = z - z.max(axis=1, keepdims=True)
+    lp = lp - np.log(np.exp(lp).sum(axis=1, keepdims=True))
+    s = lp.mean(axis=0)
+    p = np.exp(s - s.max())
+    return p / p.sum()
 
 
-def decade_probs(images) -> dict[int, float]:
+def bin_probs(images) -> dict[int, float]:
     batch = torch.stack([preprocess(load_image(img)) for img in images])
     x = embed(_backbone(), batch).numpy()
-    p = head_probs(x).mean(axis=0)
-    return dict(zip(_head()[2], p.tolist()))
+    return dict(zip(_head()[2], head_probs(x).tolist()))
 
 
-def year_prior(decades: dict[int, float]) -> np.ndarray:
-    lowest = min(decades)
+def to_decades(bins: dict[int, float]) -> dict[int, float]:
+    out = {}
+    for b, p in bins.items():
+        out[b // 10 * 10] = out.get(b // 10 * 10, 0.0) + p
+    return out
+
+
+def year_prior(bins: dict[int, float]) -> np.ndarray:
+    """Spread each bin's mass over its years; the lowest bin also covers the 10 years before it."""
+    starts = sorted(bins)
+    width = starts[1] - starts[0]
     prior = np.zeros(len(C.YEARS))
-    for d, p in decades.items():
-        span = (C.YEARS >= (d - 10 if d == lowest else d)) & (C.YEARS <= d + 9)
+    for b, p in bins.items():
+        span = (C.YEARS >= (b - 10 if b == starts[0] else b)) & (C.YEARS <= b + width - 1)
         prior += p * span / span.sum()
     return (1 - FLOOR) * prior + FLOOR / len(C.YEARS)
 
@@ -82,12 +94,16 @@ def date_garment(images, tag_text: str | None = None, observations=()):
     images = [i if isinstance(i, Image.Image) else Image.open(i) for i in images]
     if tag_text is None:
         tag_text = ocr(images)
-    decades = decade_probs([load_image(i.copy()) for i in images])
-    prior = year_prior(decades)
+    return date_from_bins(bin_probs([load_image(i.copy()) for i in images]), tag_text, observations)
+
+
+def date_from_bins(bins: dict[int, float], tag_text: str, observations=()):
+    tau = _head()[4]
+    prior = year_prior(bins)
     signals = C.extract_signals(tag_text, observations)
     post, active, dropped, bounds = C.apply(prior, signals)
-    result = C.pick_range(post, bounds)
-    model_only = C.pick_range(prior, (int(C.YEARS[0]), int(C.YEARS[-1])))
+    result = C.pick_range(post, bounds, tau)
+    model_only = C.pick_range(prior, (int(C.YEARS[0]), int(C.YEARS[-1])), tau)
 
     def mass(p, r):
         return float(p[(C.YEARS >= r["start"]) & (C.YEARS <= r["end"])].sum())
@@ -95,7 +111,7 @@ def date_garment(images, tag_text: str | None = None, observations=()):
     drivers = []
     for s in active:
         p_wo, _, _, b_wo = C.apply(prior, [x for x in active if x is not s])
-        alt = C.pick_range(p_wo, b_wo)
+        alt = C.pick_range(p_wo, b_wo, tau)
         changed = (alt["start"], alt["end"]) != (result["start"], result["end"])
         drivers.append({"label": s.label, "span": s.describe_span(), "hard": s.is_hard,
                         "confidence": s.rule["confidence"], "source": s.source, "evidence": s.evidence,
@@ -103,13 +119,14 @@ def date_garment(images, tag_text: str | None = None, observations=()):
                         "impact": mass(post, result) - mass(p_wo, result) + (1.0 if changed else 0.0)})
     drivers.sort(key=lambda d: -round(d["impact"], 9))
 
+    decades = to_decades(bins)
     top_decade = max(decades, key=decades.get)
     rules_decided = (model_only["start"], model_only["end"]) != (result["start"], result["end"])
     return {
         "range": _fmt(result), "start": result["start"], "end": result["end"],
         "confidence": round(result["confidence"], 3), "kind": result["kind"],
         "decided_by": "rules" if rules_decided else "model",
-        "model": {"decades": decades, "top": top_decade, "range": _fmt(model_only),
+        "model": {"bins": bins, "decades": decades, "top": top_decade, "range": _fmt(model_only),
                   "confidence": round(model_only["confidence"], 3)},
         "signals": drivers, "dropped": [s.label for s in dropped], "bounds": bounds,
         "tag_text": tag_text, "posterior": post.tolist(),

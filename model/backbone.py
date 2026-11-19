@@ -2,7 +2,7 @@ import torch
 from PIL import Image
 from transformers import CLIPVisionModelWithProjection
 
-BACKBONE_ID = "openai/clip-vit-base-patch32"
+BACKBONE_ID = "openai/clip-vit-base-patch16"
 SIZE = 224
 _MEAN = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1)
 _STD = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1)
